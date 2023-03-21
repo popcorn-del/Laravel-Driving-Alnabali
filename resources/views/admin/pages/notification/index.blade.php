@@ -1,0 +1,275 @@
+@extends('admin.layouts.master')
+@section('title') List of Notifications @endsection
+@section('page-title') List of Notifications @endsection
+@section('css')
+<link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
+
+@endsection
+@section('content')
+    <div class="content-warpper">
+        <div class="row">
+            <div class="col-12">
+                <!--Daily Trip List section -->
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-filter" style="margin-bottom: 40px">
+                            <div class = "row mb-3">
+                                <div class = "col">
+                                    <div style="text-align: left; margin-bottom: 5px">Client</div>
+                                    <select class="form-select" name="client_filter" id="client_filter">
+                                        <option value="">All Clients</option>
+                                        @foreach($client as $key=>$row)
+                                            <option value="{{$row->name_en}}">{{$row->name_en}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class = "col">
+                                    <div style="text-align: left; margin-bottom: 5px">Origin City</div>
+                                    <select class="form-select" name="origin_city_filter" id="origin_city_filter">
+                                        <option value="">All Cities</option>
+                                        @foreach($city as $key=>$row)
+                                            <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class = "col">
+                                    <div style="text-align: left; margin-bottom: 5px">Origin Area</div>
+                                    <select class="form-select" name="origin_area_filter" id="origin_area_filter">
+                                        <option value="">All Areas</option>
+                                        @foreach($area as $key=>$row)
+                                            <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class = "col">
+                                    <div style="text-align: left; margin-bottom: 5px">Destination City</div>
+                                    <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
+                                        <option value="">All Cities</option>
+                                        @foreach($city as $key=>$row)
+                                            <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class = "col">
+                                    <div style="text-align: left; margin-bottom: 5px">Destination Area</div>
+                                    <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
+                                        <option value="">All Areas</option>
+                                        @foreach($area as $key=>$row)
+                                            <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class = "col-2">
+                                    <div style="text-align: left; margin-bottom: 5px">Notified App</div>
+                                    <select class="form-select" name="bus_filter" id="bus_filter">
+                                        <option value="Select Notified App">Select Notified App</option>
+                                        <option value="Supervisor">Supervisor</option>
+                                        <option value="Driver">Driver</option>
+                                    </select>
+                                </div>
+                                <!-- <div class = "col-2">
+                                    <div style="text-align: left; margin-bottom: 5px">Bus Size</div>
+                                    <select class="form-select" name="bus_sizes_filter" id="bus_sizes_filter">
+                                        <option value="">All Bus Sizes</option>
+                                        @foreach($bus_size as $key=>$row)
+                                            <option data-id="{{$row->id}}" value="{{$row->size}}">{{$row->size}}</option>
+                                        @endforeach
+                                    </select>
+                                </div> -->
+                            </div>
+                            <div class = "row">
+                                <!-- <div class = "col-2">
+                                    <div style="text-align: left; margin-bottom: 5px">Bus</div>
+                                    <select class="form-select" name="bus_filter" id="bus_filter">
+                                        <option value="">All Buses</option>
+                                    </select>
+                                </div> -->
+                                <div class = "col-2">
+                                    <div style="text-align: left; margin-bottom: 5px">Notified Person</div>
+                                    <select class="form-select" name="bus_filter" id="bus_filter">
+                                        <option value="Select Notified Person">Select Notified Person</option>
+                                    </select>
+                                </div>
+                                <div class = "col-2">
+                                    <div style="text-align: left; margin-bottom: 5px">Status</div>
+                                    <select class="form-select" name="status_filter" id="status_filter">
+                                        <option>All Status</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Accepted">Accepted</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Started">Started</option>
+                                        <option value="Started with a delay">Started with a delay</option>
+                                        <option value="Finished">Finished</option>
+                                        <option value="Finished with a delay">Finished with a delay</option>
+                                        <option value="Canceled">Canceled</option>
+                                    </select>
+                                </div>
+                                <div class = "col-md-2">
+                                    <div style="text-align: left">
+                                        <label for="">START DATE</label>
+                                    </div>
+                                    <div class="input-group" id="datepicker1">
+                                        <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="startdate"
+                                            data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
+                                            data-provide="datepicker" name="first_trip_date" required>
+
+                                        <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class = "col-md-2">
+                                    <div style="text-align: left">
+                                        <label for="">END DATE</label>
+                                    </div>
+                                    <div class="input-group" id="datepicker1">
+                                        <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="enddate"
+                                            data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
+                                            data-provide="datepicker" name="first_trip_date" required>
+
+                                        <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <a href="{{route('admin.daily.task')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DAILY TRIP</a> --}}
+                        </div>
+                        <div class="table-wrapper">
+                           @include('admin.pages.notification.table')
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div>
+@endsection
+@section('script')
+    <script src="{{ URL::asset('/assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+
+    <script src="{{ URL::asset('/assets/js/pages/form-validation.init.js') }}"></script>
+    <script src="{{ URL::asset('/assets/admin/dailyTrip/index.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <script>
+        url = "{{route('admin.daily.table')}}"
+
+        $.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col )
+    {
+        return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+            return $('input', td).prop('checked') ? '0' : '1';
+        });
+    }
+
+        let makeExportBtn = () => {
+            $( ".buttons-csv" ).empty();
+            $( ".buttons-csv" ).removeClass("btn-secondary");
+            $("<img src='{{ URL::asset('/assets/images/btn_csv.png') }}' width='30px' height='38px'></img>").appendTo(".buttons-csv");
+
+            $( ".buttons-excel" ).empty();
+            $( ".buttons-excel" ).removeClass("btn-secondary");
+            $("<img src='{{ URL::asset('/assets/images/btn_excel.png') }}' width='30px' height='38px'></img>").appendTo(".buttons-excel");
+
+            $( ".buttons-pdf" ).empty();
+            $( ".buttons-pdf" ).removeClass("btn-secondary");
+            $("<img src='{{ URL::asset('/assets/images/btn_pdf.png') }}' width='30px' height='38px'></img>").appendTo(".buttons-pdf");
+
+            $( ".buttons-print" ).empty();
+            $( ".buttons-print" ).removeClass("btn-secondary");
+            $("<img src='{{ URL::asset('/assets/images/btn_print.png') }}' width='30px' height='38px'></img>").appendTo(".buttons-print");
+
+            $( ".btn-group" ).css("border","1px solid rgb(239 242 247)");
+            $( ".btn-group" ).css("display","inline-block");
+            $( ".btn-group" ).css("float","left");
+
+            $( ".dataTables_filter" ).css("display","inline-block");
+            
+            $( ".buttons-csv" ).css("padding","0");
+            $( ".buttons-excel" ).css("padding","0");
+            $( ".buttons-pdf" ).css("padding","0");
+            $( ".buttons-print" ).css("padding","0");
+        }
+
+
+        $(document).ready(function(){
+
+            $( "#startdate" ).on( "change", function() {
+                $("#enddate").click();
+                $('this').datepicker('setDate', setval);
+                var setval = $(this).datepicker('getDate'); 
+                $('#enddate').datepicker('setStartDate',setval);
+            });
+
+            //  setEnd date
+            $( "#enddate" ).on( "change", function() {
+                $("#startdate").click();
+                $('this').datepicker('setDate', setval);
+                var setval = $(this).datepicker('getDate'); 
+                $('#startdate').datepicker('setEndDate',setval);
+            });
+
+            if ( $.fn.dataTable.isDataTable( '#datatable' ) ) {
+                table = $('#datatable').DataTable({
+	                bDestroy: true,
+                    scrollX: true,
+                    dom: 'Blfrtip',
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
+                    ],
+                    buttons: [
+                        // 'csv', 'excel', 'pdf', 'print'
+                        {
+                            extend: 'csv',
+                            exportOptions: {
+                                orthogonal: 'csvoption',
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+                                
+
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            exportOptions: {
+                                orthogonal: 'exceloption',
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+                                
+
+                            }
+                        },        
+                        {
+                            extend: 'pdf',
+                            exportOptions: {
+                                orthogonal: 'pdfoption',
+                                
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                orthogonal: 'printoption',
+                                
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+
+                            }
+                        } 
+                    ],
+                    columnDefs: [
+                        
+                    ]
+                });
+            } else {
+                table = $('#datatable').DataTable( {
+                    paging: false
+                });
+            }
+
+            makeExportBtn();
+        })
+
+    </script>
+@endsection

@@ -1,0 +1,209 @@
+@font-face {
+    font-family: Montserrat-Regular;
+    src: url("../fonts/custom/Montserrat-Regular.otf") format("opentype");
+}
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url("../fonts/custom/Montserrat-Bold.otf") format("opentype");
+}
+
+body {
+    font-family: Montserrat-Regular;
+}
+
+th {
+    text-transform: uppercase;
+}
+.content-warpper {
+    width: 90%;
+    margin: auto;
+}
+.table-select-box {
+    width: 80%;
+    margin: auto;
+}
+.table-select-box select {
+    padding: 6px 13px;
+    width: 78%;
+    border-radius: 7px;
+    margin: auto;
+}
+.table-filter {
+    text-align: right;
+    margin-bottom: 11px;
+}
+.btn-outline-warning{
+    color: #F48222 !important;
+    border-color: #F48222 !important;
+}
+.btn-outline-warning:hover, .input-group-text {
+    color: #fff !important;
+    background-color: #F48222 !important;
+    border-color: #F48222 !important;
+}
+.custom-val-color {
+    color: #f46a6a;
+}
+.form-check-warning .form-check-input:checked, .form-radio-warning .form-check-input:checked {
+    background-color: #F48222 !important;
+    border-color: #F48222 !important;
+}
+.button-group {
+    margin-bottom: 30px;
+    text-align: right;
+}
+.sidebar-toggle {
+    left: 70px !important;
+}
+.vertical-menu {
+    background: url('../../images/admin/sidebar-bg.png') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+.trip-frequency-check {
+    font-size: 15px;
+    text-align: center;
+    background: #F48222;
+    border-radius: 5px;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 14px;
+}
+.account-pages {
+    background: url('../../images/admin/bg.png');
+    background-size: contain;
+    min-height: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+.account-pages .login-form {
+    position: relative;
+    width: 427px;
+    margin: 80px auto;
+}
+.account-pages .login-form img{
+    margin-top: 30px;
+}
+.login-wrapper {
+    position: absolute;
+    bottom: 18%;
+    width: 74%;
+    left: 13%;
+}
+.login-wrapper input {
+    background: transparent !important;
+    border-radius: 20px !important;
+    height: 43px;
+    color: #fff !important;
+    padding: 0 25px;
+}
+.login-wrapper label {
+    color: #fff;
+}
+.login-wrapper button {
+    width: 44%;
+    height: 43px;
+    background: #fff;
+    color: #0F589E;
+    margin: auto;
+    font-size: 13px;
+    font-family: 'Montserrat-Bold';
+}
+.login-button {
+    text-align: center;
+}
+.login-wrapper button:hover {
+    background: #eee;
+} 
+.forgot-password {
+    color: #fff;
+    font-size: 13px;
+    text-decoration: underline !important;
+    text-underline-offset: 5px;
+}
+.forgot-password:hover {
+    color: #ccc;
+}
+.login-title {
+    color: #fff;
+    text-align: center;
+}
+.forgot-desc {
+    text-align: center;
+    color: #fff;
+}
+/* dashboard page */
+.card-bg {
+    border-radius: 10px;
+}
+.card-bg .card-body {
+    background: #fff;
+    border-radius: 7px;
+    margin-top: 11px;
+}
+.card-bg-color-1 {
+    background: #F48222;
+}
+.card-bg-color-2 {
+    background: #0055A6;
+}
+.card-bg-color-3 {
+    background: #77C1F2;
+}
+.card-bg-color-4 {
+    background: #FBB03B;
+}
+.card-bg-color-5 {
+    background: #FDEE21;
+}
+.custom-language {
+    min-width: 80px;
+    left: 40px !important;
+}
+.custom-language a{
+    text-align: right;
+}
+#sidebar-menu ul li a {
+    text-transform: uppercase;
+}
+.custom-chart{
+    display: flow-root;
+}
+.custom-chart h4{
+    float: left;
+}
+.chart-dropdown {
+    width: 150px;
+    float: right;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.btn,.btn-outline-warning,.btn-sm,.btn-rounded,.waves-effect {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.has-arrow {
+    margin-left: 0;
+    margin-right: 0;
+}
+/* end dashboard */
+@media only screen and (max-width: 768px) {
+    #page-topbar{
+        left: 0;
+    }
+    .sidebar-toggle-mobile{
+        left: 240px !important;
+    }
+}
+
+
+
+
+
