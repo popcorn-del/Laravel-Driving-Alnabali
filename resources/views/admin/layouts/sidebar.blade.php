@@ -87,19 +87,19 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <li><a href="{{route('admin.miscellaneous.city.index')}}"
-                                key="t-light-sidebar">Cities</a></li>
+                                key="t-light-sidebar">{{__('cities')}}</a></li>
                         <li><a href="{{route('admin.miscellaneous.area.index')}}"
-                                key="t-compact-sidebar">Areas</a></li>
+                                key="t-compact-sidebar">{{__('areas')}}</a></li>
                         <li><a href="{{route('admin.miscellaneous.bus_type.index')}}"
-                                key="t-icon-sidebar">Bus Types</a></li>
-                        <li><a href="{{route('admin.miscellaneous.bus_model.index')}}" key="t-boxed-width">Bus Models</a>
+                                key="t-icon-sidebar">{{__('bus types')}}</a></li>
+                        <li><a href="{{route('admin.miscellaneous.bus_model.index')}}" key="t-boxed-width">{{__("bus models")}}</a>
                         </li>
-                        <li><a href="{{route('admin.miscellaneous.bus_size.index')}}" key="t-preloader">Bus Sizes</a>
+                        <li><a href="{{route('admin.miscellaneous.bus_size.index')}}" key="t-preloader">{{__('bus sizes')}}</a>
                         </li>
                         <li><a href="{{route('admin.miscellaneous.client_type.index')}}"
-                                key="t-colored-sidebar">Client Types</a></li>
-                        <li><a href="{{route('admin.miscellaneous.contract_type.index')}}" key="t-scrollable">Contract Types</a></li>
-                        <li><a href="{{route('admin.miscellaneous.bus_maintenance.index')}}" key="t-scrollable">Maintenance Types</a></li>
+                                key="t-colored-sidebar">{{__("client types")}}</a></li>
+                        <li><a href="{{route('admin.miscellaneous.contract_type.index')}}" key="t-scrollable">{{__('contract types')}}</a></li>
+                        <li><a href="{{route('admin.miscellaneous.bus_maintenance.index')}}" key="t-scrollable">{{__('maintenance types')}}</a></li>
                         <li><a href="#" key="t-scrollable"></a></li>
                     </ul>
                 </li>
@@ -125,35 +125,35 @@
                     <ul class="sub-menu" aria-expanded="true">
 
                         <li><a href="{{route('admin.reports.trips_client.index')}}"
-                                key="t-light-sidebar">TRIPS BY CLIENT</a>
+                                key="t-light-sidebar">{{__('trips by client')}}</a>
                         </li>
                         <li>
                             <a href="{{route('admin.reports.trips_bus.index')}}"
-                                key="t-compact-sidebar"> TRIPS BY BUS</a>
+                                key="t-compact-sidebar">{{__('trips by bus')}}</a>
                         </li>
                         <li>
                             <a href="{{route('admin.reports.trips_type.index')}}"
-                                key="t-compact-sidebar">TRIPS BY TRIP TYPE</a>
+                                key="t-compact-sidebar">{{__('trips by trip type')}}</a>
                         </li>
                         <li>
                             <a href="{{route('admin.reports.trips_driver.index')}}"
-                                key="t-compact-sidebar"> TRIPS BY DRIVER</a>
+                                key="t-compact-sidebar"> {{__('trips by driver')}}</a>
                         </li>
                         <li>
                             <a href="{{route('admin.reports.trips_bus_size.index')}}"
-                                key="t-compact-sidebar"> TRIPS BY BUS SIZE</a>
+                                key="t-compact-sidebar"> {{__('trips by bus size')}}</a>
                         </li>
                         <li>
                             <a href="{{route('admin.reports.trips_client_type.index')}}"
-                                key="t-compact-sidebar"> TRIPS BY CLIENT TYPE</a>
+                                key="t-compact-sidebar"> {{__('trips by client type')}}</a>
                         </li>
                         <li>
                             <a href="{{route('admin.reports.trips_contract_type.index')}}"
-                                key="t-compact-sidebar"> TRIPS BY CONTRACT TYPE</a>
+                                key="t-compact-sidebar"> {{__('trips by contract type')}}</a>
                         </li>
                         <li>
                             <a href="{{route('admin.reports.trips_owership.index')}}"
-                                key="t-compact-sidebar"> TRIPS BY OWNERSHIP TYPE</a>
+                                key="t-compact-sidebar"> {{__('trips by ownership type')}}</a>
                         </li>
                         <li>
                             <a href="#"
