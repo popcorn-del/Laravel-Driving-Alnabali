@@ -1,6 +1,8 @@
 @extends('admin.layouts.master')
 @section('title') List of Trips' Buses @endsection
 @section('page-title') List of Trips' Buses @endsection
+@section('page-title') {{__("list of trip's buses")}} @endsection
+
 @section('css')
 @endsection
 @section('content')
@@ -8,26 +10,26 @@
         <div class="row">
             <div class="col-12">
                 <!--Bus List section -->
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.trip_bus.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD TRIP'S BUS</a> 
+                            <a href="{{route('admin.trip_bus.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new text-uppercase"><i class="fas fa-plus"></i> {{__("add trip's bus")}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th> TRIP ID</th>
-                                    <th >TRIP NAME</th>
-                                    <th>BUS NO.</th>
-                                    <th>BUS SIZE</th>
-                                    <th>DRIVER</th>
-                                    <th>SUPERVISOR</th>
-                                    <th>IS FAKE</th>
-                                    <th>DAYS</th>
-                                    <th>STATUS</th>
-                                    <th>ACTION</th>                                  
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('trip id')}}</th>
+                                    <th>{{__('trip name')}}</th>
+                                    <th>{{__('bus no.')}}</th>
+                                    <th>{{__('bus size')}}</th>
+                                    <th>{{__('driver')}}</th>
+                                    <th>{{__('supervisor')}}</th>
+                                    <th>{{__('is fake')}}</th>
+                                    <th>{{__('days')}}</th>
+                                    <th>{{__('status')}}</th>
+                                    <th>{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,12 +48,12 @@
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">
                                             <input class="form-check-input price-status mx-auto" type="checkbox" {{$row->status == 1 ? "checked" :""}} value="{{$row->id}}" >
-                                        </div>    
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                     {{-- <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">VIEW</button> --}}
-                                    <a href="{{route('admin.trip_bus.show', ['trip_bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">VIEW</button>
-                                        <a href="{{route('admin.trip_bus.edit', ['trip_bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">Edit</button>
+                                    <a href="{{route('admin.trip_bus.show', ['trip_bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</button>
+                                        <a href="{{route('admin.trip_bus.edit', ['trip_bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('edit')}}</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -127,7 +129,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -141,7 +143,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -153,8 +155,8 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
-                                return data;    
+
+                                return data;
                             }
                         }
                     ]
@@ -191,7 +193,7 @@
 
             $( ".dataTables_filter" ).css("display","inline-block");
             $( ".btn-group" ).css("float","left");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");

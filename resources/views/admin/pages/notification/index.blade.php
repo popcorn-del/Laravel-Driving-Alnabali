@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('title') List of Notifications @endsection
-@section('page-title') List of Notifications @endsection
+@section('page-title') {{__('list of notifications')}} @endsection
+
 @section('css')
 <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
@@ -10,13 +11,13 @@
         <div class="row">
             <div class="col-12">
                 <!--Daily Trip List section -->
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter" style="margin-bottom: 40px">
                             <div class = "row mb-3">
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Client</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('client')}}</div>
                                     <select class="form-select" name="client_filter" id="client_filter">
                                         <option value="">All Clients</option>
                                         @foreach($client as $key=>$row)
@@ -25,7 +26,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Origin City</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin city')}}</div>
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
                                         <option value="">All Cities</option>
                                         @foreach($city as $key=>$row)
@@ -34,7 +35,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Origin Area</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin area')}}</div>
                                     <select class="form-select" name="origin_area_filter" id="origin_area_filter">
                                         <option value="">All Areas</option>
                                         @foreach($area as $key=>$row)
@@ -43,7 +44,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Destination City</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination city')}}</div>
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
                                         <option value="">All Cities</option>
                                         @foreach($city as $key=>$row)
@@ -52,7 +53,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Destination Area</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination area')}}</div>
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
                                         <option value="">All Areas</option>
                                         @foreach($area as $key=>$row)
@@ -61,7 +62,7 @@
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">Notified App</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('notified app')}}</div>
                                     <select class="form-select" name="bus_filter" id="bus_filter">
                                         <option value="Select Notified App">Select Notified App</option>
                                         <option value="Supervisor">Supervisor</option>
@@ -86,13 +87,13 @@
                                     </select>
                                 </div> -->
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">Notified Person</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('notified person')}}</div>
                                     <select class="form-select" name="bus_filter" id="bus_filter">
                                         <option value="Select Notified Person">Select Notified Person</option>
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">Status</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('status')}}</div>
                                     <select class="form-select" name="status_filter" id="status_filter">
                                         <option>All Status</option>
                                         <option value="Pending">Pending</option>
@@ -107,7 +108,7 @@
                                 </div>
                                 <div class = "col-md-2">
                                     <div style="text-align: left">
-                                        <label for="">START DATE</label>
+                                        <label for="">{{__('start date')}}</label>
                                     </div>
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="startdate"
@@ -119,7 +120,7 @@
                                 </div>
                                 <div class = "col-md-2">
                                     <div style="text-align: left">
-                                        <label for="">END DATE</label>
+                                        <label for="">{{__('end date')}}</label>
                                     </div>
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="enddate"
@@ -185,7 +186,7 @@
             $( ".btn-group" ).css("float","left");
 
             $( ".dataTables_filter" ).css("display","inline-block");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -198,7 +199,7 @@
             $( "#startdate" ).on( "change", function() {
                 $("#enddate").click();
                 $('this').datepicker('setDate', setval);
-                var setval = $(this).datepicker('getDate'); 
+                var setval = $(this).datepicker('getDate');
                 $('#enddate').datepicker('setStartDate',setval);
             });
 
@@ -206,7 +207,7 @@
             $( "#enddate" ).on( "change", function() {
                 $("#startdate").click();
                 $('this').datepicker('setDate', setval);
-                var setval = $(this).datepicker('getDate'); 
+                var setval = $(this).datepicker('getDate');
                 $('#startdate').datepicker('setEndDate',setval);
             });
 
@@ -226,7 +227,7 @@
                             exportOptions: {
                                 orthogonal: 'csvoption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-                                
+
 
                             }
                         },
@@ -235,15 +236,15 @@
                             exportOptions: {
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
-                                
+
 
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
                                 orthogonal: 'pdfoption',
-                                
+
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
                             }
@@ -252,14 +253,14 @@
                             extend: 'print',
                             exportOptions: {
                                 orthogonal: 'printoption',
-                                
+
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
-                        
+
                     ]
                 });
             } else {

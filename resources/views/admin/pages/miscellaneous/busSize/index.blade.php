@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('title') Bus Sizes @endsection
-@section('page-title') Bus Sizes @endsection
+@section('page-title') {{__('bus sizes')}} @endsection
+
 @section('css')
 @endsection
 @section('content')
@@ -16,7 +17,7 @@
                                 <div class="col-md-7">
                                     <div class="row">
                                         <div class = "mb-3">
-                                            <span class = "font-size-16" id="cityTitle"> ADD BUS SIZE</span>   
+                                            <span class = "font-size-16" id="cityTitle"> ADD BUS SIZE</span>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
@@ -66,19 +67,19 @@
                 <div class="card">
                     <div class="card-body">
                          <div class = "mb-3">
-                            <span class = "font-size-16">LIST OF BUS SIZES</span>   
+                            <span class = "font-size-16 text-uppercase">{{__('list of bus sizes')}}</span>
                         </div>
                         <div class="table-filter">
-                            <a href="javascript: void(0);" id = "busSizeAdd" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new">
-                                <i class="fas fa-plus"></i> ADD BUS SIZE</a> 
+                            <a href="javascript: void(0);" id = "busSizeAdd" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new text-uppercase">
+                                <i class="fas fa-plus"></i> {{__('add bus size')}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >Size</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('size')}}</th>
+                                    <th class="text-center">{{__('status')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,8 +94,8 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                    <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit btn-view" data-id="{{$row->id}}" id="viewbtn">View</button>
-                                    <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit busSizeEdit" data-id="{{$row->id}}">Edit</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit btn-view" data-id="{{$row->id}}" id="viewbtn">{{__('view')}}</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit busSizeEdit" data-id="{{$row->id}}">{{__('edit')}}</button>
                                         <!-- <a href="javascript:void(0);" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light confirm_delete" data-id="1" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal">Delete</a> -->
                                     </td>
@@ -108,7 +109,7 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div>
- 
+
 @endsection
 @section('script')
     <script src="{{ URL::asset('/assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
@@ -176,7 +177,7 @@
 
             $( ".dataTables_filter" ).css("display","inline-block");
             $( ".btn-group" ).css("float","left");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -208,7 +209,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -222,7 +223,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -234,8 +235,8 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
-                                return data;    
+
+                                return data;
                             }
                         }
                     ]

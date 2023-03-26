@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') List of App Supervisors @endsection
-@section('page-title') List of App Supervisors @endsection
+@section('page-title') {{__('list of app supervisors')}} @endsection
 @section('css')
 @endsection
 @section('content')
@@ -8,21 +8,21 @@
         <div class="row">
             <div class="col-12">
                 <!--Bus List section -->
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.super_visor.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD APP SUPERVISOR</a> 
+                            <a href="{{route('admin.super_visor.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD APP SUPERVISOR</a>
                         </div>
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >Name</th>
-                                    <th>Phone</th>
-                                    <th>Username</th>                                                                 
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('name')}}</th>
+                                    <th>{{__('phone')}}</th>
+                                    <th>{{__('username')}}</th>
+                                    <th class="text-center">{{__('status')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,14 +36,14 @@
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">
                                             <input class="form-check-input price-status mx-auto" type="checkbox" {{$row->status == 1 ? "checked" :""}} value="{{$row->id}}" >
-                                        </div>  
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <!-- <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">VIEW</button> -->
-                                        <a href="{{route('admin.super_visor.show', ['super_visor' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">View</button>
-                                        <a href="{{route('admin.super_visor.edit', ['super_visor' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">Edit</button>
+                                        <a href="{{route('admin.super_visor.show', ['super_visor' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</button>
+                                        <a href="{{route('admin.super_visor.edit', ['super_visor' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('edit')}}</button>
                                         <a href="javsciript::void(0)" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light reset-password" data-id="{{$row->id}}" data-src="{{route('admin.super_visor.update', ['super_visor' => $row->id])}}" data-bs-toggle="modal"
-                                                data-bs-target="#myModal">Rest Password</button>
+                                                data-bs-target="#myModal">{{__('reset password')}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -129,7 +129,7 @@
 
             $( ".dataTables_filter" ).css("display","inline-block");
             $( ".btn-group" ).css("float","left");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -160,7 +160,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -174,7 +174,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4 ]
                             }
-                        } 
+                        }
                     ],
                 });
             }

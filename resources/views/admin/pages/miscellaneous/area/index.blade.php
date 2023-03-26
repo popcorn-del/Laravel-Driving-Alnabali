@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('title') Areas @endsection
-@section('page-title') Areas @endsection
+@section('page-title') {{__('areas')}} @endsection
+
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css">
 @endsection
@@ -18,7 +19,7 @@
                                     <div class = "col-md-12">
                                         <div class="row">
                                             <div class = "mb-3">
-                                                <span class = "font-size-16" id="cityTitle">ADD AREA</span>   
+                                                <span class = "font-size-16" id="cityTitle">ADD AREA</span>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
@@ -26,7 +27,7 @@
                                                     <input type="text" minlength="1" maxlength="100" class="form-control" name="name_en" id = "areaNameEn" required>
                                                     <input type="hidden" name="id">
                                                 </div>
-                                                
+
                                             </div>
                                             <!-- <span class="custom-val-color">*</span>  -->
                                             <div class="col-md-4">
@@ -56,14 +57,14 @@
                                             <div class = "col-md-2">
                                                 <div class="mb-3">
                                                     <label class="form-label"><span class="custom-val-color span-validation">*</span> LATITUDE</label>
-                                                    <input type="text" class="form-control" pattern="^\d{1,3}(?:\.\d{1,6})?$" name="latitude" id="latitude" required>                                                
+                                                    <input type="text" class="form-control" pattern="^\d{1,3}(?:\.\d{1,6})?$" name="latitude" id="latitude" required>
                                                 </div>
                                             </div>
 
                                             <div class = "col-md-2">
                                                 <div class="mb-3">
                                                     <label class="form-label"><span class="custom-val-color span-validation">*</span> LONGITUDE</label>
-                                                    <input type="text" class="form-control" name="longitude" pattern="^\d{1,3}(?:\.\d{1,6})?$" id="longitude" required>                                                   
+                                                    <input type="text" class="form-control" name="longitude" pattern="^\d{1,3}(?:\.\d{1,6})?$" id="longitude" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -96,7 +97,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <div style = "display: flex; align-items: flex-end;position: absolute;bottom: 30px;">
                                     <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">Cancel</button>
@@ -111,21 +112,21 @@
                 <div class="card">
                     <div class="card-body">
                         <div class = "mb-3">
-                            <span class = "font-size-16">LIST OF AREAS</span>   
+                            <span class = "font-size-16 text-uppercase">{{__('list of areas')}}</span>
                         </div>
                         <div class="table-filter">
-                            <a href="javascript: void(0);" class="btn btn-outline-warning btn-rounded waves-effect 
-                                waves-light add-new citesAdd"><i class="fas fa-plus"></i> ADD AREA</a> 
+                            <a href="javascript: void(0);" class="btn btn-outline-warning btn-rounded waves-effect
+                                waves-light add-new citesAdd text-uppercase"><i class="fas fa-plus"></i> {{__('add area')}}</a>
                         </div>
 
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >NAME</th>
-                                    <th >CITY</th>
-                                    <th class="text-center">STATUS</th>
-                                    <th class="text-center">ACTION</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('name')}}</th>
+                                    <th>{{__('city')}}</th>
+                                    <th class="text-center">{{__('status')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -141,8 +142,8 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesView" data-id="{{$row->id}}">View</button> 
-                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesEdit" data-id="{{$row->id}}">Edit</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesView" data-id="{{$row->id}}">{{__('view')}}</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesEdit" data-id="{{$row->id}}">{{__('edit')}}</button>
                                         <!-- <a href="javascript:void(0);" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light confirm_delete" data-id="1" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal">Delete</a> -->
                                     </td>
@@ -156,12 +157,12 @@
             </div> <!-- end col -->
         </div> <!-- end row -->
     </div>
- 
+
 @endsection
 @section('script')
     <script src="{{ URL::asset('/assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/form-validation.init.js') }}"></script>
-    
+
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyCtSAR45TFgZjOs4nBFFZnII-6mMHLfSYI"></script>
     <script src="{{ URL::asset('/assets/libs/gmaps/gmaps.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/gmaps.init.js') }}"></script>
@@ -172,8 +173,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
 
-    
-        
+
+
     <script src="{{ URL::asset('/assets/admin/miscellaneous/area/index.js') }}"></script>
     <script>
         store = "{{route('admin.miscellaneous.area.store')}}";
@@ -236,7 +237,7 @@
             $( ".btn-group" ).css("float","left");
 
             $( ".dataTables_filter" ).css("display","inline-block");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -268,7 +269,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -282,7 +283,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -294,8 +295,8 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
-                                return data;    
+
+                                return data;
                             }
                         }
                     ]

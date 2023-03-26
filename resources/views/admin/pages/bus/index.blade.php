@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') List of Buses @endsection
-@section('page-title') List of Buses @endsection
+@section('page-title') {{__('list of buses')}} @endsection
 @section('css')
 @endsection
 @section('content')
@@ -8,24 +8,24 @@
         <div class="row">
             <div class="col-12">
                 <!--Bus List section -->
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.bus.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD BUS</a> 
+                            <a href="{{route('admin.bus.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new text-uppercase"><i class="fas fa-plus"></i> {{__('add bus')}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >Type</th>
-                                    <th>Model</th>
-                                    <th>Year</th>
-                                    <th>Bus No.</th>           
-                                    <th>Bus Size</th>           
-                                    <th>Ownership</th>                                    
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('type')}}</th>
+                                    <th>{{__('model')}}</th>
+                                    <th>{{__('year')}}</th>
+                                    <th>{{__('bus no.')}}</th>
+                                    <th>{{__('bus size')}}</th>
+                                    <th>{{__('ownership')}}</th>
+                                    <th class="text-center">{{__('status')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,21 +39,21 @@
                                     <td>{{$row->size}}</td>
                                     <td>
                                         @if($row->owner_ship == 1)
-                                            <span class="badge badge-pill badge-soft-success font-size-12">Owned</span>
+                                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Owned')}}</span>
                                         @else
-                                            <span class="badge badge-pill badge-soft-warning font-size-12">Rented</span>
-                                        @endif    
+                                            <span class="badge badge-pill badge-soft-warning font-size-12">{{__('Rented')}}</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">
                                             <input class="form-check-input price-status mx-auto" type="checkbox" {{$row->status == 1 ? "checked" :""}} value="{{$row->id}}" >
-                                        </div>   
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         {{-- <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">VIEW</button> --}}
-                                        <a href="{{route('admin.bus.show', ['bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">VIEW</button>
-                                        <a href="{{route('admin.bus.edit', ['bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">Edit</button>
+                                        <a href="{{route('admin.bus.show', ['bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</button>
+                                        <a href="{{route('admin.bus.edit', ['bu' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('edit')}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -105,7 +105,7 @@
             $( ".btn-group" ).css("float","left");
 
             $( ".dataTables_filter" ).css("display","inline-block");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -165,7 +165,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -179,7 +179,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -191,8 +191,8 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
-                                return data;    
+
+                                return data;
                             }
                         }
                     ]
