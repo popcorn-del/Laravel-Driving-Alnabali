@@ -166,7 +166,12 @@
                     </ul>
                 </li>
                 <?php } ?>
-
+                <li>
+                    <a href="{{route('cronjob')}}" class="waves-effect">
+                        <i class="bx bx-list-ul"></i>
+                        <span>{{__('cronjob')}}</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

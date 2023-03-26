@@ -30,6 +30,8 @@ Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class
 // admin dashboard
 Route::prefix('/admin')->middleware(['auth:web', 'Admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
+    Route::get('/cronjob', [App\Http\Controllers\Admin\CronJobController::class, 'index'])->name('cronjob');
+    Route::post('/cronjob/start', [App\Http\Controllers\Admin\CronJobController::class, 'start'])->name('cronjob.start');
     //Client section
     Route::resource('client', App\Http\Controllers\Admin\ClientController::class, ['as' => 'admin']);
     Route::resource('bus', App\Http\Controllers\Admin\BusController::class, ['as' => 'admin']);
@@ -154,7 +156,7 @@ Route::get('/android/daily-trip/{id}', [App\Http\Controllers\Admin\DailyTripCont
 
 Route::post('/android/daily-trip/command', [App\Http\Controllers\Admin\DailyTripController::class, 'setStatus'])->name('android.daily-trip.command');
 Route::post('/android/daily-trip/edit', [App\Http\Controllers\Admin\DailyTripController::class, 'editDailyTrip'])->name('android.daily-trip.edit');
- 
+
 ////////////////////////////////////////////////////////////
 //////////////////////* Notification *//////////////////////
 ////////////////////////////////////////////////////////////

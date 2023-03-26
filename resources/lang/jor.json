@@ -112,5 +112,6 @@
     "size":"",
     "add app supervisor":"",
     "add user":"",
-    "level":""
+    "level":"",
+    "cronjob":""
 }
