@@ -121,14 +121,14 @@ class DailyUpdate extends Command
                         $daily_trip->f_bus_size_id = $bus_size->id;
 
                         $bus_no = Bus::where('id', $tripbus_key->bus_no)->first();
-                        $daily_trip->bus_no = $bus_no->bus_noz;
-                        $daily_trip->f_bus_id = $bus_no->id;
+                        $daily_trip->bus_no = $bus_no->bus_noz??null;
+                        $daily_trip->f_bus_id = $bus_no->id??null;
 
                         $daily_trip->details = $trip_key->details;
 
                         $driver_name = Driver::where('id', $tripbus_key->driver_name)->first();
-                        $daily_trip->dirver_name = $driver_name->name_en;
-                        $daily_trip->driver_id = $tripbus_key->driver_name;
+                        $daily_trip->dirver_name = $driver_name->name_en??null;
+                        $daily_trip->driver_id = $tripbus_key->driver_name??null;
                         // $daily_trip->dirver_name = $tripbus_key->driver_name;
 
                         // app('App\Http\Controllers\Admin\DriverController')->sendNotificationToDriver($tripbus_key->driver_name);
