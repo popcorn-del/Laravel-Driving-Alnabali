@@ -12,7 +12,6 @@ class CronJobController extends Controller
         return view('admin.pages.cronjob.index');
     }
     public function start(){
-        Artisan::call('day:update');
         Artisan::call('five:update');
         return redirect()->back()->with('success','CronJob run successfully');;
     }
