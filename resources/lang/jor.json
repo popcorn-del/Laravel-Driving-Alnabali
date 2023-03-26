@@ -50,5 +50,6 @@
     "duration":"المدة",
     "client":"العميل",
     "driver":"السائق",
-    "supervisor":"المشرف"
+    "supervisor":"المشرف",
+    "action":""
 }
