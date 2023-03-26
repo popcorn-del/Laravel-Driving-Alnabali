@@ -18,19 +18,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.client.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light"><i class="fas fa-plus"></i> ADD CLIENT</a> 
+                            <a href="{{route('admin.client.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light"><i class="fas fa-plus"></i> ADD CLIENT</a>
                         </div>
                         <table id="datatable" class="table table-bordered nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >Name</th>
-                                    <th >Type</th>
-                                    <th >Contract Type</th>
-                                    <th >Start Date</th>
-                                    <th >End Date</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('name')}}</th>
+                                    <th>{{__("type")}}</th>
+                                    <th>{{__('contract type')}}</th>
+                                    <th>{{__('start date')}}</th>
+                                    <th>{{__('end date')}}</th>
+                                    <th class="text-center">{{__('status')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,8 +50,8 @@
                                     </td>
                                     <td class="text-center">
                                         {{-- <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">View</button> --}}
-                                        <a href="{{route('admin.client.show', ['client' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">View</button>
-                                        <a href="{{route('admin.client.edit', ['client' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">Edit</button>
+                                        <a href="{{route('admin.client.show', ['client' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__("view")}}</button>
+                                        <a href="{{route('admin.client.edit', ['client' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__("edit")}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -76,9 +76,9 @@
 
 
     <!-- <script src="cdn.datatables.net/plug-ins/1.12.1/sorting/custom-data-source/dom-checkbox.js"></script> -->
-    
+
     <script>
-    
+
     $(document).on('change','.price-status',function(){
         var status= $(this).prop('checked');
         var id=$(this).val();
@@ -124,7 +124,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -138,7 +138,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -150,7 +150,7 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
+
                                 return data;
                             }
                         }
@@ -193,7 +193,7 @@
             $( ".btn-group" ).css("display","inline-block");
             $( ".btn-group" ).css("float","left");
 
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");

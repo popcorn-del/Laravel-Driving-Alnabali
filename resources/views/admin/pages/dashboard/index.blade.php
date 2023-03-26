@@ -115,7 +115,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="custom-chart">
-                            <h4 class="card-title mb-4">Daily Trips</h4>
+                            <h4 class="card-title mb-4">{{__('daily trips')}}</h4>
                             <div class="chart-dropdown">
                                 <select class="form-select" id="chart-select">
                                     <option selected="">Last 7 Days</option>
@@ -135,7 +135,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Daily Trips</h4>
+                        <h4 class="card-title mb-4">{{__('daily trips')}}</h4>
 
                         <div id="column_chart" class="apex-charts" dir="ltr"></div>
                     </div>

@@ -11,18 +11,18 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.driver.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DRIVER</a> 
+                            <a href="{{route('admin.driver.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DRIVER</a>
                         </div>
                         <table id="datatable" class="table table-bordered nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >Name</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('name')}}</th>
                                     <!-- <th >Email</th> -->
-                                    <th>Phone</th>
-                                    <th>Username</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>{{__('phone')}}</th>
+                                    <th>{{__('username')}}</th>
+                                    <th class="text-center">{{__('status')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,14 +37,14 @@
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">
                                             <input class="form-check-input price-status mx-auto" type="checkbox" {{$row->status == 1 ? "checked" :""}} value="{{$row->id}}" >
-                                        </div>    
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <!-- <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">VIEW</button> -->
-                                        
-                                        <a href="{{route('admin.driver.show', ['driver' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">View</button>
-                                        <a href="{{route('admin.driver.edit', ['driver' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">Edit</button>
-                                        <a href="javascript:void(0)" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light reset-password"  data-src="{{route('admin.driver.update', ['driver' => $row->id])}}" data-bs-toggle="modal" data-bs-target="#myModal">Rest Password</button>
+
+                                        <a href="{{route('admin.driver.show', ['driver' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</button>
+                                        <a href="{{route('admin.driver.edit', ['driver' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('edit')}}</button>
+                                        <a href="javascript:void(0)" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light reset-password"  data-src="{{route('admin.driver.update', ['driver' => $row->id])}}" data-bs-toggle="modal" data-bs-target="#myModal">{{__('reset password')}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -138,14 +138,14 @@
             $( ".btn-group" ).css("float","left");
 
             $( ".dataTables_filter" ).css("display","inline-block");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
             $( ".buttons-print" ).css("padding","0");
         }
-        
-        
+
+
         $(document).on('change','.price-status',function(){
             var status= $(this).prop('checked');
             var id=$(this).val();
@@ -168,7 +168,7 @@
         });
         $(document).ready(function() {
 
-            
+
             if ( $.fn.dataTable.isDataTable( '#datatable' ) ) {
 
                 table = $('#datatable').DataTable({
@@ -194,7 +194,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -208,7 +208,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -220,8 +220,8 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
-                                return data;    
+
+                                return data;
                             }
                         }
                     ]

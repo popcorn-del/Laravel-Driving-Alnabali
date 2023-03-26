@@ -12,5 +12,14 @@
     "miscellaneous":"Miscellaneous",
     "app supervisors":"App Supervisors",
     "users":"Users",
-    "reports":"Reports"
+    "reports":"Reports",
+    "trips by client":"Trips by client",
+    "trips by bus":"Trips by bus",
+    "trips by trip type":"Trips by trip type",
+    "trips by driver":"Trips by driver",
+    "trips by bus size":"Trips by bus size",
+    "trips by client type":"Trips by client type",
+    "trips by contract type":"Trips by contract type",
+    "trips by ownership type":"Trips by ownership type",
+    "cities":"cities"
 }
