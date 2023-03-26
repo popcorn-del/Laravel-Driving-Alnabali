@@ -51,16 +51,16 @@ class DailyUpdate extends Command
     public function handle()
     {
             $mytime = Carbon::now();
-            
 
-            $trip = Trip::all(); 
+
+            $trip = Trip::all();
             // $trip = Trip::where('trip_type', 0)->get();
 
-            
+
             $flag = false;
             foreach ($trip as $trip_key) {
                 $now = Carbon::today();
-            
+
                 $now_dayofweek = Carbon::now()->dayOfWeek + 1;
                 $now_dayofweek = (string)$now_dayofweek;
                 $now_year = Carbon::now()->format('Y');
@@ -107,12 +107,12 @@ class DailyUpdate extends Command
                         $daily_trip->destination_area = Area::where('id', $trip_key->destination_area)->first()->area_name_en;
                         $daily_trip->destination_city = City::where('id', $trip_key->destination_city)->first()->city_name_en;
 
-                        
+
 
                         $daily_trip->start_date = Carbon::now()->toDateString();
                         $daily_trip->start_time = $trip_key->departure_time;
                         // $daily_trip->start_time = $mytime;
-                        
+
                         $daily_trip->end_date = Carbon::now()->toDateString();
                         $daily_trip->end_time = $trip_key->arrival_time;
 
@@ -121,8 +121,8 @@ class DailyUpdate extends Command
                         $daily_trip->f_bus_size_id = $bus_size->id;
 
                         $bus_no = Bus::where('id', $tripbus_key->bus_no)->first();
-                        $daily_trip->bus_no = $bus_no->bus_no;
-                        $daily_trip->f_bus_id = $bus_no->id;
+                        $daily_trip->bus_no = $bus_no->bus_no??null;
+                        $daily_trip->f_bus_id = $bus_no->id??null;
 
                         $daily_trip->details = $trip_key->details;
 
@@ -139,11 +139,11 @@ class DailyUpdate extends Command
                         // for ($i = 0; $i < count($supervisor_id); $i++) {
                         //     app('App\Http\Controllers\Admin\SuperVisorController')->sendNotificationToSupervisor($supervisor_id[$i]);
                         // }
-                        
+
                         $daily_trip->trip_type = $trip_key->trip_type;
                         // $daily_trip->show_admin_status = $trip_key->admin_show;
                         $daily_trip->status = $trip_key->status;
-        
+
                         $daily_trip->save();
                     }
                 }
