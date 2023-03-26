@@ -121,8 +121,8 @@ class DailyUpdate extends Command
                         $daily_trip->f_bus_size_id = $bus_size->id;
 
                         $bus_no = Bus::where('id', $tripbus_key->bus_no)->first();
-                        $daily_trip->bus_no = $bus_no->bus_no??null;
-                        $daily_trip->f_bus_id = $bus_no->id??null;
+                        $daily_trip->bus_no = $bus_no->bus_noz;
+                        $daily_trip->f_bus_id = $bus_no->id;
 
                         $daily_trip->details = $trip_key->details;
 
