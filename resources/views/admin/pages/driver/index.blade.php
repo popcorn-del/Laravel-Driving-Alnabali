@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('title') List of Drivers @endsection
-@section('page-title') List of Drivers @endsection
+@section('page-title') {{__('list of drivers')}} @endsection
+
 @section('css')
 @endsection
 @section('content')
@@ -11,7 +12,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.driver.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DRIVER</a>
+                            <a href="{{route('admin.driver.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new text-uppercase"><i class="fas fa-plus"></i> {{__('add driver')}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered nowrap w-100 datatable">
                             <thead>

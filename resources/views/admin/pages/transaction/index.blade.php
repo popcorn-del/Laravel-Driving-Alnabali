@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('title') List of Transactions @endsection
-@section('page-title') List of Transactions @endsection
+@section('page-title') {{__('list of transactions')}} @endsection
+
 @section('css')
 <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
@@ -10,14 +11,14 @@
         <div class="row">
             <div class="col-12">
                 <!--Daily Trip List section -->
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter" style="margin-bottom: 40px">
                             <div class = "row mb-3">
-                                
+
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Client</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('client')}}</div>
                                     <select class="form-select" name="client_filter" id="client_filter">
                                         <option value="">All Clients</option>
                                         @foreach($client as $key=>$row)
@@ -26,7 +27,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Origin City</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin city')}}</div>
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
                                         <option value="">All Cities</option>
                                         @foreach($city as $key=>$row)
@@ -35,7 +36,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Origin Area</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin area')}}</div>
                                     <select class="form-select" name="origin_area_filter" id="origin_area_filter">
                                         <option value="">All Areas</option>
                                         @foreach($area as $key=>$row)
@@ -44,7 +45,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Destination City</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination city')}}</div>
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
                                         <option value="">All Cities</option>
                                         @foreach($city as $key=>$row)
@@ -53,7 +54,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Destination Area</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination area')}}</div>
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
                                         <option value="">All Areas</option>
                                         @foreach($area as $key=>$row)
@@ -62,7 +63,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                <div style="text-align: left; margin-bottom: 5px">Driver</div>
+                                <div style="text-align: left; margin-bottom: 5px">{{__('driver')}}</div>
                                     <select class="form-select" name="driver_filter" id="driver_filter">
                                         <option value="">All Drivers</option>
                                         @foreach($driver as $key=>$row)
@@ -91,7 +92,7 @@
                                     </select>
                                 </div> -->
                                 <div class = "col-2">
-                                <div style="text-align: left; margin-bottom: 5px">Old Status</div>
+                                <div style="text-align: left; margin-bottom: 5px">{{__('old status')}}</div>
                                     <select class="form-select" name="status_filter">
                                         <option>All Old Status</option>
                                         <option value="Pending">Pending</option>
@@ -104,7 +105,7 @@
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                <div style="text-align: left; margin-bottom: 5px">New Status</div>
+                                <div style="text-align: left; margin-bottom: 5px">{{__('new status')}}</div>
                                     <select class="form-select" name="status_filter">
                                         <option>All New Status</option>
                                         <option value="Pending">Pending</option>
@@ -139,8 +140,8 @@
 
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
-                                </div>       -->                              
-                            </div>                             
+                                </div>       -->
+                            </div>
                             <!-- <a href="{{route('admin.daily_trip.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DAILY TRIP</a>  -->
                         </div>
                         <div class="table-wrapper">
@@ -192,7 +193,7 @@
             $( ".btn-group" ).css("float","left");
 
             $( ".dataTables_filter" ).css("display","inline-block");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -232,8 +233,8 @@
                     $("select[name='bus_filter']").append("<option value=''>All Buses</option>")
                 }
             });
-            // display area when click origin_city 
-            $("#origin_city_filter").on("change", function (e) { 
+            // display area when click origin_city
+            $("#origin_city_filter").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 if (id == "") {
                     origin_area.empty();
@@ -242,8 +243,8 @@
                 search_strings[8] = '';
                 selectFunction(origin_area, id)
             })
-            // display area when click destination_area 
-            $("#destinations_city_filter").on("change", function (e) { 
+            // display area when click destination_area
+            $("#destinations_city_filter").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 if (id == "") {
                     origin_area.empty();
@@ -352,7 +353,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -378,7 +379,7 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
+
                                 return data;
                             }
                         }
@@ -389,7 +390,7 @@
             // $( "#startdate" ).on( "change", function() {
             //     $("#enddate").click();
             //     $('this').datepicker('setDate', setval);
-            //     var setval = $(this).datepicker('getDate'); 
+            //     var setval = $(this).datepicker('getDate');
             //     $('#enddate').datepicker('setStartDate',setval);
             // });
 
@@ -397,7 +398,7 @@
             // $( "#enddate" ).on( "change", function() {
             //     $("#startdate").click();
             //     $('this').datepicker('setDate', setval);
-            //     var setval = $(this).datepicker('getDate'); 
+            //     var setval = $(this).datepicker('getDate');
             //     $('#startdate').datepicker('setEndDate',setval);
             // });
             if ( $.fn.dataTable.isDataTable( '#datatable' ) ) {
@@ -424,7 +425,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -438,10 +439,10 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
-                        
+
                     ]
                 });
             } else {

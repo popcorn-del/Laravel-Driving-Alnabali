@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') List of Client @endsection
-@section('page-title') List of Clients @endsection
+@section('page-title') {{__('list of clients')}} @endsection
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
 <style>
@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.client.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light"><i class="fas fa-plus"></i> ADD CLIENT</a>
+                            <a href="{{route('admin.client.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light text-uppercase"><i class="fas fa-plus"></i> {{__('add client')}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered nowrap w-100 datatable">
                             <thead>

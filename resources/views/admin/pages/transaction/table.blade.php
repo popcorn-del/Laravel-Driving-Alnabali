@@ -1,19 +1,19 @@
 <table id="datatable" class="table table-bordered nowrap w-100 datatable .table-fixed">
     <thead>
          <tr bgcolor="#E5E4E2">
-            <th>NO.</th>
-            <th>TRIP ID</th>
-            <th>TRIP NAME</th>
-            <th>CLIENT</th>
-            <th>ORIGIN CITY</th>
-            <th>ORIGIN AREA</th>
-            <th>DESTINATION CITY</th>
-            <th>DESTINATION AREA</th>
-            <th>DRIVER</th>
-            <th>transaction date</th>
-            <th>old status</th>
-            <th>NEW STATUS</th>
-            <th>ACTION</th>                                                         
+            <th>{{__('no.')}}</th>
+            <th>{{__('trip id')}}</th>
+            <th>{{__('trip name')}}</th>
+            <th>{{__('client')}}</th>
+            <th>{{__('origin city')}}</th>
+            <th>{{__('origin area')}}</th>
+            <th>{{__('destination city')}}</th>
+            <th>{{__('destination area')}}</th>
+            <th>{{__('driver')}}</th>
+            <th>{{__('transaction date')}}</th>
+            <th>{{__('old status')}}</th>
+            <th>{{__('new status')}}</th>
+            <th>{{__('action')}}</th>
         </tr>
     </thead>
     <tbody>
@@ -89,8 +89,8 @@
                             <span class="badge badge-pill badge-soft-success font-size-12">Pending</span>
                     @endswitch
                 </td>
-                <td><a href="{{route('admin.transaction.show', ['transaction' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">View</a></td>
-                
+                <td><a href="{{route('admin.transaction.show', ['transaction' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</a></td>
+
             </tr>
         @endforeach
     </tbody>

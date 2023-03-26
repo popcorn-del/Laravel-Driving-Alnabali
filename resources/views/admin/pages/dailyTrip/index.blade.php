@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('title') List of Daily Trips @endsection
-@section('page-title') List of Daily Trips @endsection
+@section('page-title') {{__('list of daily trips')}} @endsection
+
 @section('css')
 <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
 
@@ -16,7 +17,7 @@
                         <div class="table-filter" style="margin-bottom: 40px">
                             <div class = "row mb-3">
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Client</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('client')}}</div>
                                     <select class="form-select" name="client_filter" id="client_filter">
                                         <option value="">All Clients</option>
                                         @foreach($client as $key=>$row)
@@ -25,7 +26,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Origin City</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin city')}}</div>
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
                                         <option value="">All Cities</option>
                                         @foreach($city as $key=>$row)
@@ -34,7 +35,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Origin Area</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin area')}}</div>
                                     <select class="form-select" name="origin_area_filter" id="origin_area_filter">
                                         <option value="">All Areas</option>
                                         @foreach($area as $key=>$row)
@@ -43,7 +44,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Destination City</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination city')}}</div>
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
                                         <option value="">All Cities</option>
                                         @foreach($city as $key=>$row)
@@ -52,7 +53,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">Destination Area</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination area')}}</div>
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
                                         <option value="">All Areas</option>
                                         @foreach($area as $key=>$row)
@@ -61,7 +62,7 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                <div style="text-align: left; margin-bottom: 5px">Driver</div>
+                                <div style="text-align: left; margin-bottom: 5px">{{__('driver')}}</div>
                                     <select class="form-select" name="driver_filter" id="driver_filter">
                                         <option value="">All Drivers</option>
                                         @foreach($driver as $key=>$row)
@@ -72,7 +73,7 @@
                             </div>
                             <div class = "row">
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">Bus Size</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('bus size')}}</div>
                                     <select class="form-select" name="bus_sizes_filter" id="bus_sizes_filter">
                                         <option value="">All Bus Sizes</option>
                                         @foreach($bus_size as $key=>$row)
@@ -81,7 +82,7 @@
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">Bus</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('bus')}}</div>
                                     <select class="form-select" name="bus_filter" id="bus_filter">
                                         <option value="">All Buses</option>
                                         @foreach($bus as $key=>$row)
@@ -90,7 +91,7 @@
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">Status</div>
+                                    <div style="text-align: left; margin-bottom: 5px">{{__('status')}}</div>
                                     <select class="form-select" name="status_filter" id="status_filter">
                                         <option value="">All Status</option>
                                         <option value="Pending">Pending</option>
@@ -105,7 +106,7 @@
                                 </div>
                                 <div class = "col-md-2">
                                     <div style="text-align: left">
-                                        <label for="">START DATE</label>
+                                        <label for="">{{__('start date')}}</label>
                                     </div>
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="startdate"
@@ -117,7 +118,7 @@
                                 </div>
                                 <div class = "col-md-2">
                                     <div style="text-align: left">
-                                        <label for="">END DATE</label>
+                                        <label for="">{{__('end date')}}</label>
                                     </div>
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="enddate"

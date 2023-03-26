@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') List of Trips @endsection
-@section('page-title') List of Trips @endsection
+@section('page-title') {{__('list of trips')}} @endsection
 @section('css')
 @endsection
 @section('content')
@@ -8,25 +8,25 @@
         <div class="row">
             <div class="col-12">
                 <!--Bus List section -->
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.trip.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD TRIP</a> 
+                            <a href="{{route('admin.trip.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new text-uppercase"><i class="fas fa-plus"></i> {{__('add trip')}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >NAME</th>
-                                    <th>CLIENT</th>
-                                    <th>ORIGIN</th>
-                                    <th>DESTINATION</th>
-                                    <th>PERIOD</th>
-                                    <th>DURATION</th>
-                                    <th>STATUS</th>
-                                    <th>ACTION</th>                                                             
-                              
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('name')}}</th>
+                                    <th>{{__('client')}}</th>
+                                    <th>{{__('origin')}}</th>
+                                    <th>{{__('destination')}}</th>
+                                    <th>{{__('period')}}</th>
+                                    <th>{{__('duration')}}</th>
+                                    <th>{{__('status')}}</th>
+                                    <th>{{__('action')}}</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,12 +43,12 @@
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">
                                             <input class="form-check-input price-status mx-auto" type="checkbox" {{$row->status == 1 ? "checked" :""}} value="{{$row->id}}" >
-                                        </div>    
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <!-- <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">VIEW</button> -->
-                                        <a href="{{route('admin.trip.show',['trip' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">View</button>
-                                        <a href="{{route('admin.trip.edit',['trip' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">Edit</button>
+                                        <a href="{{route('admin.trip.show',['trip' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</button>
+                                        <a href="{{route('admin.trip.edit',['trip' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('edit')}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -104,7 +104,7 @@
                 $( ".btn-group" ).css("float","left");
 
                 $( ".dataTables_filter" ).css("display","inline-block");
-                
+
                 $( ".buttons-csv" ).css("padding","0");
                 $( ".buttons-excel" ).css("padding","0");
                 $( ".buttons-pdf" ).css("padding","0");
@@ -163,7 +163,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -177,7 +177,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -192,7 +192,7 @@
                                 return data;
                             }
                         }
-                    ] 
+                    ]
                 });
             }
             makeExportBtn();

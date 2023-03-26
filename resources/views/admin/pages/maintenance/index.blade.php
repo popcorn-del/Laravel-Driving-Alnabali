@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') List Of Maintenance Records @endsection
-@section('page-title') List of Maintenance Records @endsection
+@section('page-title') {{__('list of maintenance records')}} @endsection
 @section('css')
 @endsection
 @section('content')
@@ -10,19 +10,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.maintenance.create')}}" 
-                            class="btn btn-outline-warning btn-rounded waves-effect waves-light"><i class="fas fa-plus"></i>  ADD MAINTENANCE RECORD</a> 
+                            <a href="{{route('admin.maintenance.create')}}"
+                            class="btn btn-outline-warning btn-rounded waves-effect waves-light text-uppercase"><i class="fas fa-plus"></i>  {{__('add maintenance record')}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >Bus NO.</th>
-                                    <th >Type</th>
-                                    <th >Details</th>
-                                    <th >Date</th>
-                                    <th >Cost</th>
-                                    <th class="text-center">Action</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('bus no.')}}</th>
+                                    <th>{{__('type')}}</th>
+                                    <th>{{__('details')}}</th>
+                                    <th>{{__('date')}}</th>
+                                    <th>{{__('cost')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,8 +38,8 @@
                                     </td>
                                     <td class="text-center">
                                         {{-- <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">View</button> --}}
-                                        <a href="{{route('admin.maintenance.show', ['maintenance' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">View</button>
-                                        <a href="{{route('admin.maintenance.edit', ['maintenance' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">Edit</button>
+                                        <a href="{{route('admin.maintenance.show', ['maintenance' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</button>
+                                        <a href="{{route('admin.maintenance.edit', ['maintenance' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('edit')}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -57,7 +57,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script>
-        
+
         let makeExportBtn = () => {
             $( ".buttons-csv" ).empty();
             $( ".buttons-csv" ).removeClass("btn-secondary");
@@ -79,7 +79,7 @@
             $( ".btn-group" ).css("display","inline-block");
 
             $( ".dataTables_filter" ).css("display","inline-block");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -111,7 +111,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -125,7 +125,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4, 5 ]
                             }
-                        } 
+                        }
                     ],
                 });
             }

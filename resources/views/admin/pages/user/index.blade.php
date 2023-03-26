@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') List of Users @endsection
-@section('page-title') List of Users @endsection
+@section('page-title') {{__('list of users')}} @endsection
 @section('css')
 @endsection
 @section('content')
@@ -8,22 +8,22 @@
         <div class="row">
             <div class="col-12">
                 <!--Bus List section -->
-                
+
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.user.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD USER</a> 
+                            <a href="{{route('admin.user.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD USER</a>
                         </div>
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
                             <thead>
                                 <tr bgcolor="#E5E4E2">
-                                    <th >NO.</th>
-                                    <th >Name</th>
-                                    <th>Level</th>
-                                    <th>Phone</th>
-                                    <th>Username</th>                               
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>{{__('no.')}}</th>
+                                    <th>{{__('name')}}</th>
+                                    <th>{{__('level')}}</th>
+                                    <th>{{__('phone')}}</th>
+                                    <th>{{__('username')}}</th>
+                                    <th class="text-center">{{__('status')}}</th>
+                                    <th class="text-center">{{__('action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,13 +38,13 @@
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">
                                             <input class="form-check-input price-status mx-auto" type="checkbox" {{$row->status == 1 ? "checked" :""}} value="{{$row->id}}" >
-                                        </div>    
+                                        </div>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{route('admin.user.show', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">View</button>
-                                        <a href="{{route('admin.user.edit', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">Edit</button>
+                                        <a href="{{route('admin.user.show', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('view')}}</button>
+                                        <a href="{{route('admin.user.edit', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('edit')}}</button>
                                         <a href="javsciript::void(0)" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light reset-password" data-id="{{$row->id}}" data-src="{{route('admin.user.update', ['user' => $row->id])}}" data-bs-toggle="modal"
-                                                data-bs-target="#myModal">Rest Password</button>
+                                                data-bs-target="#myModal">{{__('reset password')}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -137,7 +137,7 @@
 
 
             $( ".dataTables_filter" ).css("display","inline-block");
-            
+
             $( ".buttons-csv" ).css("padding","0");
             $( ".buttons-excel" ).css("padding","0");
             $( ".buttons-pdf" ).css("padding","0");
@@ -189,7 +189,7 @@
                                 orthogonal: 'exceloption',
                                 columns: [ 0, 1, 2, 3, 4, 5 ]
                             }
-                        },        
+                        },
                         {
                             extend: 'pdf',
                             exportOptions: {
@@ -203,7 +203,7 @@
                                 orthogonal: 'printoption',
                                 columns: [ 0, 1, 2, 3, 4, 5 ]
                             }
-                        } 
+                        }
                     ],
                     columnDefs: [
                         {
@@ -215,8 +215,8 @@
                                     var $input = $(api.cell({ row: meta.row, column: meta.col }).node()).find('input');
                                     data = $input.prop('checked') ? 'Active' : 'Inactive';
                                 }
-                                
-                                return data;    
+
+                                return data;
                             }
                         }
                     ]

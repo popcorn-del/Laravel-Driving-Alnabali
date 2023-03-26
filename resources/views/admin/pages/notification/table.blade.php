@@ -1,21 +1,21 @@
 <table id="datatable" class="table table-bordered nowrap w-100 datatable .table-fixed">
     <thead>
          <tr bgcolor="#E5E4E2">
-            <th >NO.</th>
-            <th >TRIP ID</th>
-            <th >TRIP NAME</th>
-            <th>CLIENT</th>
-            <th>ORIGIN CITY</th>
-            <th>ORIGIN AREA</th>
-            <th>DESTINATION CITY</th>
-            <th>DESTINATION AREA</th>
-            <th>status</th>
-            <th>message</th>
-            <th>notification date</th>
-            <th>NOTIFIED APP</th>
-            <th>NOTIFIED PERSON</th>
-            <th>NOTIFICATION STATUS</th>
-            <th>ACTION</th>                                                                    
+            <th>{{__('no.')}}</th>
+            <th>{{__('trip id')}}</th>
+            <th>{{__('trip name')}}</th>
+            <th>{{__('client')}}</th>
+            <th>{{__('origin city')}}</th>
+            <th>{{__('origin area')}}</th>
+            <th>{{__('destination city')}}</th>
+            <th>{{__('destination area')}}</th>
+            <th>{{__('status')}}</th>
+            <th>{{__('message')}}</th>
+            <th>{{__('notification date')}}</th>
+            <th>{{__("notified app")}}</th>
+            <th>{{__("notified person")}}</th>
+            <th>{{__("notification status")}}</th>
+            <th>{{__('action')}}</th>
         </tr>
     </thead>
     <tbody>
@@ -62,7 +62,7 @@
             <td>{{$row->receiver}}</td>
             <td>
                 <span class="badge badge-pill badge-soft-success font-size-12">{{$row->received_by == "sent" ? "Sent" : $row->received_by}}</span></td>
-            <td><a href="{{route('admin.notification.show', ['notification' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">View</a></td>
+            <td><a href="{{route('admin.notification.show', ['notification' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</a></td>
         </tr>
         @endforeach
     </tbody>

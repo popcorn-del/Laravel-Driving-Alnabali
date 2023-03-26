@@ -1,22 +1,21 @@
 <table id="datatable" class="table table-bordered nowrap w-100 datatable .table-fixed">
     <thead>
          <tr bgcolor="#E5E4E2">
-            <th >No.</th>
-            <th >TRIP ID</th>
-            <th >TRIP NAME</th>
-            <th>CLIENT</th>
-
-            <th>DRIVER</th>
-            <th>BUS NO.</th>
-            <th>BUS SIZE</th>
-            <th>ORIGIN CITY</th>
-            <th>ORIGIN AREA</th>
-            <th>DESTINATION CITY</th>
-            <th>DESTINATION AREA</th>
-            <th>START DATE</th>
-            <th>END DATE</th>
-            <th>STATUS</th>
-            <th>ACTION</th>                                                         
+            <th>{{__('no.')}}</th>
+            <th>{{__('trip id')}}</th>
+            <th>{{__('trip name')}}</th>
+            <th>{{__('client')}}</th>
+            <th>{{__('driver')}}</th>
+            <th>{{__('bus no.')}}</th>
+            <th>{{__('bus size')}}</th>
+            <th>{{__('origin city')}}</th>
+            <th>{{__('origin area')}}</th>
+            <th>{{__('destination city')}}</th>
+            <th>{{__('destination area')}}</th>
+            <th>{{__('start date')}}</th>
+            <th>{{__('end date')}}</th>
+            <th>{{__('status')}}</th>
+            <th>{{__('action')}}</th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +25,7 @@
             <td>{{$row->trip_id}}</td>
             <td>{{$row->trip_name}}</td>
             <td>{{$row->client_name}}</td>
-        
+
             <td>{{$row->dirver_name}}</td>
             <td>{{$row->bus_no}}</td>
             <td>{{$row->bus_size_id}}</td>
@@ -64,8 +63,8 @@
                 @endswitch
             </td>
             <td class="text-center">
-                <a href="{{route('admin.daily_trip.show', ['daily_trip' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">VIEW</a>
-                <a href="{{route('admin.daily_trip.edit', ['daily_trip' => $row->id])}}"  class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">EDIT</a>
+                <a href="{{route('admin.daily_trip.show', ['daily_trip' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('view')}}</a>
+                <a href="{{route('admin.daily_trip.edit', ['daily_trip' => $row->id])}}"  class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('edit')}}</a>
             </td>
         </tr>
         @endforeach
