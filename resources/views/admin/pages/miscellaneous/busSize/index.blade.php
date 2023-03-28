@@ -17,7 +17,7 @@
                                 <div class="col-md-7">
                                     <div class="row">
                                         <div class = "mb-3">
-                                            <span class = "font-size-16" id="cityTitle"> ADD BUS SIZE</span>
+                                            <span class="font-size-16 text-uppercase" id="cityTitle"> {{__('add bus size')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
