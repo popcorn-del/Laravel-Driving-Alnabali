@@ -52,4 +52,7 @@
 		margin-left: 0;
 		margin-right: 0;
 	}
+    label{
+        text-transform: uppercase;
+    }
 </style>

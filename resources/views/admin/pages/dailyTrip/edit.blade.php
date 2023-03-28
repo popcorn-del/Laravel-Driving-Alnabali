@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> TRIPE NAME</label>
+                                    <label><span class="custom-val-color">*</span> {{__('trip name')}}</label>
                                     <select class="form-select" disabled required>
                                         <option>Select trip</option>
                                         @foreach($trip as $key=>$row)
@@ -29,7 +29,7 @@
                                     <input type="hidden" name="tripe_name" value="{{$daily_trip->trip_name}}">
                                 </div>
                                 <div class = "mb-3">
-                                    <label><span class="custom-val-color">*</span> ORIGIN</label>
+                                    <label><span class="custom-val-color">*</span> {{__('origin')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" disabled required>
@@ -43,7 +43,7 @@
                                         <div class = "col-md-6">
                                             <select class="form-select" disabled required>
                                                 <option selected>{{$daily_trip->origin_area}}</option>
-                                            </select> 
+                                            </select>
                                             <input type="hidden" name="origin_area" value="{{$daily_trip->origin_area}}">
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                                 <div class = "mb-3">
                                     <div class = "row">
                                         <div class = "col-md-6">
-                                            <label><span class="custom-val-color">*</span> START DATE</label>
+                                            <label><span class="custom-val-color">*</span> {{__('start date')}}</label>
                                             <div class="input-group" id="datepicker1">
                                                 <input type="text" class="form-control" disabled placeholder="dd/mm/yyyy"
                                                     data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
@@ -62,7 +62,7 @@
                                             </div>
                                         </div>
                                         <div class = "col-md-6">
-                                            <label for=""><span class="custom-val-color">*</span> START TIME</label>
+                                            <label for=""><span class="custom-val-color">*</span> {{__('start time')}}</label>
                                             <div class="input-group" id="timepicker-input-group1">
                                                 <input id="timepicker" disabled type="text" class="form-control" data-provide="timepicker" value="{{date('h:i A', strtotime($daily_trip->start_time))}}">
                                                     <input type="hidden" value="{{date('h:i A', strtotime($daily_trip->start_time))}}" name="start_trip_time">
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> BUS SIZE</label>
+                                    <label><span class="custom-val-color">*</span>  {{__('bus size')}}</label>
                                     <select class="form-select" id="bus_size_id" required>
                                         <option>Select Bus Size</option>
                                         @foreach($bus_size as $key=>$row)
@@ -82,20 +82,20 @@
                                     <input type="hidden" id="bus_size_id_hide" name="bus_size_id" value="{{$daily_trip->bus_size_id}}">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Details</label>
+                                    <label class="form-label"> {{__('details')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="5" name="details">{{$daily_trip->details}}</textarea>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP TYPE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('trip type')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_1" value="1" {{$daily_trip->trip_type == 1 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="trip_type_1">
-                                                    Periodic
+                                                    {{__('periodic')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -104,22 +104,22 @@
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_2" value="0" {{$daily_trip->trip_type == 0 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="trip_type_2">
-                                                    Non-Periodic
+                                                    {{__('non-periodic')}}
                                                 </label>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span>SHOW TRIP IN ADMIN APP</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>{{__('show trip in admin app')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" dis type="radio" name="show_trip_admin"
                                                     id="show_trip_admin_1" value="1" {{$daily_trip->show_admin_status == 1 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="show_trip_admin_1">
-                                                    Yes
+                                                    {{__('yes')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@
                                                 <input class="form-check-input" type="radio" name="show_trip_admin"
                                                     id="show_trip_admin_2" value="0" {{$daily_trip->show_admin_status == 0 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="show_trip_admin_2">
-                                                    No
+                                                    {{__('no')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -138,7 +138,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> CLIENT</label>
+                                    <label><span class="custom-val-color">*</span> {{__('client')}}</label>
                                     <select class="form-select" name="client" disabled required>
                                         <option>Select Client</option>
                                         @foreach($client as $key=>$row)
@@ -148,7 +148,7 @@
                                             <input type="hidden" name="client" value="{{$daily_trip->client_name}}">
                                 </div>
                                 <div class = "mb-3">
-                                    <label><span class="custom-val-color">*</span> DESTINATION</label>
+                                    <label><span class="custom-val-color">*</span> {{__('destination')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" disabled required>
@@ -156,21 +156,21 @@
                                                 @foreach($city as $key=>$row)
                                                     <option value="{{$row->city_name_en}}" data-id="{{$row->id}}" {{$daily_trip->destination_city == $row->city_name_en ? "selected" : ""}}>{{$row->city_name_en}}</option>
                                                 @endforeach
-                                            </select> 
-                                            <input type="hidden" name="destination_city" value="{{$daily_trip->destination_city}}"> 
+                                            </select>
+                                            <input type="hidden" name="destination_city" value="{{$daily_trip->destination_city}}">
                                         </div>
                                         <div class = "col-md-6">
                                             <select class="form-select" name="destination_area" disabled required>
                                                 <option selected>{{$daily_trip->destination_area}}</option>
-                                            </select> 
-                                            <input type="hidden" name="destination_area" value="{{$daily_trip->destination_area}}"> 
+                                            </select>
+                                            <input type="hidden" name="destination_area" value="{{$daily_trip->destination_area}}">
                                         </div>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class = "mb-3">
                                     <div class = "row">
                                         <div class = "col-md-6">
-                                            <label><span class="custom-val-color">*</span> END DATE</label>
+                                            <label><span class="custom-val-color">*</span>{{__('end date')}}</label>
                                             <input type="hidden" value="{{$daily_trip->end_date}}" name="">
                                             <div class="input-group" id="datepicker1">
                                                 <input type="text" disabled class="form-control" placeholder="dd/mm/yyyy"
@@ -182,24 +182,24 @@
                                             </div>
                                         </div>
                                         <div class = "col-md-6">
-                                            <label for=""><span class = "custom-val-color">*</span> END TIME</label>
+                                            <label for=""><span class = "custom-val-color">*</span> {{__('end time')}}</label>
                                             <div class="input-group" id="timepicker-input-group1">
                                                 <input id="timepicker" disabled type="text" class="form-control" data-provide="timepicker" value="{{date('h:i A', strtotime($daily_trip->end_time))}}">
                                                     <input type="hidden" value="{{date('h:i A', strtotime($daily_trip->end_time))}}" name="end_trip_time">
                                                 <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> BUS NO.</label>
+                                    <label><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
                                     <select class="form-select" name="bus_no" id="bus_no" required>
                                         <option>Select Bus.No</option>
                                         <option value="{{$daily_trip->bus_no}}" selected>{{$daily_trip->bus_no}}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DRIVER</label>
+                                    <label><span class="custom-val-color">*</span> {{__('driver')}}</label>
                                     <select class="form-select" name="driver" required>
                                         <option>Select Driver</option>
                                         @foreach($driver as $key=>$row)
@@ -208,8 +208,8 @@
                                     </select>
                                 </div>
                                 <div class = "mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
-                                                                         
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
+
                                     <select class="form-select" name="status" id="statusID" required disabled>
                                         <option class="form-check-input"
                                             id="status_1" value="1" {{$daily_trip->status == 1 ? "selected" : ""}}>
@@ -254,16 +254,16 @@
                                             </label>
                                         </option>
                                     </select>
-                                </div>     
+                                </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> Change Status</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('change status')}}</label>
                                     <div class="row" style="margin-left: 5px">
                                         <div class="row">
                                             <div class="form-check form-radio-warning">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_0" value="0" checked>
                                                 <label class="form-check-label" for="status_type_0">
-                                                    Don't Change
+                                                    {{__("don't change")}}
                                                 </label>
                                             </div>
                                         </div>
@@ -272,7 +272,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_1" value="1">
                                                 <label class="form-check-label" for="status_type_1">
-                                                    Set as Pending
+                                                    {{__('set as pending')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -281,7 +281,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_5" value="5">
                                                 <label class="form-check-label" for="status_type_5">
-                                                    Set as Canceled
+                                                    {{__('set as canceled')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -290,14 +290,14 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_7" value="7">
                                                 <label class="form-check-label" for="status_type_7">
-                                                    Set as Fake
+                                                    {{__('set as fake')}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class = "mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color">*</span> SUPERVISOR  
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('supervisor')}}
                                     </label>
                                     <div class = "row border rounded border-secondary daysofweek">
                                         <div class = "trip-frequency-check">
@@ -305,7 +305,7 @@
                                                 <input class="form-check-input" type="checkbox" id='selectAll'
                                                     >
                                                 <label class="form-check-label" style="width: 200px">
-                                                    SELECT ALL
+                                                    {{__('select all')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -321,7 +321,7 @@
                                             @endforeach
                                         </div>
                                     </div>
-                                </div>   
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -331,9 +331,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
                 <!-- <a href="{{route('admin.daily.task')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DAILY TRIP</a>  -->
             </div>
         </form>
@@ -356,7 +356,7 @@
                 history.back();
             })
             $(".trip-frequency-check").click(function(){
-                
+
                 let aInputs = document.getElementsByName('supervisor[]');
                 let source = document.getElementById('selectAll');
                 console.log(source)
@@ -391,7 +391,7 @@
             $("#bus_size_id").on('change', (e) => {
                 $("#bus_size_id_hide").val(e.target.options[e.target.selectedIndex].text);
                 let id = $("#bus_size_id").val();
-                // bus_size_id_hide = 
+                // bus_size_id_hide =
                 tripbus_url = "{{ route('admin.tripbus.busno',':id') }}";
                 tripbus_url = tripbus_url.replace(':id', id);
                 if (id != "") {
@@ -427,14 +427,14 @@
             origin_area = $("select[name='origin_area']");
             console.log(origin_area)
             destination_area = $("select[name='destination_area']");
-            
-            // display area when click origin_city 
-            $("select[name='origin_city']").on("change", function (e) { 
+
+            // display area when click origin_city
+            $("select[name='origin_city']").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 selectFunction(origin_area, id)
             })
-            // display area when click destination_area 
-            $("select[name='destination_city']").on("change", function (e) { 
+            // display area when click destination_area
+            $("select[name='destination_city']").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 selectFunction(destination_area, id)
             })

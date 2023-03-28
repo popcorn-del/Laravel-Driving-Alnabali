@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Add Maintenance Record @endsection
-@section('page-title') Add Maintenance Record @endsection
+@section('page-title') {{__('add maintenance record')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> BUS NO.</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
                                     <select class="form-select" name="bus_no" required>
                                         <option value="">Select Bus NO. </option>
                                         @foreach($bus as $row)
@@ -27,7 +27,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> TYPE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('type')}}</label>
                                     <select class="form-select" name="maintenace_type" required>
                                         <option value="">Select Type</option>
                                         @foreach($bus_maintenace_type as $row)
@@ -36,13 +36,13 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> DETAILS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('details')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="3" maxlength="250" minlength="1" name="details" required></textarea>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DATE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('date')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div id="date-daily-div" style="width: 100%">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy"
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> COST</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('cost')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div style="width: 100%">
                                             <input type="number" class="form-control" pattern="^\d{1,4}(?:\.\d{1,2})?$" name="cost" step="0.01" required>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -78,9 +78,9 @@
                 <div class="col-md-2"></div>
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
