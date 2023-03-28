@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Add User @endsection
-@section('page-title') Add User @endsection
+@section('page-title') {{__('add user')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -11,7 +11,7 @@
 
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
 
-    
+
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -21,7 +21,7 @@
                 <div class="col-md-7">
                     <div class="col-md-12">
                         <div class="row">
-                            <div style="text-align: center;">PROFILE IMAGE</div>
+                            <div style="text-align: center;">{{__('profile image')}}</div>
                             <div class="picture-container" style="margin-bottom: 30px">
                                 <div class="picture">
                                     <img src="{{ asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -38,13 +38,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                
+
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name')}}</label>
                                     <input type="text" class="form-control" name="name" minlength="1" maxlength="100" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> PHONE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div>
                                             <span class="input-group-text">+ 962</span>
@@ -55,22 +55,22 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">ADDRESS</label>
-                                    
+                                    <label class="form-label">{{__('address')}}</label>
+
                                         <textarea class="form-control" rows="5" name="address" maxlength="250"></textarea>
-                                       
+
                                 </div>
-                                
-                                
+
+
                             <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> LEVEL</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('level')}}</label>
                                     <div class="row">
                                         <?php if(Auth::user()->role == 1) { ?> <div class="col-md-6">
                                                 <div class="form-check form-radio-warning mb-3">
                                                     <input class="form-check-input" type="radio" name="role"
                                                         id="level_2" value="2" checked>
                                                     <label class="form-check-label" for="level_2">
-                                                        Admin
+                                                        {{__('admin')}}
                                                     </label>
                                                 </div>
                                             </div><?php } ?>
@@ -80,7 +80,7 @@
                                                 <input class="form-check-input" type="radio" name="role"
                                                     id="level_3" value="3">
                                                 <label class="form-check-label" for="level_3">
-                                                    Editor
+                                                    {{__('editor')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -88,9 +88,9 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                
+
                                 <div class="mb-3">
-                                        <label><span class="custom-val-color">*</span> DATE OF BIRTH</label>
+                                        <label><span class="custom-val-color">*</span> {{__('date of birth')}}</label>
                                         <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                             <div style="width: 100%">
                                                     <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
@@ -102,32 +102,32 @@
                                             </div>
                                         </div><!-- input-group -->
                                     </div>
-                                    
+
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> USERNAME</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{__('username')}}</label>
                                         <input type="text" class="form-control"  pattern="^\S+$" name="user_name" minlength="5" maxlength="50" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> PASSWORD</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{__('password')}}</label>
                                         <div>
                                             <input type="password" id="pass2" class="form-control" name="password" minlength="5" maxlength="50" required />
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> CONFIRM PASSWORD</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{__('confirm password')}}</label>
                                         <div>
                                             <input type="password" class="form-control" minlength="5" maxlength="50" required data-parsley-equalto="#pass2" />
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" checked>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0">
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -149,9 +149,9 @@
                 <div class="col-md-6"></div>
             </div>
             <div class="button-group">
-                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</a>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
@@ -211,7 +211,7 @@
             $("#backbtn").click(() => {
                 history.back();
             })
-            
+
             // validate
             $(".reset-btn").click(function(){
                 // $( ".parsley-errors-list.filled" ).hide();

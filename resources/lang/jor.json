@@ -184,5 +184,15 @@
     "started":"",
     "finished":"",
     "canceled":"",
-    "total":""
+    "total":"",
+    "client type":"",
+    "ownerhip type":"",
+    "Trips Report By Client":"",
+    "Trips Report By Bus":"",
+    "Trips Report By Trip Type":"",
+    "Trips Report By Driver":"",
+    "Trips Report By Bus Size":"",
+    "Trips Report By Client Type":"",
+    "Trips Report By Contract Type":"",
+    "Trips Report By Ownership Type":""
 }

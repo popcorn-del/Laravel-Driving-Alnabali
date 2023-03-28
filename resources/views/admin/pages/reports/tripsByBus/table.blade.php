@@ -1,14 +1,13 @@
 <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable .table-fixed">
     <thead>
          <tr bgcolor="#E5E4E2">
-            <th >BUS</th>
-            <th >PENDING</th>
-            <th>ACCEPTED</th>
-            <th>STARTED</th>
-            <th>FINISHIED</th>
-            <th>CANCELED</th>
-            <th>TOTAL</th>
-                                                                 
+            <th>{{__("bus")}}</th>
+            <th>{{__("pending")}}</th>
+            <th>{{__("accepted")}}</th>
+            <th>{{__("started")}}</th>
+            <th>{{__("finished")}}</th>
+            <th>{{__("canceled")}}</th>
+            <th>{{__("total")}}</th>
         </tr>
     </thead>
     <tbody>

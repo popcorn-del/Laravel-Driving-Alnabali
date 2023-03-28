@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Trips Report By Ownership Type @endsection
-@section('page-title') Trips Report By Ownership Type @endsection
+@section('page-title') {{__('Trips Report By Ownership Type')}} @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
 <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
                         <div class="table-filter">
                             <div class = "row mb-5">
                                 <div class = "col-md-2">
-                                    <label for="" style="float: left">OWNERSHIP TYPE</label>
+                                    <label for="" style="float: left">{{__('ownership type')}}</label>
                                     <select class="form-select" name="client_filter" id="owner_filter">
                                         <option value="">All Ownership Types</option>
                                         <option value="Owned">Owned</option>

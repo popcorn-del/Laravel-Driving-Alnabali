@@ -17,24 +17,24 @@
                                 <div class="col-md-7">
                                     <div class="row">
                                         <div class = "mb-3">
-                                            <span class = "font-size-16" id="cityTitle"> ADD BUS MODEL</span>
+                                            <span class = "font-size-16 text-uppercase" id="cityTitle">{{__('add bus model')}}</span>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> MODEL (EN)</label>
+                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('model (en)')}}</label>
                                                 <input type="text" class="form-control" id = "busModelEn" minlength="1" maxlength="100" name="model_en" required>
                                                 <input type="hidden" name="id">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> MODEL (AR)</label>
+                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('model (ar)')}}</label>
                                                 <input type="text" class="form-control" name="model_ar" id = "busModelAr" minlength="1" maxlength="100" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> TYPE</label>
+                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('type')}}</label>
                                                 <select class="form-select select-category" id = "busModelType" name="bus_type" required>
                                                     <option value="">Select Type</option>
                                                     @foreach($bus_type as $row)
@@ -46,14 +46,14 @@
                                         <div class="col-md-6">
 
                                             <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> STATUS</label>
+                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('status')}}</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-check form-radio-warning mb-3">
                                                             <input class="form-check-input" type="radio" name="status"
                                                                 id="status_1" value="1" checked>
                                                             <label class="form-check-label" for="status_1">
-                                                                Active
+                                                                {{__('active')}}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -62,7 +62,7 @@
                                                             <input class="form-check-input" type="radio" name="status"
                                                                 id="status_2" value="0">
                                                             <label class="form-check-label" for="status_2">
-                                                                Inactive
+                                                                {{__('inactive')}}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -73,9 +73,9 @@
                                 </div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-3" style = "display: flex; align-items: flex-end;">
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">Cancel</button>
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">Reset</button>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">Save</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">{{__('cancel')}}</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">{{__('reset')}}</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">{{__('save')}}</button>
                                 </div>
                             </div>
                         </form>

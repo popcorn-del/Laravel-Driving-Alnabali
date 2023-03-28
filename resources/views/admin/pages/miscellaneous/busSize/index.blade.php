@@ -21,21 +21,21 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> SIZE</label>
+                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('size')}}</label>
                                                 <input type="number" class="form-control" name="bus_size" id = "busSize" maxlength="3" min="1" required>
                                                 <input type="hidden" name="id">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> STATUS</label>
+                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('status')}}</label>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-check form-radio-warning mb-3">
                                                             <input class="form-check-input" type="radio" name="status"
                                                                 id="status_1" value="1" checked>
                                                             <label class="form-check-label" for="status_1">
-                                                                Active
+                                                                {{__('active')}}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -44,7 +44,7 @@
                                                             <input class="form-check-input" type="radio" name="status"
                                                                 id="status_2" value="0">
                                                             <label class="form-check-label" for="status_2">
-                                                                Inactive
+                                                                {{__('inactive')}}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -55,9 +55,9 @@
                                 </div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-3" style = "display: flex; align-items: flex-end;">
-                                <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">Cancel</button>
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">Reset</button>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">Save</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">{{__('cancel')}}</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">{{__('reset')}}</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">{{__('save')}}</button>
                                 </div>
                             </div>
                         </form>

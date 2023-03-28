@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Trips Report By Bus Size @endsection
-@section('page-title') Trips Report By Bus Size @endsection
+@section('page-title') {{__('Trips Report By Bus Size')}} @endsection
 @section('css')
 <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
 <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
                         <div class="table-filter">
                             <div class = "row mb-5">
                                 <div class = "col-md-2">
-                                    <label for="" style="float: left">BUS SIZE</label>
+                                    <label for="" style="float: left">{{__('bus size')}}</label>
                                     <select class="form-select" id="bus_filter" name="bus_filter">
                                         <option value="">All Bus Sizes</option>
                                             @foreach($bussize_data as $key=>$row)
