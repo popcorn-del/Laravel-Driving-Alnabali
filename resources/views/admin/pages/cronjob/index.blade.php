@@ -19,7 +19,7 @@
                             @endif
                             <form action="{{route('cronjob.start')}}" method="post">
                                 @csrf
-                                <button class="btn btn-success">Run Cronjob</button>
+                                <button class="btn btn-success">{{__('Run Cronjob')}}</button>
                             </form>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Add Driver @endsection
-@section('page-title') Add Driver @endsection
+@section('page-title') {{__('add driver')}}@endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -21,7 +21,11 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-12">
-                                    <div style="text-align: center">PROFILE IMAGE</div>
+                                    <div style="text-align: center">
+                                        <label>
+                                            {{__('profile image')}}
+                                        </label>
+                                    </div>
                                     <div class="picture-container" style="margin-bottom: 30px">
                                         <div class="picture">
                                             <img src="{{ asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -37,7 +41,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME </label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name')}} </label>
                                     <input type="text" class="form-control" name="name_en" minlength="1" maxlength="100" required>
                                 </div>
                                 <!-- <div class="mb-3">
@@ -45,36 +49,36 @@
                                     <input type="email" class="form-control" name="user_email" minlength="1" maxlength="100" required>
                                 </div> -->
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> PHONE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div >
                                             <span class="input-group-text">+ 962</span>
                                         </div>
-                                        <div style="width: 100%"> 
+                                        <div style="width: 100%">
                                             <input data-parsley-type="number" type="text" class="form-control" name="phone" id="phone_inp" required>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">ADDRESS</label>
+                                    <label class="form-label">{{__('address')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="5" maxlength="250" name="address"></textarea>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> LICENSE NUMBER</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('license number')}}</label>
                                     <input type="number" minlength="5" maxlength="15" class="form-control" name="license_number" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" checked>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -83,7 +87,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0">
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -92,7 +96,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> DATE OF BIRTH</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('date of birth')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
@@ -105,23 +109,23 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> USERNAME</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('username')}}</label>
                                     <input type="text" minlength="5" maxlength="50" class="form-control" pattern="^\S+$" name="user_name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> PASSWORD</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('password')}}</label>
                                     <div>
                                         <input type="password" minlength="5" maxlength="50" id="pass2" class="form-control" name="password" required />
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> CONFIRM PASSWORD</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('confirm password')}}</label>
                                     <div>
                                         <input type="password" minlength="5" maxlength="50" class="form-control" required data-parsley-equalto="#pass2" />
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> LICENSE EXPIRY DATE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('license expiry date')}}</label>
                                     <div class="input-group" id="datepicker2" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
                                             <input type="text" class="form-control" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" placeholder="dd/mm/yyyy" id="enddate"
@@ -143,9 +147,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</a>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
@@ -202,7 +206,7 @@
             $("#startdate-div").children("ul").removeClass("filled");
             $("#startdate-div").children("input").removeClass( "parsley-error" );
         });
-        
+
         //  setEnd date
         $( "#enddate" ).on( "change", function() {
             $("#enddate-div").children("ul").removeClass("filled");
@@ -225,7 +229,7 @@
                 // $( ".parsley-errors-list.filled" ).show();
             });
             // end validate
-        
+
         bootstrapValidate(
             '#phone_inp',
             'max:9:Don\'t Enter more than 9 Characters'
@@ -234,6 +238,6 @@
             '#phone_inp',
             'min:8:Enter at least 8 Characters'
         );
-        
+
     </script>
 @endsection

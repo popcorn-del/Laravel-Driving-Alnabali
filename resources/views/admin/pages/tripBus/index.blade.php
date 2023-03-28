@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('title') List of Trips' Buses @endsection
-@section('page-title') List of Trips' Buses @endsection
 @section('page-title') {{__("list of trip's buses")}} @endsection
 
 @section('css')

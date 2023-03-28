@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Add Trip @endsection
-@section('page-title') Add Trip @endsection
+@section('page-title') {{__('add trip')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -17,11 +17,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME (EN)</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name (en)')}}</label>
                                     <input type="text" class="form-control" minlength="1" maxlength="100" name="name_en" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> CLIENT</label>
+                                    <label><span class="custom-val-color">*</span> {{__('client')}}</label>
                                     <select class="form-select" name="client" id="client" required>
                                         <option value="">Select Client</option>
                                         @foreach($client as $row)
@@ -30,27 +30,27 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">DETAILS</label>
+                                    <label class="form-label">{{__('details')}}</label>
                                     <div>
                                         <textarea class="form-control" maxlength="250" rows="5" name="details"></textarea>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME (AR)</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name (ar)')}}</label>
                                     <input type="text" class="form-control" name="name_ar" minlength="1" maxlength="100" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP TYPE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('trip type')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_1" checked value = "1" >
                                                 <label class="form-check-label" for="trip_type_1">
-                                                    Periodic
+                                                    {{__('periodic')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -59,40 +59,41 @@
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_2" value = "0" >
                                                 <label class="form-check-label" for="trip_type_2">
-                                                    Non-Periodic
+                                                    {{__('non-periodic')}}
                                                 </label>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class = "mb-3" id="freqdiv">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP FREQUANCY  
-                                    <span class = "font-size-10 mb-1" >[ONLY FOR PERIODIC TRIP]</span></label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>
+                                        {{__('trip frequancy')}}
+                                    <span class = "font-size-10 mb-1 text-uppercase" >[{{__('only for periodic trip')}}]</span></label>
                                     <div class = "row border rounded border-secondary" id="daysofweek">
-                                        <div class = "trip-frequency-check">
-                                            CHOOSE ONE OR MORE
+                                        <div class = "trip-frequency-check text-uppercase">
+                                            {{__('choose one or more')}}
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_1" name="trip_frequancy[]"
                                                     value = "1">
                                                 <label class="form-check-label" for="trip_frequancy_1">
-                                                    Sunday
+                                                    {{__('sunday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_2" name="trip_frequancy[]"
                                                      value = "2" >
                                                 <label class="form-check-label" for="trip_frequancy_2">
-                                                    Monday
+                                                    {{__('monday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_3" name="trip_frequancy[]"
                                                     value = "3">
                                                 <label class="form-check-label" for="trip_frequancy_3">
-                                                    Tuesday
+                                                    {{__('tuesday')}}
                                                 </label>
                                             </div>
 
@@ -102,21 +103,21 @@
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_4" name="trip_frequancy[]"
                                                     value = "4">
                                                 <label class="form-check-label" for="trip_frequancy_4">
-                                                    Wenesday
+                                                    {{__('wednesday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_5" name="trip_frequancy[]"
                                                     value = "5">
                                                 <label class="form-check-label" for="trip_frequancy_5">
-                                                    Thursday
+                                                    {{__('thursday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_6" name="trip_frequancy[]"
                                                     value = "6">
                                                 <label class="form-check-label" for="trip_frequancy_6">
-                                                    Friday
+                                                    {{__('friday')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -125,15 +126,15 @@
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_7" name="trip_frequancy[]"
                                                     value = "7">
                                                 <label class="form-check-label" for="trip_frequancy_7">
-                                                    Saturday
+                                                    {{__('saturday')}}
                                                 </label>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <input type="checkbox" value="" id="validateBox" style="display: none" required>
-                                        
+
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -141,7 +142,7 @@
                         <div class = "row">
                             <div class = "col-md-6">
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DATE OF FIRST TRIP</label>
+                                    <label><span class="custom-val-color">*</span> {{__('date of first trip')}}</label>
                                     <div class="input-group date" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
@@ -154,7 +155,7 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class = "mb-3">
-                                    <label><span class="custom-val-color">*</span> ORIGIN</label>
+                                    <label><span class="custom-val-color">*</span> {{__('origin')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" name="origin_city" required>
@@ -162,18 +163,18 @@
                                                 @foreach($city as $row)
                                                 <option value="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
-                                            </select>  
+                                            </select>
                                         </div>
                                         <div class = "col-md-6">
                                             <select class="form-select" name="origin_area" required>
                                                 <option value="">Select Area</option>
-                                               
-                                            </select> 
+
+                                            </select>
                                         </div>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class = "mb-3">
-                                    <label for=""><span class = "custom-val-color">*</span> DEPARTURE TIME</label>
+                                    <label for=""><span class = "custom-val-color">*</span>{{__('departure time')}}</label>
                                     <div class="input-group" id="timepicker-input-group1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="starttime-div">
                                             <input id="starttime" type="text" class="form-control" data-provide="timepicker" name = "departure_time" required>
@@ -185,14 +186,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value = "1" checked>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -201,7 +202,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value = "0">
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -233,7 +234,7 @@
                             </div>
                             <div class = "col-md-6">
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DATE OF LAST TRIP</label>
+                                    <label><span class="custom-val-color">*</span> {{__('date of last trip')}}</label>
                                     <div class="input-group date" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="enddate"
@@ -246,7 +247,7 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class = "mb-3">
-                                    <label><span class="custom-val-color">*</span> DESTINATION</label>
+                                    <label><span class="custom-val-color">*</span> {{__('destination')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" name="destination_city" required>
@@ -254,18 +255,18 @@
                                                 @foreach($city as $row)
                                                 <option value="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
-                                            </select>  
+                                            </select>
                                         </div>
                                         <div class = "col-md-6">
                                             <select class="form-select" name="destination_area" required>
                                                 <option value="">Select Area</option>
-                                               
-                                            </select> 
+
+                                            </select>
                                         </div>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class = "mb-3">
-                                    <label for=""><span class = "custom-val-color">*</span> ARRIVAL TIME</label>
+                                    <label for=""><span class = "custom-val-color">*</span> {{__('arrival time')}}</label>
                                     <div class="input-group" id="timepicker-input-group1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="endtime-div">
                                             <input id="endtime" type="text" class="form-control" data-provide="timepicker" name = "arrival_time" required>
@@ -275,20 +276,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
-                    </div>                  
-                    
+                    </div>
+
                 </div>
                 <!-- <div class="col-md-5">
                     <img src="{{ URL::asset ('/images/admin/bus.png') }}" alt="" width="100%">
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnback">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnback">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
@@ -305,7 +306,7 @@
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/trip/index.js') }}"></script>
     <script>
-        
+
         $("#btnback").on('click', function() {
             history.back();
         })
@@ -318,11 +319,11 @@
             else {
                 let $allCheckCount = jQuery('#daysofweek').find('input[type="checkbox"]:checked').not('#validateBox').length
                 if($allCheckCount == 0) { jQuery('#validateBox').prop('checked', false); } else { jQuery('#validateBox').prop('checked', true); }
-            } 
+            }
         }
 
-        $('div#daysofweek input[type="checkbox"]').on("change",updateStatus); 
-        
+        $('div#daysofweek input[type="checkbox"]').on("change",updateStatus);
+
         $(document).ready(function(){
 
             var starttime = $('#starttime').timepicker({
@@ -383,7 +384,7 @@
 
             $('#custom-form').submit(function(e){
                 // $( ".parsley-errors-list.filled" ).show();
-                
+
             });
             // display days of week
             $("#trip_type_2").on("change", function (e) {
@@ -425,9 +426,9 @@
             list_url = "{{route('admin.trip.index')}}";
             origin_area = $("select[name='origin_area']");
             destination_area = $("select[name='destination_area']");
-            
-            // display area when click origin_city 
-            $("select[name='origin_city']").on("change", function (e) { 
+
+            // display area when click origin_city
+            $("select[name='origin_city']").on("change", function (e) {
                 var id = $(e.currentTarget).val();
                 if (id == "") {
                     origin_area.empty();
@@ -435,8 +436,8 @@
                 }
                 selectFunction(origin_area, id)
             })
-            // display area when click destination_area 
-            $("select[name='destination_city']").on("change", function (e) { 
+            // display area when click destination_area
+            $("select[name='destination_city']").on("change", function (e) {
                 var id = $(e.currentTarget).val();
                 if (id == "") {
                     destination_area.empty();

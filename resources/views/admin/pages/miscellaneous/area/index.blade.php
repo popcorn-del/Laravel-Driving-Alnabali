@@ -19,11 +19,11 @@
                                     <div class = "col-md-12">
                                         <div class="row">
                                             <div class = "mb-3">
-                                                <span class = "font-size-16" id="cityTitle">ADD AREA</span>
+                                                <span class = "font-size-16 text-uppercase" id="cityTitle">{{__('add area')}}</span>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> NAME (EN)</label>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('name (en)')}}</label>
                                                     <input type="text" minlength="1" maxlength="100" class="form-control" name="name_en" id = "areaNameEn" required>
                                                     <input type="hidden" name="id">
                                                 </div>
@@ -32,13 +32,13 @@
                                             <!-- <span class="custom-val-color">*</span>  -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> NAME (AR)</label>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span>{{__('name (ar)')}}</label>
                                                     <input type="text" class="form-control" minlength="1" maxlength="100" name="name_ar" id = "areaNameAr" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> CITY</label>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('city')}}</label>
                                                     <select class="form-select select-category" id = "areacity" name="city" required>
                                                         <option value="">Select City</option>
                                                         @foreach($city as $row)
@@ -56,14 +56,14 @@
                                             </div>
                                             <div class = "col-md-2">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> LATITUDE</label>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('latitude')}}</label>
                                                     <input type="text" class="form-control" pattern="^\d{1,3}(?:\.\d{1,6})?$" name="latitude" id="latitude" required>
                                                 </div>
                                             </div>
 
                                             <div class = "col-md-2">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> LONGITUDE</label>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('longitude')}}</label>
                                                     <input type="text" class="form-control" name="longitude" pattern="^\d{1,3}(?:\.\d{1,6})?$" id="longitude" required>
                                                 </div>
                                             </div>
@@ -73,14 +73,14 @@
                                         <div class = "row">
                                             <div class = "col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> STATUS</label>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('status')}}</label>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-check form-radio-warning mb-3">
                                                                 <input class="form-check-input" type="radio" name="status"
                                                                     id="status_1" value="1" checked>
                                                                 <label class="form-check-label" for="status_1">
-                                                                    Active
+                                                                    {{__('active')}}
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -89,7 +89,7 @@
                                                                 <input class="form-check-input" type="radio" name="status"
                                                                     id="status_2" value="0">
                                                                 <label class="form-check-label" for="status_2">
-                                                                    Inactive
+                                                                    {{__('inactive')}}
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -100,9 +100,9 @@
                                     </div>
                                 </div>
                                 <div style = "display: flex; align-items: flex-end;position: absolute;bottom: 30px;">
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">Cancel</button>
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">Reset</button>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">Save</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">{{__('cancel')}}</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">{{__('reset')}}</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">{{__('save')}}</button>
                                 </div>
                             </div>
                         </form>
