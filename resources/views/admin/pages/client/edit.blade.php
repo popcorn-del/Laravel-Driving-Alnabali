@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Edit Client @endsection
-@section('page-title') EDIT CLIENT @endsection
+@section('page-title') {{__('edit client')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -23,7 +23,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-12">
-                                    <div style="text-align: center">LOGO</div>
+                                    <div style="text-align: center">{{__('logo')}}</div>
                                     <div class="picture-container" style="margin-bottom: 30px">
                                         <div class="picture">
                                             <img src="{{$client->client_avatar == '' ? 'http://167.86.102.230/Alnabali/public/images/admin/client_default.png' : 'http://167.86.102.230/Alnabali/public/uploads/image/' . $client->client_avatar }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -39,11 +39,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME (EN)</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name (en)')}}</label>
                                     <input type="text" class="form-control" name="name_en" maxlength="100" value="{{$client->name_en}}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TYPE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('type')}}</label>
                                     <div class="row">
                                         @foreach($client_type as $key=>$row)
                                         <div class="col-md-6">
@@ -61,11 +61,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME (AR)</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name (ar)')}}</label>
                                     <input type="text" class="form-control" name="name_ar" maxlength="100" value="{{$client->name_ar}}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> CONTRACT TYPE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('contract type')}}</label>
                                     <div class="row">
                                         @foreach($contract_type as $key=>$row)
                                         <div class="col-md-6">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="mb-3">
-                            <label class="form-label">ADDRESS</label>
+                            <label class="form-label">{{__('address')}}</label>
                             <div>
                                 <textarea class="form-control" maxlength="250" rows="3" name="address">{{$client->address}}</textarea>
                             </div>
@@ -95,7 +95,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> PHONE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
@@ -104,13 +104,13 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">WEBSITE</label>
+                                    <label class="form-label">{{__('website')}}</label>
                                     <div>
                                         <input type="text" minlength="5" maxlength="70" class="form-control" name="website" value="{{$client->website}}"/>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> CONTRACT START DATE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('contract start date')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
@@ -123,13 +123,13 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> LIAISON NAME</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('liaison name')}}</label>
                                     <div>
                                         <input type="text" class="form-control" minlength="1" maxlength="100" name="name_liaison" value="{{$client->liaison_name}}" required/>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> RECORDE NUMBER</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('record number')}}</label>
                                     <div>
                                         <input type="text" class="form-control" minlength="1" maxlength="100" name="recorde_number" value="{{$client->record_number}}" required/>
                                     </div>
@@ -137,13 +137,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color"></span> EMAIL</label>
+                                    <label class="form-label"><span class="custom-val-color"></span> {{__('email')}}</label>
                                     <div>
                                         <input type="email" class="form-control" minlength="5" maxlength="70" parsley-type="email" name="email" value="{{$client->email}}"/>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">FAX</label>
+                                    <label class="form-label">{{__('fax')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
@@ -154,7 +154,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> CONTRACT END DATE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('contract end date')}}</label>
                                     <div class="input-group" id="datepicker2" style="flex-wrap: nowrap">
                                     <div style="width: 100%" id="enddate-div">
                                         <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="enddate"
@@ -167,7 +167,7 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> LIAISON PHONE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>{{__('liaison phone')}}</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
@@ -176,14 +176,14 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$client->status == 1 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -192,7 +192,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$client->status == 0 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('Inactive')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -207,9 +207,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
@@ -258,7 +258,7 @@
          //  setStart date
          $( "#startdate" ).on( "change", function() {
             $("#enddate").click();
-            var setval = $(this).datepicker('getDate'); 
+            var setval = $(this).datepicker('getDate');
             $('#enddate').datepicker('setStartDate',setval);
 
             $("#startdate-div").children("ul").removeClass("filled");
@@ -268,7 +268,7 @@
         //  setEnd date
         $( "#enddate" ).on( "change", function() {
             $("#startdate").click();
-            var setval = $(this).datepicker('getDate'); 
+            var setval = $(this).datepicker('getDate');
             $('#startdate').datepicker('setEndDate',setval);
 
             $("#enddate-div").children("ul").removeClass("filled");
@@ -294,7 +294,7 @@
            switch(KeyID)
            {
               case 8:
-              break; 
+              break;
               case 46:
               break;
               default:
@@ -306,7 +306,7 @@
            }
         }
 
-        
+
          // validate
         $(".reset-btn").click(function(){
             // $( ".parsley-errors-list.filled" ).hide();

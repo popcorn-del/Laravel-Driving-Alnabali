@@ -33,7 +33,7 @@
                                                 <input class="form-check-input" type="radio" name="fake"
                                                     id="fake_1" value = "1">
                                                 <label class="form-check-label" for="fake_1">
-                                                    Yes
+                                                    {{__('yes')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -42,7 +42,7 @@
                                                 <input class="form-check-input" type="radio" name="fake"
                                                     id="fake_2" value = "0" checked>
                                                 <label class="form-check-label" for="fake_2">
-                                                    No
+                                                    {{__('no')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -58,11 +58,11 @@
                                     </select>
                                 </div>
                                 <div class = "mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP FREQUANCY
-                                    <span class = "font-size-10 mb-1" >[ONLY FOR PERIODIC TRIP]</span></label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>     {{__('trip frequancy')}}
+                                    <span class = "font-size-10 mb-1" >[{{__('only for periodic trip')}}]</span></label>
                                     <div class = "row border rounded border-secondary daysofweek">
                                         <div class = "trip-frequency-check">
-                                            CHOOSE ONE OR MORE
+                                            {{__('choose one or more')}}
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-check form-check-warning">

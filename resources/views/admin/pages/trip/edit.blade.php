@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Edit Trip @endsection
-@section('page-title') Edit Trip @endsection
+@section('page-title') {{__('edit trip')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -19,11 +19,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME (EN)</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>{{__('name (en)')}}</label>
                                     <input type="text" class="form-control" name="name_en" minlength="1" maxlength="100" required value="{{$trip->trip_name_en}}">
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> CLIENT</label>
+                                    <label><span class="custom-val-color">*</span> {{__('client')}}</label>
                                     <select class="form-select" name="client">
                                         <option value="">Select Client</option>
                                         @foreach($client as $row)
@@ -32,7 +32,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Details</label>
+                                    <label class="form-label">{{__('details')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="5" maxlength="250" name="details" value = "{{ $trip->details}}"></textarea>
                                     </div>
@@ -41,18 +41,18 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME (AR)</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name (ar)')}}</label>
                                     <input type="text" class="form-control" minlength="1" maxlength="100" name="name_ar" required value="{{$trip->trip_name_ar}}">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP TYPE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('trip type')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_1"  value = "1" {{$trip->trip_type == 1 ? 'checked' :''}} >
                                                 <label class="form-check-label" for="trip_type_1">
-                                                    Periodic
+                                                    {{__('periodic')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_2" value = "0" {{$trip->trip_type == 0 ? 'checked' :''}} >
                                                 <label class="form-check-label" for="trip_type_2">
-                                                    Non-Periodic
+                                                    {{__('non-periodic')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -69,33 +69,34 @@
                                     </div>
                                 </div>
                                 <div class = "mb-3" id="freqid">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP FREQUANCY
-                                    <span class = "font-size-10 mb-1" >[ONLY FOR PERIODIC TRIP]</span></label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>                                         {{__('trip frequancy')}}
+
+                                    <span class = "font-size-10 mb-1" >[{{__('only for periodic trip')}}]</span></label>
                                     <div class = "row border rounded border-secondary"  id="daysofweek">
                                         <div class = "trip-frequency-check">
-                                            CHOOSE ONE OR MORE
+                                            {{__('choose one or more')}}
                                         </div>
                                         @if ($trip->trip_type == 1)
                                             <div class = "col-md-4">
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor1" name = "trip_frequancy[]"
-                                                        value = "1" {{in_array("1", (json_decode($trip->trip_frequancy))) == true ? "checked" : ""}}>
+                                                        value = "1" {{in_array("1", (json_decode($trip->trip_frequancy)??[])) == true ? "checked" : ""}}>
                                                     <label class="form-check-label" for="formCheckcolor1">
-                                                        Sunday
+                                                        {{__('sunday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor2" name = "trip_frequancy[]"
-                                                        value = "2" {{in_array("2", (json_decode($trip->trip_frequancy))) == true ? "checked" : ""}}>
+                                                        value = "2" {{in_array("2", (json_decode($trip->trip_frequancy)??[])) == true ? "checked" : ""}}>
                                                     <label class="form-check-label" for="formCheckcolor2">
-                                                        Monday
+                                                        {{__('monday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor3" name = "trip_frequancy[]"
-                                                        value = "3" {{in_array("3", (json_decode($trip->trip_frequancy))) == true ? "checked" : ""}}>
+                                                        value = "3" {{in_array("3", (json_decode($trip->trip_frequancy)??[])) == true ? "checked" : ""}}>
                                                     <label class="form-check-label" for="formCheckcolor3">
-                                                        Tuesday
+                                                        {{__('tuesday')}}
                                                     </label>
                                                 </div>
 
@@ -103,32 +104,32 @@
                                             <div class = "col-md-4">
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor4" name = "trip_frequancy[]"
-                                                        value = "4" {{in_array("4", (json_decode($trip->trip_frequancy))) == true ? "checked" : ""}}>
+                                                        value = "4" {{in_array("4", (json_decode($trip->trip_frequancy)??[])) == true ? "checked" : ""}}>
                                                     <label class="form-check-label" for="formCheckcolor4">
-                                                        Wenesday
+                                                        {{__('wednesday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor5" name = "trip_frequancy[]"
-                                                        value = "5" {{in_array("5", (json_decode($trip->trip_frequancy))) == true ? "checked" : ""}}>
+                                                        value = "5" {{in_array("5", (json_decode($trip->trip_frequancy)??[])) == true ? "checked" : ""}}>
                                                     <label class="form-check-label" for="formCheckcolor5">
-                                                        Thursday
+                                                        {{__('thursday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor6" name = "trip_frequancy[]"
-                                                        value = "6" {{in_array("6", (json_decode($trip->trip_frequancy))) == true ? "checked" : ""}}>
+                                                        value = "6" {{in_array("6", (json_decode($trip->trip_frequancy)??[])) == true ? "checked" : ""}}>
                                                     <label class="form-check-label" for="formCheckcolor6">
-                                                        Friday
+                                                        {{__('friday')}}
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class = "col-md-4">
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor7" name = "trip_frequancy[]"
-                                                        value = "7" {{in_array("7", (json_decode($trip->trip_frequancy))) == true ? "checked" : ""}}>
+                                                        value = "7" {{in_array("7", (json_decode($trip->trip_frequancy)??[])) == true ? "checked" : ""}}>
                                                     <label class="form-check-label" for="formCheckcolor7">
-                                                        Saturday
+                                                        {{__('saturday')}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -139,21 +140,21 @@
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor1" name = "trip_frequancy[]"
                                                         value = "1" readonly='true' disabled>
                                                     <label class="form-check-label" for="formCheckcolor1">
-                                                        Sunday
+                                                        {{__('sunday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor2" name = "trip_frequancy[]"
                                                         value = "2"  readonly='true' disabled>
                                                     <label class="form-check-label" for="formCheckcolor2">
-                                                        Monday
+                                                        {{__('monday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor3" name = "trip_frequancy[]"
                                                         value = "3"  readonly='true' disabled>
                                                     <label class="form-check-label" for="formCheckcolor3">
-                                                        Tuesday
+                                                        {{__('tuesday')}}
                                                     </label>
                                                 </div>
 
@@ -163,21 +164,21 @@
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor4" name = "trip_frequancy[]"
                                                         value = "4"  readonly='true' disabled>
                                                     <label class="form-check-label" for="formCheckcolor4">
-                                                        Wenesday
+                                                        {{__('wednesday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor5" name = "trip_frequancy[]"
                                                         value = "5"  readonly='true' disabled>
                                                     <label class="form-check-label" for="formCheckcolor5">
-                                                        Thursday
+                                                        {{__('thursday')}}
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor6" name = "trip_frequancy[]"
                                                         value = "6"  readonly='true' disabled>
                                                     <label class="form-check-label" for="formCheckcolor6">
-                                                        Friday
+                                                        {{__('friday')}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -186,7 +187,7 @@
                                                     <input class="form-check-input" type="checkbox" id="formCheckcolor7" name = "trip_frequancy[]"
                                                         value = "7"  readonly='true' disabled>
                                                     <label class="form-check-label" for="formCheckcolor7">
-                                                        Saturday
+                                                        {{__('saturday')}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -202,7 +203,7 @@
                         <div class = "row">
                             <div class = "col-md-6">
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DATE OF FIRST TRIP</label>
+                                    <label><span class="custom-val-color">*</span> {{__('date of first trip')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
@@ -215,7 +216,7 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class = "mb-3">
-                                    <label><span class="custom-val-color">*</span> ORIGIN</label>
+                                    <label><span class="custom-val-color">*</span> {{__('origin')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" name="origin_city" required>
@@ -236,7 +237,7 @@
                                     </div>
                                 </div>
                                 <div class = "mb-3">
-                                    <label for=""><span class = "custom-val-color">*</span> DEPARTURE TIME</label>
+                                    <label for=""><span class = "custom-val-color">*</span>{{__('departure time')}}</label>
                                     <div class="input-group" id="timepicker-input-group1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="starttime-div">
                                             <input id="starttime" type="text" class="form-control" data-provide="timepicker" name = "departure_time" value = "{{ $trip->departure_time}}" required>
@@ -248,14 +249,14 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value = "1" {{$trip->status == 1 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -264,7 +265,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value = "0" {{$trip->status == 0 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -296,7 +297,7 @@
                             </div>
                             <div class = "col-md-6">
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DATE OF LAST TRIP</label>
+                                    <label><span class="custom-val-color">*</span> {{__('date of last trip')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="enddate"
@@ -309,7 +310,7 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class = "mb-3">
-                                    <label><span class="custom-val-color">*</span> DESTINATION</label>
+                                    <label><span class="custom-val-color">*</span> {{__('destination')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" name="destination_city" required>
@@ -331,7 +332,7 @@
                                     </div>
                                 </div>
                                 <div class = "mb-3">
-                                    <label for=""><span class = "custom-val-color">*</span> ARRIVAL TIME</label>
+                                    <label for=""><span class = "custom-val-color">*</span> {{__('arrival time')}}</label>
                                     <div class="input-group" id="timepicker-input-group1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="endtime-div">
                                             <input id="endtime" type="text" class="form-control" data-provide="timepicker" name = "arrival_time" value = "{{ $trip->arrival_time }}" required>
@@ -353,9 +354,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnback">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>

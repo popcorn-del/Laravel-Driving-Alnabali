@@ -176,6 +176,7 @@
     "end time":"",
     "latitude":"",
     "longitude":"",
+    "super admin":"",
     "admin":"",
     "editor":"",
     "Run Cronjob":"",
@@ -194,5 +195,13 @@
     "Trips Report By Bus Size":"",
     "Trips Report By Client Type":"",
     "Trips Report By Contract Type":"",
-    "Trips Report By Ownership Type":""
+    "Trips Report By Ownership Type":"",
+    "edit client":"",
+    "edit driver":"",
+    "edit bus":"",
+    "edit trip":"",
+    "edit maintenance record":"",
+    "edit user":"",
+    "edit app supervisor":"",
+    "edit trip's bus":""
 }

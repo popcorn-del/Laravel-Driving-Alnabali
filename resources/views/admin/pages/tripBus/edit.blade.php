@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 @section('title') Edit Trip’s Bus @endsection
-@section('page-title') EDIT TRIP’s BUS @endsection
+@section('page-title') {{__("edit trip's bus")}} @endsection
+
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -15,9 +16,9 @@
                 <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-6">
-                                
+
                             <div class="mb-3">
-                                <label><span class="custom-val-color"></span> TRIP NAME </label>
+                                <label><span class="custom-val-color">*</span> {{__('trip name')}}</label>
                                 <select class="form-select" name="trip_name" id="tripname">
                                     <option>Select Trip Name</option>
                                     @foreach($trip as $row)
@@ -26,14 +27,14 @@
                                 </select>
                             </div>
                                 <div class="mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color">*</span> IS FAKE </label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('is fake')}} </label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="fake"
                                                     id="fake_1" value = "1">
                                                 <label class="form-check-label" for="fake_1">
-                                                    Yes
+                                                    {{__('yes')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -42,14 +43,14 @@
                                                 <input class="form-check-input" type="radio" name="fake"
                                                     id="fake_2" value = "0" checked>
                                                 <label class="form-check-label" for="fake_2">
-                                                    No
+                                                    {{__('no')}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> BUS NO. </label>
+                                    <label><span class="custom-val-color">*</span> {{__('bus no.')}} </label>
                                     <select class="form-select" name="bus_no" id="busno" required>
                                         <option value=''>Select Bus NO.</option>
                                         @foreach($bus_no as $row)
@@ -58,32 +59,32 @@
                                     </select>
                                 </div>
                                 <div class = "mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP FREQUANCY  
-                                    <span class = "font-size-10 mb-1" >[ONLY FOR PERIODIC TRIP]</span></label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>     {{__('trip frequancy')}}
+                                    <span class = "font-size-10 mb-1" >[{{__('only for periodic trip')}}]</span></label>
                                     <div class = "row border rounded border-secondary daysofweek">
                                         <div class = "trip-frequency-check">
-                                            CHOOSE ONE OR MORE
+                                            {{__('choose one or more')}}
                                         </div>
                                         <div class = "col-md-4">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_1" name = "trip_frequancy[]"
                                                     value = "1" checked>
                                                 <label class="form-check-label" for="trip_frequancy_1">
-                                                    Sunday
+                                                    {{__('sunday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_2" name = "trip_frequancy[]"
                                                      value = "2" >
                                                 <label class="form-check-label" for="trip_frequancy_2">
-                                                    Monday
+                                                    {{__('monday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_3" name = "trip_frequancy[]"
                                                     value = "3">
                                                 <label class="form-check-label" for="trip_frequancy_3">
-                                                    Tuesday
+                                                    {{__('tuesday')}}
                                                 </label>
                                             </div>
 
@@ -93,21 +94,21 @@
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_4" name = "trip_frequancy[]"
                                                     value = "4">
                                                 <label class="form-check-label" for="trip_frequancy_4">
-                                                    Wenesday
+                                                    {{__('wednesday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_5" name = "trip_frequancy[]"
                                                     value = "5">
                                                 <label class="form-check-label" for="trip_frequancy_5">
-                                                    Thursday
+                                                    {{__('thursday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_6" name = "trip_frequancy[]"
                                                     value = "6">
                                                 <label class="form-check-label" for="trip_frequancy_6">
-                                                    Friday
+                                                    {{__('friday')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -116,22 +117,22 @@
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_7" name = "trip_frequancy[]"
                                                     value = "7">
                                                 <label class="form-check-label" for="trip_frequancy_7">
-                                                    Saturday
+                                                    {{__('saturday')}}
                                                 </label>
-                                            </div>                                            
+                                            </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>{{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value = "1" {{$trip_bus->status == 1 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -140,7 +141,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value = "0" {{$trip_bus->status == 0 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -149,13 +150,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color">*</span> TRIP TYPE </label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('trip type')}} </label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" disabled id="trip_type1" type="radio" checked>
                                                 <label class="form-check-label">
-                                                    Periodic
+                                                    {{__('periodic')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -163,14 +164,14 @@
                                             <div class="form-check form-radio-warning">
                                                 <input class="form-check-input" disabled id="trip_type2" type="radio">
                                                 <label class="form-check-label">
-                                                    Non-Periodic
+                                                    {{__('non-periodic')}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> BUS SIZE </label>
+                                    <label><span class="custom-val-color">*</span>{{__('bus size')}}</label>
                                     <select class="form-select" name="bus_size" id="bussize" required>
                                         <option value=''>Select Bus Size</option>
                                         @foreach($bus_size as $row)
@@ -180,7 +181,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DRIVER NAME </label>
+                                    <label><span class="custom-val-color">*</span>{{__('driver name')}}</label>
                                     <select class="form-select" name="driver_name" id="drivername" required>
                                         <option value=''>Select Driver Name</option>
                                         @foreach($driver as $row)
@@ -188,15 +189,15 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                
-                                
+
+
 
                                 <div class = "mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color">*</span> SUPERVISOR NAME  
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('supervisor name')}}
                                     </label>
                                     <div class = "row border rounded border-secondary daysofweek">
                                         <div class = "trip-frequency-check">
-                                            CHOOSE ONE OR MORE
+                                            {{__('choose one or more')}}
                                         </div>
                                         <div class = "col-md-12">
                                             @foreach($supervisor as $row)
@@ -213,7 +214,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -223,9 +224,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
@@ -244,7 +245,7 @@
 <script>
 
     function isNumeric(str) {
-        if (typeof str != "string") return false // we only process strings!  
+        if (typeof str != "string") return false // we only process strings!
         return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
                 !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
     }
@@ -294,8 +295,8 @@
                                         $('input[id="trip_frequancy_' + element + '"]').prop( "checked", true );
                                     }
                                 }
-                            
-                            
+
+
                                 for (let i = 1; i < 8; i++) {
                                         if($('input[id="trip_frequancy_' + i + '"]').prop("checked") == false) {
                                             $('input[id="trip_frequancy_' + i + '"]').attr("disabled", true);
@@ -319,7 +320,7 @@
                                 // $(".add-new-form").slideToggle(500);
                             }
                         }
-                        
+
                     }
                 });
             }
@@ -361,7 +362,7 @@
             } else {
                 $("select[name='bus_no']").empty();
                 $("select[name='bus_no']").append("<option value=''>Select Bus NO.</option>")
-            }                                                                                 
+            }
         });
 
         $("input[name=fake]").on('change', () => {
@@ -384,7 +385,7 @@
                 // $( ".parsley-errors-list.filled" ).show();
             });
             // end validate
-        
+
     });
 </script>
 
@@ -415,7 +416,7 @@
         messaging.requestPermission().then(function () {
             return messaging.getToken()
         }).then(function(token) {
-            
+
             axios.post("{{ route('send.notification') }}",{
                 _method:"PATCH",
                 token
@@ -453,7 +454,7 @@
     }
 
     initFirebaseMessagingRegistration();
-  
+
     messaging.onMessage(function({data:{body,title}}){
         new Notification(title, {body});
     });

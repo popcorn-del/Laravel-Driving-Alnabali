@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Edit Bus @endsection
-@section('page-title') Edit Bus @endsection
+@section('page-title') {{__('edit bus')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -19,11 +19,11 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> BUS NO.</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
                                     <input type="text" class="form-control" name="bus_no"  value="{{$bus->bus_no}}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> BUS SIZE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('bus size')}}</label>
                                     <select class="form-select" name="bus_size" required>
                                         <option value="">Select Bus Size</option>
                                         @foreach($bus_size as $row)
@@ -32,11 +32,11 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> LICENSE NUMBER</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('license number')}}</label>
                                     <input type="text" class="form-control" name="license_number" minlength="5" maxlength="15" value="{{$bus->license_no}}"  required>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> LICENSE EXPIRY DATE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('license expiry date')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> TYPE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('type')}}</label>
                                     <select class="form-select" name="bus_type" required>
                                         <option value="">Select Type</option>
                                         @foreach($bus_type as $row)
@@ -58,14 +58,14 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> MODEL</label>
+                                    <label><span class="custom-val-color">*</span> {{__('model')}}</label>
                                     <select class="form-select" name="bus_model">
                                         <option value="">Select Model</option>
                                         <option value="{{$bus->bus_model_id}}" selected>{{$bus->model_en}}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> SELECT MODEL YEAR</label>
+                                    <label><span class="custom-val-color">*</span> {{__('model year')}}</label>
                                     <select class="form-select" name="model_year" required>
                                         <option value="">Select Model Year</option>
                                         @foreach($model_year as $row)
@@ -74,14 +74,14 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> OWNERSHIP</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>  {{__('ownership')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="ownership"
                                                     id="owned" value="1" {{$bus->owner_ship == 1 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="owned">
-                                                    Owned
+                                                    {{__('Owned')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -90,21 +90,21 @@
                                                 <input class="form-check-input" type="radio" name="ownership"
                                                     id="rented" value="0" {{$bus->owner_ship == 0 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="rented">
-                                                    Rented
+                                                    {{__('Rented')}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>  {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$bus->status == 1 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -113,7 +113,7 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$bus->status == 0 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -131,9 +131,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
@@ -174,10 +174,10 @@
                 // $( ".parsley-errors-list.filled" ).show();
             });
             // end validate
-            
+
             store = "{{route('admin.bus.update', ['bu' => $bus->id])}}";
             list_url = "{{route('admin.bus.index')}}";
-            $("select[name='bus_type']").on("change", function (e) { 
+            $("select[name='bus_type']").on("change", function (e) {
                 var select_val = $(e.currentTarget).val();
                 show_url = "{{route('admin.bus.show', ['bu' => 1])}}";
                 show_url = show_url.replace(':bu', select_val);
