@@ -162,6 +162,7 @@ Route::post('/android/daily-trip/edit', [App\Http\Controllers\Admin\DailyTripCon
 ////////////////////////////////////////////////////////////
 Route::get('/android/notification/today', [App\Http\Controllers\Admin\NotificationController::class, 'getTodayNotification'])->name('android.notification.today');
 Route::get('/android/notification/all/{id}', [App\Http\Controllers\Admin\NotificationController::class, 'getAllNotification'])->name('android.notification.all');
+Route::post('/android/notification/{id}/mark-read', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('android.notification.all');
 
 ////////////////////////////////////////////////////////////
 /////////////////////* DriverLocation */////////////////////

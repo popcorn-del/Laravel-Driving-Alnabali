@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Edit Driver @endsection
-@section('page-title') Edit Driver @endsection
+@section('page-title') {{__('edit driver')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-12">
-                                <div style="text-align: center">PROFILE IMAGE</div>
+                                <div style="text-align: center">{{__('profile image')}}</div>
                                 <div class="picture-container" style="margin-bottom: 30px">
                                     <div class="picture">
                                         <img src="{{ $driver->profile_image != '' ? asset('/uploads/driver').'/'.($driver->profile_image):asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME </label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name')}} </label>
                                     <input type="text" class="form-control" name="name_en" minlength="1" maxlength="100" value="{{$driver->name_en}}" required>
                                 </div>
                                 <!-- <div class="mb-3">
@@ -43,7 +43,7 @@
                                     <input type="email" class="form-control" name="user_email" minlength="1" maxlength="100" value="{{$driver->user_email}}" required>
                                 </div> -->
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> PHONE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
@@ -54,21 +54,21 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">ADDRESS</label>
+                                    <label class="form-label">{{__('address')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="5" maxlength="250" name="address">{{$driver->address}}</textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span>{{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -77,17 +77,17 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$driver->status == 0 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> DATE OF BIRTH</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('date of birth')}}</label>
                                     <!-- <input type="number" class="form-control" name="age" value="{{$driver->age}}" required> -->
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
@@ -101,16 +101,16 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"> USERNAME</label>
+                                    <label class="form-label"> {{__('username')}}</label>
                                     <input type="text" class="form-control" name="user_name" pattern="^\S+$" minlength="5" maxlength="50" value="{{$driver->user_name}}" readonly>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> LICENSE NUMBER</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('license number')}}</label>
                                     <input type="number" minlength="5" maxlength="15" class="form-control" name="license_number" value="{{$driver->license_number}}" required>
                                 </div>
-                                
+
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> LICENSE EXPIRY DATE</label>
+                                    <label><span class="custom-val-color">*</span> {{__('license expiry date')}}</label>
                                     <div class="input-group" id="datepicker2" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="enddate"
@@ -132,9 +132,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <a href="{{ URL::previous()}}" class="btn btn-outline-primary waves-effect waves-light">Back</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <a href="{{ URL::previous()}}" class="btn btn-outline-primary waves-effect waves-light">{{__('back')}}</a>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>

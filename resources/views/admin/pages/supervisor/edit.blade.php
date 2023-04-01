@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Edit App Supervisor @endsection
-@section('page-title') Edit App Supervisor @endsection
+@section('page-title') {{__('edit app supervisor')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -21,14 +21,14 @@
 
                             <div class="col-12">
                                     <div style="text-align: center;">
-                                        PROFILE IMAGE
+                                        {{__('profile image')}}
                                     </div>
                                     <div class="picture-container" style="margin-bottom: 30px">
                                         <div class="picture">
                                             <img src="{{ isset($supervisor->profile_image) ? asset('/uploads/supervisor').'/'.($supervisor->profile_image):asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
                                             <input type="file" id="wizard-picture" style="display: none;" name="file" class="">
                                         </div>
-                                        
+
                                         <label id="avatar_close">
                                             <img style="width: 25px;border-radius: 50%;position: absolute;top: 57%;left: 53%;" src="{{asset('/images/remove.png')}}" />
                                         </label>
@@ -39,11 +39,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NAME </label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('name')}} </label>
                                     <input minlength="1" maxlength="100" type="text" class="form-control" name="name_en" id="name_en" value="{{$supervisor->name}}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> PHONE</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">ADDRESS</label>
+                                    <label class="form-label">{{__('address')}}</label>
                                     <div>
                                         <textarea class="form-control" maxlength="50" rows="5" name="address" value="{{$supervisor->address}}"></textarea>
                                     </div>
@@ -63,7 +63,7 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span> DATE OF BIRTH</label>
+                                    <label><span class="custom-val-color">*</span> {{__('date of birth')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="birthdate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="birthdate"
@@ -76,20 +76,20 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> USERNAME</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('username')}}</label>
                                     <input type="text" class="form-control" minlength="5" pattern="^\S+$" maxlength="50" name="user_name" readonly value="{{$supervisor->user_name}}" required>
                                 </div>
-                                          
-                                
+
+
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$supervisor->status == 1 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                    {{__('active')}}
                                                 </label>
                                             </div>
                                         </div>
@@ -98,13 +98,13 @@
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$supervisor->status == 0 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                    {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
-                                </div>    
-                                
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -115,9 +115,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>

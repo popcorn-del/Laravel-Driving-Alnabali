@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Edit User @endsection
-@section('page-title') Edit User @endsection
+@section('page-title') {{__('edit user')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
                 <div class="col-md-7">
                     <div class="col-md-12">
                             <div class="row">
-                                <div style="text-align: center;">PROFILE IMAGE</div>
+                                <div style="text-align: center;">{{__('profile image')}}</div>
                                 <div class="picture-container" style="margin-bottom: 30px">
                                     <div class="picture">
                                         <img src="{{$user->avatar == '' ? 'http://167.86.102.230/Alnabali/public/images/admin/user-profile.jpg' : 'http://167.86.102.230/Alnabali/public/uploads/user/' . $user->avatar }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -35,13 +35,13 @@
                         </div>
                         <div class="row">
                                 <div class="col-md-6">
-                                    
+
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> NAME</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{__('name')}}</label>
                                         <input type="text" class="form-control" name="name" minlength="1" maxlength="100" required value="{{ $user->name }}">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> PHONE</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
                                         <div class="input-group" style="flex-wrap: nowrap">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">+ 962</span>
@@ -52,24 +52,24 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">ADDRESS</label>
+                                        <label class="form-label">{{__('address')}}</label>
                                         <div>
                                             <textarea class="form-control" maxlength="250" rows="3" name="address">{{ $user->address }}</textarea>
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                 </div>
                                 <div class="col-md-6">
                                     <!-- <div><br></div>
                                     <div class="picture-container">
                                         <div class="picture">
-                                            
+
                                         </div>
                                     </div>-->
                                     <div class="mb-3">
-                                            <label><span class="custom-val-color">*</span> DATE OF BIRTH</label>
+                                            <label><span class="custom-val-color">*</span>{{__('date of birth')}}</label>
                                             <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                                 <div style="width: 100%">
                                                     <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
@@ -81,9 +81,9 @@
                                                 </div>
                                             </div><!-- input-group -->
                                         </div>
-                                        
+
                                         <div class="mb-3">
-                                            <label class="form-label"><span class="custom-val-color">*</span> USERNAME</label>
+                                            <label class="form-label"><span class="custom-val-color">*</span>{{__('username')}}                                            </label>
                                             <input type="text" class="form-control" name="user_name" minlength="5" maxlength="50"  pattern="^\S+$" readonly required value="{{ $user->user_name }}">
                                         </div>
                                         <!-- <div class="mb-3">
@@ -99,14 +99,14 @@
                                             </div>
                                         </div> -->
                                         <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> STATUS</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span>{{__('status')}}                                        </label>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-check form-radio-warning mb-3">
                                                     <input class="form-check-input" type="radio" name="status"
                                                         id="status_1" value="1" {{ $user->status == 1 ? "checked" : "" }}>
                                                     <label class="form-check-label" for="status_1">
-                                                        Active
+                                                        {{__('active')}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@
                                                     <input class="form-check-input" type="radio" name="status"
                                                         id="status_2" value="0" {{ $user->status == 0 ? "checked" : "" }}>
                                                     <label class="form-check-label" for="status_2">
-                                                        Inactive
+                                                        {{__('inactive')}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -128,7 +128,7 @@
                                                             <input class="form-check-input" type="radio" name="role"
                                                                 id="level_1" value="1" {{ $user->role == 1 ? "checked" : "" }}>
                                                             <label class="form-check-label" for="level_1">
-                                                                Super Admin
+                                                                {{__('super admin')}}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -137,7 +137,7 @@
                                                             <input class="form-check-input" type="radio" name="role"
                                                                 id="level_2" value="2" {{ $user->role == 2 ? "checked" : "" }}>
                                                             <label class="form-check-label" for="level_2">
-                                                                Admin
+                                                                {{__('admin')}}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -146,7 +146,7 @@
                                                             <input class="form-check-input" type="radio" name="role"
                                                                 id="level_3" value="3" {{ $user->role == 3 ? "checked" : "" }}>
                                                             <label class="form-check-label" for="level_3">
-                                                                Editor
+                                                                {{__('editor')}}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -162,9 +162,9 @@
                 <div class="col-md-6"></div>
             </div>
             <div class="button-group">
-                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
             </div>
         </form>
     </div>
