@@ -79,10 +79,10 @@ class TripObserver
 
         $supervisor = json_decode($dailyTripDetail->supervisor);
         for ($i = 0; $i < count($supervisor); $i++) {
-            $message_s = "New pending trip " . $dailyTripDetail->trip_id . " was assigned to " . $dailyTripDetail->dirver_name . ".";
+            $message_s = "New pending trip " . $dailyTripDetail->trip_name . " was assigned to " . $dailyTripDetail->dirver_name . ".";
             app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s);
         }
-        $message_d = "You have new pending trip " . $dailyTripDetail->trip_id . ".";
+        $message_d = "You have new pending trip " . $dailyTripDetail->trip_name . ".";
         app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $dailyTripDetail->driver_id, $message_d);
     }
 
@@ -115,32 +115,32 @@ class TripObserver
 
             if ($dailyTripDetail->status == 2) {
                 $status = "Accepted";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_id . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_id . ".";
+                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
             } else if ($dailyTripDetail->status == 3) {
                 $status = "Rejected";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_id . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_id . ".";
+                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
             } else if ($dailyTripDetail->status == 4) {
                 $status = "Started";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_id . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_id . ".";
+                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
             } else if ($dailyTripDetail->status == 5) {
                 $status = "Canceled";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_id . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_id . ".";
+                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
             } else if ($dailyTripDetail->status == 6) {
                 $status = "Finished";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_id . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_id . ".";
+                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
             } else if ($dailyTripDetail->status == 7) {
                 $status = "Fake";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_id . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_id . ".";
+                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
             } else if ($dailyTripDetail->status == 1) {
                 $status = "Pending";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_id . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_id . ".";
+                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
             }
 
             if ($dailyOldStatus == 2) {
@@ -196,7 +196,7 @@ class TripObserver
             $transaction->bus_id = $tripbus[0]->bus_no;
             $transaction->save();
         }
-        
+
         if ($dailyTripDetail->isDirty('driver_id') || $dailyTripDetail->isDirty('dirver_name')) {
             $originDriver = $dailyTripDetail->getRawOriginal('driver_id');
             $originDriverName = $dailyTripDetail->getRawOriginal('dirver_name');
@@ -227,10 +227,10 @@ class TripObserver
 
             $supervisor = json_decode($dailyTripDetail->supervisor);
             for ($i = 0; $i < count($supervisor); $i++) {
-                $message_s = "The trip " . $dailyTripDetail->trip_id . " was assigned to " . $newDriverName . " from " . $originDriverName . ".";
+                $message_s = "The trip " . $dailyTripDetail->trip_name . " was assigned to " . $newDriverName . " from " . $originDriverName . ".";
                 app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s);
             }
-            $message_d_new = "You have new assigned trip " . $dailyTripDetail->trip_id . ".";
+            $message_d_new = "You have new assigned trip " . $dailyTripDetail->trip_name . ".";
             $message_d_ori = "The trip has been Canceled.";
             app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $newDriver, $message_d_new);
             app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $originDriver, $message_d_ori);
