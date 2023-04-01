@@ -95,7 +95,7 @@ class NotificationController extends Controller
      */
     public function show($id)
     {
-        
+
         $notification = Notification::findOrFail($id);
         if (is_numeric($notification->receiver)) {
             $driver = Driver::where('id', $notification->receiver)->first();
@@ -182,36 +182,25 @@ class NotificationController extends Controller
                 $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
                 $result .= $client->client_avatar;
                 $notification->client_avatar = $result;
-            } 
+            }
         }
 
         return response()->json(['result' => $return_val, 'today' => $today]);
     }
 
-    public function getAllNotification($id) {        
+    public function getAllNotification($id) {
         $return_val = [];
         $today = Carbon::now()->format('m-d-Y');
-
-        $today_year = Carbon::now()->format('y');
-        $today_month = Carbon::now()->format('m');
-        $today_date = Carbon::now()->format('d');
-
         $notifications = Notification::where('receiver', $id)->orderBy('created_at', 'DESC')->get();
         foreach ($notifications as $notification) {
-            $trip_month = $notification->updated_at->format('m');
-            $trip_date = $notification->updated_at->format('d');
-
-            if ($today_month == $trip_month && $today_date == $trip_date) {
-                array_push($return_val, $notification);
-
-                $client = Client::findOrFail($notification->client_name);
-                $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
-                $result .= $client->client_avatar;
-                $notification->client_avatar = $result;
-            } 
+            $client = Client::findOrFail($notification->client_name);
+            $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+            $result .= $client->client_avatar;
+            $notification->client_avatar = $result;
+            $notification->viewed=$notification->read_at?true:false;
         }
 
-        return response()->json(['result' => $return_val, 'today' => $today]);
+        return response()->json(['result' => $notifications, 'today' => $today]);
 
         // $notifications = Notification::all();
         // foreach ($notifications as $notification) {
@@ -222,6 +211,13 @@ class NotificationController extends Controller
         // }
 
         // return response()->json(['result' => $notifications]);
+    }
+
+    public function markAsRead($id){
+        $notification=Notification::findOrFail($id);
+        $notification->read_at=now();
+        $notification->save();
+        return response()->json(['success'=>true,'message'=>'notification marked as read']);
     }
 
     public static function saveDriverNotification($dailyTripDetail, $driver_id, $message) {
@@ -268,34 +264,34 @@ class NotificationController extends Controller
     public function sendNotification(Request $request)
     {
         $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
-            
+
         $SERVER_API_KEY = env('FCM_SERVER_KEY');
-    
+
         $data = [
             "registration_ids" => $firebaseToken,
             "notification" => [
                 "title" => $request->title,
-                "body" => $request->body,  
+                "body" => $request->body,
             ]
         ];
         $dataString = json_encode($data);
-      
+
         $headers = [
             'Authorization: key=' . $SERVER_API_KEY,
             'Content-Type: application/json',
         ];
-      
+
         $ch = curl_init();
-        
+
         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-                 
+
         $response = curl_exec($ch);
-    
+
         return back()->with('success', 'Notification send successfully.');
     }
 }

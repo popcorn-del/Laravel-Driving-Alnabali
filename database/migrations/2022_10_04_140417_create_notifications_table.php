@@ -24,6 +24,7 @@ class CreateNotificationsTable extends Migration
             $table->date('notification_date')->nullable();
             $table->string('driver_name');
             $table->integer('status');
+            $table->dateTime('read_at')->nullable();
             $table->timestamps();
         });
     }
