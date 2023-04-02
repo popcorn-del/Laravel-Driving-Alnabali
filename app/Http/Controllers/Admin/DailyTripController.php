@@ -385,8 +385,9 @@ class DailyTripController extends Controller
         $return_val = [];
         $return_avatar = [];
         $daily_trip = [];
+        $supervisor=$request->supervisor;
         if ($driver_name == "all") {
-            $daily_trip = DailyTripDetail::whereJsonContains('supervisor',"12")->get();
+            $daily_trip = DailyTripDetail::whereJsonContains('supervisor',"$supervisor")->get();
         } else {
             $driver_name = Driver::where('id', $driver_name)->first()->name_en;
             $daily_trip = DailyTripDetail::where('dirver_name', $driver_name)->get();
