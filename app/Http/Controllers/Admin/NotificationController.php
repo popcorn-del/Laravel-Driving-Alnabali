@@ -191,7 +191,7 @@ class NotificationController extends Controller
     public function getAllNotification($id) {
         $return_val = [];
         $today = Carbon::now()->format('m-d-Y');
-        $notifications = Notification::where('receiver', $id)->orderBy('created_at', 'DESC')->get();
+        $notifications = Notification::where('receiver', $id)->orderBy('created_at', 'DESC')->paginate(20);
         foreach ($notifications as $notification) {
             $client = Client::findOrFail($notification->client_name);
             $result = "http://167.86.102.230/alnabali/public/uploads/image/";
