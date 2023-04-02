@@ -186,8 +186,12 @@ Route::get('/android/bus/all', [App\Http\Controllers\Admin\BusController::class,
 ///////////////////////////* FCM *//////////////////////////
 ////////////////////////////////////////////////////////////
 Route::post('sendNotification', [NotificationController::class, 'sendNotification'])->name('send.notification');
+Route::get('push-notification/driver/{id}',function($id){
+    app('App\Http\Controllers\Admin\DriverController')->sendNotificationToDriver($id, 'testing driver notification');
+    return 'send successfully';
+});
 
-Route::get('push-notification/{id}',function($id){
-    app('App\Http\Controllers\Admin\SuperVisorController')->sendNotificationToSupervisor($id, 'testing notification');
+Route::get('push-notification/supervisor/{id}',function($id){
+    app('App\Http\Controllers\Admin\SuperVisorController')->sendNotificationToSupervisor($id, 'testing supervisor notification');
     return 'send successfully';
 });
