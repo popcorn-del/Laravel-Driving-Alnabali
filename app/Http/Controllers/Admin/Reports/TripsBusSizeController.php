@@ -20,13 +20,13 @@ class TripsBusSizeController extends Controller
     {
         $daily_trip = DailyTripDetail::get();
         $bussize_data = BusSize::get();
-        $status = array_fill(0, 8, 0);
+        $status = array_fill(0, 9, 0);
         $response = array_fill(0, ($bussize_data[count($bussize_data) - 1]->id + 1), $status);
         for ($j=0; $j < count($daily_trip); $j++) {
             $idx = (int)$daily_trip[$j]->f_bus_size_id;
             $response[(int)$idx][(int)$daily_trip[$j]->status]++;
             $response[$idx][0]++;
-            $response[$idx][7] = $bussize_data[$idx-1]->size;
+            $response[$idx][8] = $bussize_data[$idx-1]->size;
         }
         for ($i=0; $i < ($bussize_data[count($bussize_data) - 1]->id + 1); $i++) {
             if ($response[$i][0] == 0) {

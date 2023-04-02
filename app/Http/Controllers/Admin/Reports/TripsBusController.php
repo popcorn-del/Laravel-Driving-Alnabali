@@ -23,7 +23,7 @@ class TripsBusController extends Controller
         $response = DailyTripDetail::get();
         $b = Bus::get();
         $status = array();
-        $status = array_fill(0, 8, 0);
+        $status = array_fill(0, 9, 0);
         $bus = array_fill(0, ($b[count($b) - 1]->id + 1), $status);
 
         for ($j=0; $j < count($response); $j++) {
@@ -31,14 +31,14 @@ class TripsBusController extends Controller
             $bus[$idx][$response[$j]->status]++;
             $bus[$idx][0]++;
         }
-        for ($i=0; $i < ($b[count($b) - 1]->id + 1); $i++) { 
+        for ($i=0; $i < ($b[count($b) - 1]->id + 1); $i++) {
             if ($bus[$i][0] == 0) {
                 unset($bus[$i]);
             }
         }
         foreach ($bus as $key => $value) {
             $cc = Bus::where('id', $key)->get();
-            $bus[$key][7] = $cc[0]->bus_no;
+            $bus[$key][8] = $cc[0]->bus_no;
         }
         $bus_data = Bus::get();
         return view('admin.pages.reports.tripsByBus.index',[

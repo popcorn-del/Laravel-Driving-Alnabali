@@ -18,22 +18,22 @@ class TripsTypeController extends Controller
     {
         $active = DailyTripDetail::where('trip_type', 1)->get();
         $inactive = DailyTripDetail::where('trip_type', 0)->get();
-        $status1 = array_fill(0, 8, 0);
-        $status2 = array_fill(0, 8, 0);
+        $status1 = array_fill(0, 9, 0);
+        $status2 = array_fill(0, 9, 0);
 
         for ($i=0; $i < count($active); $i++) {
             $status1[$active[$i]->status] ++;
             $status1[0] ++;
         }
-        $status1[7] = "NON-PERIODIC";
-        $status2[7] = "PERIODIC";
+        $status1[8] = "NON-PERIODIC";
+        $status2[8] = "PERIODIC";
         for ($i=0; $i < count($inactive); $i++) {
             $status2[$inactive[$i]->status] ++;
             $status2[0] ++;
         }
         return view('admin.pages.reports.tripsByType.index', [
             'tbl' => array($status1, $status2)
-        ]); 
+        ]);
     }
 
     /**

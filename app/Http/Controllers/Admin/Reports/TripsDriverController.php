@@ -20,16 +20,16 @@ class TripsDriverController extends Controller
     {
         $daily_trip = DailyTripDetail::get();
         $driver_data = Driver::get();
-        $status = array_fill(0, 8, 0);
+        $status = array_fill(0, 9, 0);
         $driver = array_fill(0, ($driver_data[count($driver_data) - 1]->id + 1), $status);
 
         for ($j=0; $j < count($daily_trip); $j++) {
             $idx = (int)$daily_trip[$j]->driver_id;
             $driver[(int)$idx][(int)$daily_trip[$j]->status]++;
             $driver[$idx][0]++;
-            $driver[$idx][7] = $this->getDriverName($driver_data, $idx);
+            $driver[$idx][8] = $this->getDriverName($driver_data, $idx);
         }
-        for ($i=0; $i < ($driver_data[count($driver_data) - 1]->id + 1); $i++) { 
+        for ($i=0; $i < ($driver_data[count($driver_data) - 1]->id + 1); $i++) {
             if ($driver[$i][0] == 0) {
                 unset($driver[$i]);
             }

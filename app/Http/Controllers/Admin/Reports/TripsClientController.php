@@ -20,16 +20,15 @@ class TripsClientController extends Controller
         $response = DailyTripDetail::get();
         $c = Client::get();
         $status = array();
-        $status = array_fill(0, 8, 0);
+        $status = array_fill(0, 9, 0);
         $client = array_fill(0, ($c[count($c) - 1]->id + 1), $status);
-
         for ($j=0; $j < count($response); $j++) {
             $idx = (int)$response[$j]->client_name;
             $client[$idx][$response[$j]->status]++;
             $client[$idx][0]++;
         }
 
-        for ($i=0; $i < ($c[count($c) - 1]->id + 1); $i++) { 
+        for ($i=0; $i < ($c[count($c) - 1]->id + 1); $i++) {
             if ($client[$i][0] == 0) {
                 unset($client[$i]);
             }
@@ -37,7 +36,7 @@ class TripsClientController extends Controller
         $client_data = Client::get();
         foreach ($client as $key => $value) {
             $cc = Client::where('id', $key)->get();
-            $client[$key][7] = $cc[0]->name_en;
+            $client[$key][8] = $cc[0]->name_en;
         }
         // return $client;
         return view('admin.pages.reports.tripsByClient.index', [
