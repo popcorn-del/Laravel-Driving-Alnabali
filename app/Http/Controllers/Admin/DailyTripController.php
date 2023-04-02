@@ -386,21 +386,12 @@ class DailyTripController extends Controller
         $return_avatar = [];
         $daily_trip = [];
         if ($driver_name == "all") {
-            $trip_tmps = DailyTripDetail::all();
-            foreach ($trip_tmps as $key => $trip_tmp) {
-                $supervisors = $trip_tmp->supervisor;
-                $supervisors = str_split($supervisors);
-                $flag = in_array($request->supervisor, $supervisors);
-                if ($flag) {
-                    array_push($daily_trip, $trip_tmp);
-                }
-            }
+            $daily_trip = DailyTripDetail::whereJsonContains('supervisor',"12")->get();
         } else {
             $driver_name = Driver::where('id', $driver_name)->first()->name_en;
             $daily_trip = DailyTripDetail::where('dirver_name', $driver_name)->get();
         }
         // if (!$daily_trip) return response()->json(['result' => 'Invalid Driver']);
-
         foreach ($daily_trip as $daily_tripkey) {
 
             $trip_month = $daily_tripkey->created_at->format('m');
