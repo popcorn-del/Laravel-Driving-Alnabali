@@ -214,10 +214,13 @@ class NotificationController extends Controller
     }
 
     public function markAsRead($id){
-        $notification=Notification::findOrFail($id);
-        $notification->read_at=now();
-        $notification->save();
-        return response()->json(['success'=>true,'message'=>'notification marked as read']);
+        $notification=Notification::find($id);
+        if($notification){
+            $notification->read_at=now();
+            $notification->save();
+            return response()->json(['success'=>true,'message'=>'notification marked as read']);
+        }
+        return response()->json(['success'=>false,'message'=>'invalid notification id']);
     }
 
     public static function saveDriverNotification($dailyTripDetail, $driver_id, $message) {
