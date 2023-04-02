@@ -55,7 +55,7 @@ class ClientController extends Controller
     {
         /**
          * check the status validate.
-         */ 
+         */
         $validator = Validator::make($request->all(), [
             'status' => 'required',
             'contract_type_id' => 'required',
@@ -75,10 +75,10 @@ class ClientController extends Controller
         /**
          * if id is not exist, then requst data will create.
          * if id is exist, then request data will update
-         */ 
+         */
         if($request->id){
             $client = Client::findOrFail($request->id);
-        } else {    
+        } else {
             $client = new Client;
         }
         $fileName = "";
@@ -104,7 +104,7 @@ class ClientController extends Controller
 
         $mystartdate = Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d');
         $client->contract_start_date = $mystartdate;
-        
+
         // $client->contract_end_date = $request->end_date;
         $myenddate = Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d');
         $client->contract_end_date = $myenddate;
@@ -113,7 +113,7 @@ class ClientController extends Controller
         $client->liaison_phone = $request->phone_liaison;
         $client->record_number = $request->recorde_number;
         $client->status = $request->status;
-        
+
         $client->save();
         return response()->json(['result' => 'success']);
     }
@@ -194,7 +194,7 @@ class ClientController extends Controller
 
     public function getAvatar($id) {
         $client = Client::findOrFail($id);
-        $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+        $result = "http://167.86.102.230/alnabali/public/uploads/image/";
         $result .= $client->client_avatar;
         return response()->json(['result' => $result]);
     }

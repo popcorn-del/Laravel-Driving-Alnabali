@@ -416,7 +416,7 @@ class DailyTripController extends Controller
                 // $daily_tripkey->destination_city = $this->getCity($daily_tripkey->destination_city);
 
                 $client = Client::findOrFail($daily_tripkey->client_name);
-                $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+                $result = "http://167.86.102.230/alnabali/public/uploads/image/";
                 $result .= $client->client_avatar;
 
                 $daily_tripkey->client_avatar = $result;
@@ -443,7 +443,7 @@ class DailyTripController extends Controller
                 $daily_trips = DailyTripDetail::where('dirver_name', $driver_name)->get();
                 foreach ($daily_trips as $key => $value) {
                     $client = Client::findOrFail($value->client_name);
-                    $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+                    $result = "http://167.86.102.230/alnabali/public/uploads/image/";
                     $result .= $client->client_avatar;
                     $value->client_avatar = $result;
                     $value->client_name = $client->name_en;
@@ -455,7 +455,7 @@ class DailyTripController extends Controller
                 if ($flag) {
 
                     $client = Client::findOrFail($trip->client_name);
-                    $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+                    $result = "http://167.86.102.230/alnabali/public/uploads/image/";
                     $result .= $client->client_avatar;
                     $trip->client_avatar = $result;
                     $trip->client_name = $client->name_en;
@@ -487,7 +487,7 @@ class DailyTripController extends Controller
 
         // $trip->dirver_name = Driver::where("id", $trip->dirver_name)->first()->name_en;
         $client = Client::findOrFail($trip->client_name);
-        $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+        $result = "http://167.86.102.230/alnabali/public/uploads/image/";
         $result .= $client->client_avatar;
         $trip->client_avatar = $result;
         $trip->client_name = $client->name_en;
