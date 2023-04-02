@@ -179,7 +179,7 @@ class NotificationController extends Controller
                 }
 
                 $client = Client::findOrFail($notification->client_name);
-                $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+                $result = "http://167.86.102.230/alnabali/public/uploads/image/";
                 $result .= $client->client_avatar;
                 $notification->client_avatar = $result;
             }
@@ -194,7 +194,7 @@ class NotificationController extends Controller
         $notifications = Notification::where('receiver', $id)->orderBy('created_at', 'DESC')->get();
         foreach ($notifications as $notification) {
             $client = Client::findOrFail($notification->client_name);
-            $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+            $result = "http://167.86.102.230/alnabali/public/uploads/image/";
             $result .= $client->client_avatar;
             $notification->client_avatar = $result;
             $notification->viewed=$notification->read_at?true:false;
@@ -205,7 +205,7 @@ class NotificationController extends Controller
         // $notifications = Notification::all();
         // foreach ($notifications as $notification) {
         //     $client = Client::findOrFail($notification->client_name);
-        //     $result = "http://167.86.102.230/Alnabali/public/uploads/image/";
+        //     $result = "http://167.86.102.230/alnabali/public/uploads/image/";
         //     $result .= $client->client_avatar;
         //     $notification->client_avatar = $result;
         // }

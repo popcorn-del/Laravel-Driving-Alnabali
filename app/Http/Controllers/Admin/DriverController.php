@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Driver;
 use DB, Validator, Exception, Image, URL;
@@ -91,7 +91,7 @@ class DriverController extends Controller
                 $imgx->resize(150, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($path.$fileName);
-                $driver->profile_image = $fileName; 
+                $driver->profile_image = $fileName;
             } else {
                 $driver->profile_image = "";
             }
@@ -183,7 +183,7 @@ class DriverController extends Controller
 
     public function getProfile( $id ) {
         $driver = Driver::findOrFail($id);
-        $result = "http://167.86.102.230/Alnabali/public/uploads/driver/";
+        $result = "http://167.86.102.230/alnabali/public/uploads/driver/";
         $result .= $driver->profile_image;
         $driver->profile_image = $result;
         return response()->json(['driver' => $driver]);
@@ -198,7 +198,7 @@ class DriverController extends Controller
         if ($request->name == "" || $request->birthday == "" || $request->phone == "" || $request->address == "") {
             return response()->json(['result' => 'Invalid input data']);
         }
-        
+
         $driver->name_en = $request->name;
         $driver->age = $request->birthday;
         $driver->phone = $request->phone;
@@ -248,7 +248,7 @@ class DriverController extends Controller
     public function sendNotificationToDriver($id, $messageBody)
     {
         if($id == "" || $id == null) return "null";
-       // get a user to get the fcm_token that already sent.               from mobile apps 
+       // get a user to get the fcm_token that already sent.               from mobile apps
        $driver = Driver::findOrFail($id);
        $serverkey = env('FCM_SERVER_KEY');
 
