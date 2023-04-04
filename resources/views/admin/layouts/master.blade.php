@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) === 'jor' ? 'ar' : 'en' }}" class="translated-rtl">
-
+<html dir="{{ app()->getLocale() === 'jor' ? 'rtl' : 'ltr' }}" lang="{{ str_replace('_', '-', app()->getLocale()) === 'jor' ? 'ar' : 'en' }}" class="translated-rtl">
 <head>
     <meta charset="utf-8" />
     <title> ALNABALI | @yield('title')</title>
@@ -18,6 +17,18 @@
         top: 0px !important;
     }
     </style>
+    @if (app()->getLocale() === 'jor')
+    <style>
+        #page-topbar {
+            left: 0 !important;
+            right: 240px !important;
+        }
+        .main-content {
+            margin-right: 250px !important;
+            margin-left: 0px !important
+        }
+    </style>
+    @endif
     @include('admin.layouts.head-css')
 </head>
 
