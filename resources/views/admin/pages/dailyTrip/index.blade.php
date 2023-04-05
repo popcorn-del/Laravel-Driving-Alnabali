@@ -21,7 +21,9 @@
                                     <select class="form-select" name="client_filter" id="client_filter">
                                         <option value="">{{__('all clients')}}</option>
                                         @foreach($client as $key=>$row)
-                                            <option value="{{$row->name_en}}">{{$row->name_en}}</option>
+                                            <option value="{{$row->name_en}}">
+                                                {{$lang=='jor'?$row->name_ar:$row->name_en}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -30,7 +32,9 @@
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
                                         <option value="">{{__('all cities')}}</option>
                                         @foreach($city as $key=>$row)
-                                            <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
+                                            <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">
+                                                {{$lang=='jor'?$row->city_name_ar:$row->city_name_en}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -48,7 +52,9 @@
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
                                         <option value="">{{__('all cities')}}</option>
                                         @foreach($city as $key=>$row)
-                                            <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
+                                            <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">
+                                                    {{$lang=='jor'?$row->city_name_ar:$row->city_name_en}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -57,7 +63,9 @@
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
                                         <option value="">{{__('all areas')}}</option>
                                         @foreach($area as $key=>$row)
-                                            <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
+                                            <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">
+                                                {{$lang=='jor'?$row->area_name_ar:$row->area_name_en}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -66,7 +74,9 @@
                                     <select class="form-select" name="driver_filter" id="driver_filter">
                                         <option value="">{{__('all drivers')}}</option>
                                         @foreach($driver as $key=>$row)
-                                            <option value="{{$row->name_en}}">{{$row->name_en}}</option>
+                                            <option value="{{$row->name_en}}">
+                                                {{$lang=='jor'?$row->name_ar:$row->name_en}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
