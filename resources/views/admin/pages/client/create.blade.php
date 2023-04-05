@@ -50,7 +50,11 @@
                                                 <input class="form-check-input" type="radio" name="client_type_id"
                                                     id="client_type_{{$key}}" value="{{$row->id}}">
                                                 <label class="form-check-label" for="client_type_{{$key}}">
-                                                    {{$row->type_name_en}}
+                                                    @if (app()->getLocale()=='jor')
+                                                        {{$row->type_name_ar}}
+                                                    @else
+                                                        {{$row->type_name_en}}
+                                                    @endif
                                                 </label>
                                             </div>
                                         </div>
@@ -72,7 +76,11 @@
                                                 <input class="form-check-input" type="radio" name="contract_type_id"
                                                     id="contract_type_{{$key}}" value="{{$row->id}}">
                                                 <label class="form-check-label" for="contract_type_{{$key}}">
-                                                    {{$row->type_name_en}}
+                                                    @if (app()->getLocale()=='jor')
+                                                        {{$row->type_name_ar}}
+                                                    @else
+                                                        {{$row->type_name_en}}
+                                                    @endif
                                                 </label>
                                             </div>
                                         </div>

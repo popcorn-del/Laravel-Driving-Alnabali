@@ -25,7 +25,6 @@
             <td>{{$row->trip_id}}</td>
             <td>{{$row->trip_name}}</td>
             <td>{{$row->client_name}}</td>
-
             <td>{{$row->dirver_name}}</td>
             <td>{{$row->bus_no}}</td>
             <td>{{$row->bus_size_id}}</td>
@@ -38,28 +37,28 @@
             <td>
                 @switch($row->status)
                     @case(1)
-                        <span class="badge badge-pill badge-soft-success font-size-12">Pending</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('pending')}}</span>
                         @break
                     @case(2)
-                        <span class="badge badge-pill badge-soft-success font-size-12">Accepted</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('accepted')}}</span>
                         @break
                     @case(3)
-                        <span class="badge badge-pill badge-soft-success font-size-12">Rejected</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('rejected')}}</span>
                         @break
                     @case(4)
-                        <span class="badge badge-pill badge-soft-success font-size-12">Started</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('started')}}</span>
                         @break
                     @case(5)
-                        <span class="badge badge-pill badge-soft-success font-size-12">Canceled</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('canceled')}}</span>
                         @break
                     @case(6)
-                        <span class="badge badge-pill badge-soft-success font-size-12">Finished</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('finished')}}</span>
                         @break
                     @case(7)
-                        <span class="badge badge-pill badge-soft-success font-size-12">Fake</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('fake')}}</span>
                         @break
                     @default
-                        <span class="badge badge-pill badge-soft-success font-size-12">Pending</span>
+                        <span class="badge badge-pill badge-soft-success font-size-12">{{__('pending')}}</span>
                 @endswitch
             </td>
             <td class="text-center">

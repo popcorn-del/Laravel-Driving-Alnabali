@@ -15,13 +15,15 @@
                 <div class="col-md-7">
                     <div class="row">
                         <div class="col-md-6">
-                            
+
                             <div class="mb-3">
                                 <label>TRIP NAME </label>
                                 <select class="form-select" name="trip_name">
                                     <option>Select Trip Name</option>
                                     @foreach($trip as $row)
-                                    <option value="{{$row->id}}" {{$trip_bus->trip_name == $row->id ? 'selected' :''}}>{{$row->trip_name_en}}</option>
+                                        <option value="{{$row->id}}" {{$trip_bus->trip_name == $row->id ? 'selected' :''}}>
+                                            {{app()->getLocale()=='jor'?$row->trip_name_ar:$row->trip_name_en}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

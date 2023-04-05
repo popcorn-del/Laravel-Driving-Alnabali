@@ -41,6 +41,7 @@ class DailyTripController extends Controller
             $value->client_name = Client::where('id', $value->client_name)->first()->name_en;
         }
         //return Carbon::createFromFormat('Y-m-d', $date)->setTime(00, 00, 00, 000000) + "";
+        $lang=app()->getLocale();
         return view('admin.pages.dailyTrip.index', [
             'daily_trip' => $daily_trip,
             'client' => $client,
@@ -50,6 +51,7 @@ class DailyTripController extends Controller
             'bus_size' => $bus_size,
             'driver' => $driver,
             'trip' => $trip,
+            'lang' => $lang
         ]);
     }
 

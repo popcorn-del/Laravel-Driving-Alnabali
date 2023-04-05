@@ -36,7 +36,7 @@
                                 <tr>
                                     <td>{{$key+1}}</td>
                                     <td>{{$row->trip_id}}</td>
-                                    <td>{{$row->trip_name_en}}</td>
+                                    <td>{{$lang=='jor'?$row->trip_name_ar:$row->trip_name_en}}</td>
                                     <td>{{$row->bus_no}}</td>
                                     <td>{{$row->size}}</td>
                                     <td>{{$row->name_en}}</td>

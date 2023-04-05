@@ -19,7 +19,7 @@
                                 <div class = "col">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('client')}}</div>
                                     <select class="form-select" name="client_filter" id="client_filter">
-                                        <option value="">All Clients</option>
+                                        <option value="">{{__('all clients')}}</option>
                                         @foreach($client as $key=>$row)
                                             <option value="{{$row->name_en}}">{{$row->name_en}}</option>
                                         @endforeach
@@ -28,7 +28,7 @@
                                 <div class = "col">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('origin city')}}</div>
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
-                                        <option value="">All Cities</option>
+                                        <option value="">{{__('all cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
                                         @endforeach
@@ -37,7 +37,7 @@
                                 <div class = "col">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('origin area')}}</div>
                                     <select class="form-select" name="origin_area_filter" id="origin_area_filter">
-                                        <option value="">All Areas</option>
+                                        <option value="">{{__('all areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
                                         @endforeach
@@ -46,7 +46,7 @@
                                 <div class = "col">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('destination city')}}</div>
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
-                                        <option value="">All Cities</option>
+                                        <option value="">{{__('all cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
                                         @endforeach
@@ -55,7 +55,7 @@
                                 <div class = "col">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('destination area')}}</div>
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
-                                        <option value="">All Areas</option>
+                                        <option value="">{{__('all areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
                                         @endforeach
@@ -64,7 +64,7 @@
                                 <div class = "col">
                                 <div style="text-align: left; margin-bottom: 5px">{{__('driver')}}</div>
                                     <select class="form-select" name="driver_filter" id="driver_filter">
-                                        <option value="">All Drivers</option>
+                                        <option value="">{{__('all drivers')}}</option>
                                         @foreach($driver as $key=>$row)
                                             <option value="{{$row->name_en}}">{{$row->name_en}}</option>
                                         @endforeach
@@ -75,7 +75,7 @@
                                 <div class = "col-2">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('bus size')}}</div>
                                     <select class="form-select" name="bus_sizes_filter" id="bus_sizes_filter">
-                                        <option value="">All Bus Sizes</option>
+                                        <option value="">{{__('all bus sizes')}}</option>
                                         @foreach($bus_size as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->size}}">{{$row->size}}</option>
                                         @endforeach
@@ -84,7 +84,7 @@
                                 <div class = "col-2">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('bus')}}</div>
                                     <select class="form-select" name="bus_filter" id="bus_filter">
-                                        <option value="">All Buses</option>
+                                        <option value="">{{__('all buses')}}</option>
                                         @foreach($bus as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->bus_no}}">{{$row->bus_no}}</option>
                                         @endforeach
@@ -93,7 +93,7 @@
                                 <div class = "col-2">
                                     <div style="text-align: left; margin-bottom: 5px">{{__('status')}}</div>
                                     <select class="form-select" name="status_filter" id="status_filter">
-                                        <option value="">All Status</option>
+                                        <option value="">{{__('all status')}}</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Accepted">Accepted</option>
                                         <option value="Rejected">Rejected</option>
