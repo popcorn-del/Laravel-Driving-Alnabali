@@ -19,14 +19,16 @@ class ClientController extends Controller
      */
     public function index()
     {
+        $lang=app()->getLocale();
         $client = Client::leftJoin('client_types', 'clients.client_type_id', '=', 'client_types.id')
                         ->leftJoin('contract_types', 'clients.contract_type_id', '=', 'contract_types.id')
-                        ->select('clients.*', 'client_types.type_name_en as client_type_name_en', 'contract_types.type_name_en as contract_type_name_en')
+                        ->select('clients.*', 'client_types.type_name_en as client_type_name_en','client_types.type_name_ar as client_type_name_ar', 'contract_types.type_name_en as contract_type_name_en','contract_types.type_name_ar as contract_type_name_ar')
                         ->orderBy('clients.id', 'DESC')
                         ->get();
                         // return $client;
         return view('admin.pages.client.index', [
             'client' => $client,
+            'lang' => $lang
         ]);
     }
 

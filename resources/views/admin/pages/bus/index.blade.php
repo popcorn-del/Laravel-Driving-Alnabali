@@ -32,8 +32,8 @@
                                 @foreach($bus as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td>{{$row->type_en}}</td>
-                                    <td>{{$row->model_en}}</td>
+                                    <td>{{$lang=='jor'?$row->type_ar:$row->type_en}}</td>
+                                    <td>{{$lang=='jor'?$row->model_ar:$row->model_en}}</td>
                                     <td>{{$row->model_year}}</td>
                                     <td>{{$row->bus_no}}</td>
                                     <td>{{$row->size}}</td>

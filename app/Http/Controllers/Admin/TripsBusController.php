@@ -26,7 +26,7 @@ class TripsBusController extends Controller
                   ->leftJoin('buses', 'trip_buses.bus_no', '=', 'buses.id')
                   ->leftJoin('bus_sizes', 'trip_buses.bus_size', '=', 'bus_sizes.id')
                   ->leftJoin('drivers', 'trip_buses.driver_name', '=', 'drivers.id')
-                  ->select('trip_buses.*', 'trips.trip_name_en', 'trip_buses.id', 'trips.id as trip_id', 'buses.bus_no','bus_sizes.size','drivers.name_en')->orderBy('trip_buses.id', 'DESC')
+                  ->select('trip_buses.*', 'trips.trip_name_en', 'trips.trip_name_ar', 'trip_buses.id', 'trips.id as trip_id', 'buses.bus_no','bus_sizes.size','drivers.name_en')->orderBy('trip_buses.id', 'DESC')
                   ->get();
         foreach ($trip_bus as $key => $trip_bus_key) {
             $supervisors = json_decode($trip_bus_key->supervisor_name);
@@ -40,9 +40,11 @@ class TripsBusController extends Controller
                 }
             }
         }
+        $lang=app()->getLocale();
         // return $trip_bus;
         return view('admin.pages.tripBus.index', [
             "trip_bus" => $trip_bus,
+            "lang"=>$lang
         ]);
     }
 
@@ -67,13 +69,14 @@ class TripsBusController extends Controller
             }
         }
         // return $drivers;
-
+        $lang=app()->getLocale();
         return view('admin.pages.tripBus.create', [
             'trip' => $trip,
             'bus_size' => $bus_size,
             'bus_no' => $bus_no,
             'driver' => $driver,
             'supervisor' => $supervisor,
+            'lang'=>$lang
         ]);
     }
 

@@ -37,9 +37,9 @@
                                 @foreach($client as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td> <img src="{{$row->client_avatar == '' ? 'http://167.86.102.230/Alnabali/public/images/admin/client_default.png' : 'http://167.86.102.230/Alnabali/public/uploads/image/' . $row->client_avatar }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$row->name_en}}</td>
-                                    <td>{{$row->client_type_name_en}}</td>
-                                    <td>{{$row->contract_type_name_en}}</td>
+                                    <td> <img src="{{$row->client_avatar == '' ? 'http://167.86.102.230/Alnabali/public/images/admin/client_default.png' : 'http://167.86.102.230/Alnabali/public/uploads/image/' . $row->client_avatar }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$lang=='jor'?$row->name_ar:$row->name_en}}</td>
+                                    <td>{{$lang=='jor'?$row->client_type_name_ar:$row->client_type_name_en}}</td>
+                                    <td>{{$lang=='jor'?$row->contract_type_name_ar:$row->contract_type_name_en}}</td>
                                     <td>{{date("d/m/Y", strtotime($row->contract_start_date))}}</td>
                                     <td>{{date("d/m/Y", strtotime($row->contract_end_date))}}</td>
                                     <td class="text-center">

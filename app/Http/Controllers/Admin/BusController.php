@@ -24,10 +24,12 @@ class BusController extends Controller
         $bus = Bus::leftJoin('bus_types', 'buses.bus_type_id', '=', 'bus_types.id')
                   ->leftJoin('bus_models', 'buses.bus_model_id', '=', 'bus_models.id')
                   ->leftJoin('bus_sizes', 'buses.bus_size_id', '=', 'bus_sizes.id')
-                  ->select('buses.*', 'bus_types.type_en', 'bus_models.model_en','bus_sizes.size')
+                  ->select('buses.*', 'bus_types.type_en','bus_types.type_ar', 'bus_models.model_en', 'bus_models.model_ar','bus_sizes.size')
                   ->orderBy('buses.id', 'DESC')->get();
+        $lang=app()->getLocale();
         return view('admin.pages.bus.index', [
             "bus" => $bus,
+            "lang" => $lang
         ]);
     }
 
@@ -42,7 +44,7 @@ class BusController extends Controller
         $bus_type = BusType::where('status', 1)->get();
         $bus_model = BusModel::where('status', 1)->get();
         $model_year = [];
-        for ($i=date('Y'); $i >= 1950 ; $i--) { 
+        for ($i=date('Y'); $i >= 1950 ; $i--) {
             array_push($model_year, $i);
         }
         return view('admin.pages.bus.create', [
@@ -55,7 +57,7 @@ class BusController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -63,11 +65,11 @@ class BusController extends Controller
     {
         $exist_data = Bus::where('bus_no', $request->bus_no)->get();
         if(count($exist_data) > 0){
-            return response()->json(['result' => "exist"]);    
+            return response()->json(['result' => "exist"]);
         } else {
             // if($bus->id){
             //     $bus = Bus::findOrFail($request->id);
-            // } else {    
+            // } else {
             //     $bus = new Bus;
             // }
             $bus = new Bus;
@@ -103,7 +105,7 @@ class BusController extends Controller
         $bus_type = BusType::where('status', 1)->get();
         $bus_model = BusModel::where('status', 1)->get();
         $model_year = [];
-        for ($i=date('Y'); $i >= 1950 ; $i--) { 
+        for ($i=date('Y'); $i >= 1950 ; $i--) {
             array_push($model_year, $i);
         }
         return view('admin.pages.bus.show', [
@@ -129,7 +131,7 @@ class BusController extends Controller
         $bus_type = BusType::where('status', 1)->get();
         $bus_model = BusModel::where('status', 1)->get();
         $model_year = [];
-        for ($i=date('Y'); $i >= 1950 ; $i--) { 
+        for ($i=date('Y'); $i >= 1950 ; $i--) {
             array_push($model_year, $i);
         }
         return view('admin.pages.bus.edit', [
@@ -160,7 +162,7 @@ class BusController extends Controller
             'license_no' => $request->license_number,
 
             'license_expiry_date' => $mydate,
-            
+
             'bus_type_id' => $request->bus_type,
             'bus_model_id' => $request->bus_model,
             'model_year' => $request->model_year,
@@ -168,7 +170,7 @@ class BusController extends Controller
             'owner_ship' => $request->ownership,
         ];
 
-        $bus = Bus::where('id', $id)->update($content);  
+        $bus = Bus::where('id', $id)->update($content);
         return response()->json(['result' => "success"]);
     }
 

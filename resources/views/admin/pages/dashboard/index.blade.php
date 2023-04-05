@@ -118,10 +118,10 @@
                             <h4 class="card-title mb-4">{{__('daily trips')}}</h4>
                             <div class="chart-dropdown">
                                 <select class="form-select" id="chart-select">
-                                    <option selected="">Last 7 Days</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option selected="">{{__('last 7 days')}}</option>
+                                    <option value="1">{{__('one')}}</option>
+                                    <option value="2">{{__('two')}}</option>
+                                    <option value="3">{{__('three')}}</option>
                                 </select>
                             </div>
                         </div>

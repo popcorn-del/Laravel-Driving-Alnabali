@@ -203,5 +203,20 @@
     "edit maintenance record":"تعديل سجل الصيانة",
     "edit user":"تعديل المستخدم",
     "edit app supervisor":"تعديل مشرف التطبيق",
-    "edit trip's bus":"تعديل باص الرحلة"
+    "edit trip's bus":"تعديل باص الرحلة",
+    "one":"",
+    "two":"",
+    "three":"",
+    "last 7 days":"",
+    "select bus no.":"",
+    "select trip name":"",
+    "select bus size":"",
+    "all clients":"",
+    "all cities":"",
+    "all areas":"",
+    "all drivers":"",
+    "all bus sizes":"",
+    "all buses":"",
+    "all status":"",
+    "rejected":""
 }

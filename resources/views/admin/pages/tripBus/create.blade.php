@@ -19,9 +19,11 @@
                                 <div class="mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('trip name')}}</label>
                                     <select class="form-select" name="trip_name" id="tripname" required>
-                                        <option value="">Select Trip Name</option>
+                                        <option value="">{{__('select trip name')}}</option>
                                         @foreach($trip as $row)
-                                        <option value="{{$row->id}}">{{$row->trip_name_en}}</option>
+                                            <option value="{{$row->id}}">
+                                                {{app()->getLocale()=='jor'?$row->trip_name_ar:$row->trip_name_en}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -51,7 +53,7 @@
                                 <div class="mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('bus no.')}} </label>
                                     <select class="form-select" name="bus_no" id="busno" required>
-                                        <option value=''>Select Bus NO.</option>
+                                        <option value="">{{__('select bus no.')}}</option>
                                         @foreach($bus_no as $row)
                                         <option value="{{$row->id}}">{{$row->bus_no}}</option>
                                         @endforeach
@@ -171,7 +173,7 @@
                                 <div class="mb-3">
                                     <label><span class="custom-val-color">*</span>{{__('bus size')}}</label>
                                     <select class="form-select" name="bus_size" id="bussize" required>
-                                        <option value="">Select Bus Size</option>
+                                        <option value="">{{__('select bus size')}}</option>
                                         @foreach($bus_size as $row)
                                         <option value="{{$row->id}}">{{$row->size}}</option>
                                         @endforeach
@@ -180,7 +182,7 @@
                                 <div class="mb-3">
                                     <label><span class="custom-val-color">*</span>{{__('driver name')}}</label>
                                     <select class="form-select" name="driver_name" id="drivername" required>
-                                        <option value="">Select Driver Name</option>
+                                        <option value="">{{__('select driver name')}}</option>
                                         @foreach($driver as $row)
                                         <option value="{{$row->id}}">{{$row->name_en}}</option>
                                         @endforeach
