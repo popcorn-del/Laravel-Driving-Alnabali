@@ -22,9 +22,11 @@ class AreaController extends Controller
         $area = Area::leftJoin('cities',  'areas.city_id', '=', 'cities.id')
                                ->select('areas.*', 'cities.city_name_en')
                   ->orderBy('areas.id', 'DESC')->get();
+        $lang=app()->getLocale();
         return view('admin.pages.miscellaneous.area.index', [
             'city' => $city,
             'area' => $area,
+            'lang' => $lang
         ]);
     }
 
@@ -71,7 +73,7 @@ class AreaController extends Controller
             } else {
                 // create data
                 if(count($exist_data) > 0){
-                    return response()->json(['result' => "faild"]);    
+                    return response()->json(['result' => "faild"]);
                 } else {
                     $area = new Area;
                     $area->area_name_en = $request->name_en;

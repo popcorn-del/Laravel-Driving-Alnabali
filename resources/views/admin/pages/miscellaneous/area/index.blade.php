@@ -40,7 +40,7 @@
                                                 <div class="mb-3">
                                                     <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('city')}}</label>
                                                     <select class="form-select select-category" id = "areacity" name="city" required>
-                                                        <option value="">Select City</option>
+                                                        <option value="">{{__('select city')}}</option>
                                                         @foreach($city as $row)
                                                             <option value="{{$row->id}}">{{$row->city_name_en}}</option>
                                                         @endforeach
@@ -133,8 +133,8 @@
                                 @foreach($area as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td>{{$row->area_name_en}}</td>
-                                    <td>{{$row->city_name_en}}</td>
+                                    <td>{{$lang=='jor'?$row->area_name_ar:$row->area_name_en}}</td>
+                                    <td>{{$lang=='jor'?$row->city_name_ar:$row->city_name_en}}</td>
                                     <td class="text-center">
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">

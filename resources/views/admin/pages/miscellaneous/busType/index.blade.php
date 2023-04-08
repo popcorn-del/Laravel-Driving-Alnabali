@@ -89,7 +89,7 @@
                                 @foreach($bus_type as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td>{{$row->type_en}}</td>
+                                    <td>{{$lang=='jor'?$row->type_ar:$row->type_en}}</td>
                                     <td class="text-center">
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">

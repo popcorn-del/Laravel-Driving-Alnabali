@@ -18,8 +18,10 @@ class BusTypeController extends Controller
     public function index()
     {
         $bus_type = BusType::orderBy('bus_types.id', 'DESC')->get();
+        $lang=app()->getLocale();
         return view('admin.pages.miscellaneous.busType.index', [
             'bus_type' => $bus_type,
+            'lang' => $lang
         ]);
     }
 
@@ -63,7 +65,7 @@ class BusTypeController extends Controller
             } else {
                 // create date
                 if(count($exist_data) > 0){
-                    return response()->json(['result' => "faild"]);    
+                    return response()->json(['result' => "faild"]);
                 } else {
                     $bus_type = new BusType;
                     $bus_type->type_en = $request->name_en;

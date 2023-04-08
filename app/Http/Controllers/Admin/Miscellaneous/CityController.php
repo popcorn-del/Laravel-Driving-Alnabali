@@ -17,9 +17,11 @@ class CityController extends Controller
      */
     public function index()
     {
+        $lang=app()->getLocale();
         $city = City::orderBy('cities.id', 'DESC')->get();
         return view('admin.pages.miscellaneous.city.index', [
             'city' => $city,
+            'lang' => $lang
         ]);
     }
 
@@ -63,7 +65,7 @@ class CityController extends Controller
             } else {
                 // create data
                 if(count($exist_data) > 0){
-                    return response()->json(['result' => "faild"]);    
+                    return response()->json(['result' => "faild"]);
                 } else {
                     $city = new City;
                     $city->city_name_en = $request->name_en;
