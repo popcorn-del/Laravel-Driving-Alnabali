@@ -166,12 +166,20 @@
                     </ul>
                 </li>
                 <?php } ?>
+                <?php if(Auth::user()->role == 1) { ?>
                 <li>
                     <a href="{{route('cronjob')}}" class="waves-effect">
                         <i class="bx bx-list-ul"></i>
                         <span>{{__('cronjob')}}</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('datetime')}}" class="waves-effect">
+                        <i class="bx bx-list-ul"></i>
+                        <span>{{__('datetime')}}</span>
+                    </a>
+                </li>
+                <?php } ?>
             </ul>
         </div>
         <!-- Sidebar -->

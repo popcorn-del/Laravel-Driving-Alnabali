@@ -7,6 +7,8 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -19,8 +21,8 @@
                             <div class="col-md-7">
                                 <div class="mb-3">
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
-                                    <select class="form-select" name="bus_no" required>
-                                        <option value="">Select Bus NO. </option>
+                                    <select class="form-select" name="bus_no" id ="bus_no" required>
+                                        <option value="">{{__('Select Bus No.')}} </option>
                                         @foreach($bus as $row)
                                         <option value="{{$row->id}}" {{$bus_maintenace->bus_no == $row->id ? "selected" : ""}} > {{$row->bus_no}}</option>
                                         @endforeach
@@ -28,8 +30,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('type')}}</label>
-                                    <select class="form-select" name="maintenace_type" required>
-                                        <option value="">Select Type</option>
+                                    <select class="form-select" name="maintenace_type"  id ="maintenace_type" required>
+                                        <option value="">{{__('Select Type')}}</option>
                                         @foreach($bus_maintenace_type as $row)
                                         <option value="{{$row->id}}" {{$bus_maintenace->maintanence_type_id == $row->id ? "selected" : ""}}>{{$row->type_en}}</option>
                                         @endforeach
@@ -47,7 +49,7 @@
                                         <div style="width: 100%" id="date-daily-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="date-daily"
                                                 data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                                data-provide="datepicker" name="date" value="{{date('d/m/Y', strtotime($bus_maintenace->maintanence_date))}}" required>
+                                                data-provide="datepicker" name="date" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($bus_maintenace->maintanence_date))}}" required>
                                         </div>
                                         <div>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -76,9 +78,9 @@
                 <div class="col-md-2"></div>
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('BACK')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('RESET')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('SAVE')}}</button>
             </div>
         </form>
     </div>
@@ -94,9 +96,17 @@
     <script src="{{ URL::asset('/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/busMaintenance/edit.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('#bus_no').select2();
+            $('#maintenace_type').select2();
+        });
         store = "{{route('admin.maintenance.update', ['maintenance' => $bus_maintenace->id])}}";
         list_url = "{{route('admin.maintenance.index')}}";
+        $('#date-daily').datepicker({
+            format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}"
+        });
         $('#date-daily').change(function () {
             $("#date-daily-div").children("ul").removeClass("filled");
             $("#date-daily-div").children("input").removeClass( "parsley-error" );

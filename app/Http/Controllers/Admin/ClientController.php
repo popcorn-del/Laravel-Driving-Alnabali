@@ -74,6 +74,17 @@ class ClientController extends Controller
         if($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()]);
         }
+        
+        $mystartdate = Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d');
+        $myenddate = Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d');
+        
+        $old_client = Client::where('name_en',$request->name_en)
+        ->where('name_ar',$request->name_ar)
+        ->where('contract_start_date',$mystartdate)
+        ->where('contract_end_date', $myenddate)
+        ->get();
+        
+        if(count($old_client) > 0) return response()->json(['result' => 'error']); 
         /**
          * if id is not exist, then requst data will create.
          * if id is exist, then request data will update
@@ -104,11 +115,9 @@ class ClientController extends Controller
         $client->website = $request->website;
         $client->fax = $request->fax;
 
-        $mystartdate = Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d');
         $client->contract_start_date = $mystartdate;
 
         // $client->contract_end_date = $request->end_date;
-        $myenddate = Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d');
         $client->contract_end_date = $myenddate;
 
         $client->liaison_name = $request->name_liaison;
@@ -196,7 +205,7 @@ class ClientController extends Controller
 
     public function getAvatar($id) {
         $client = Client::findOrFail($id);
-        $result = "http://167.86.102.230/alnabali/public/uploads/image/";
+        $result = "http://213.136.71.7/alnabali/public/uploads/image/";
         $result .= $client->client_avatar;
         return response()->json(['result' => $result]);
     }

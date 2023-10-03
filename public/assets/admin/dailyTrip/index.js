@@ -8,7 +8,7 @@ $(document).ready(function(){
             data: {asds: '123123'},
             success: function (res) {
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
+                    toastr["success"]($('#arc_success').val());
                 } 
             },
             error: function (errors){

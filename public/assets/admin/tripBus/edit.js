@@ -16,8 +16,8 @@ $(document).ready(function(){
             data: $(this).serialize(),
             success: function (res) {
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
-                    setInterval(function(){ 
+                    toastr["success"]($('#arc_success').val());
+                    setTimeout(function(){ 
                         location.href = list_url; 
                     }, 2000);
                 }

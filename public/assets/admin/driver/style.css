@@ -45,3 +45,7 @@
     height: 100px;
     object-fit: cover;
 }
+
+.normal-text {
+    text-transform: capitalize !important;
+}

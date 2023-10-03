@@ -16,6 +16,9 @@
     body {
         top: 0px !important;
     }
+    .text-capitalize {
+        text-transform: capitalize;
+    }
     </style>
     @if (app()->getLocale() === 'jor')
     <style>

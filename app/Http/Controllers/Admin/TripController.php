@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\City;
 use App\Models\Trip;
 use App\Models\Area;
+use App\Models\TripBus;
 
 use Carbon\Carbon;
 
@@ -40,8 +41,8 @@ class TripController extends Controller
      */
     public function create()
     {
-        $client = Client::get();
-        $city = City::where('status', 1)->get();
+        $client = Client::where('status', 1)->orderBy('name_en', 'asc')->get();
+        $city = City::where('status', 1)->orderBy('city_name_en', 'asc')->get();
         return view('admin.pages.trip.create', [
             'client' => $client,
             'city' => $city,           
@@ -110,8 +111,10 @@ class TripController extends Controller
         $trip->destination_area = $request->destination_area;
         $trip->departure_time = $request->departure_time;
         $trip->arrival_time = $request->arrival_time;
+        $trip->trip_time = gmdate('H:i',(Carbon::parse($request->arrival_time)->diffInMinutes(Carbon::parse($request->departure_time)))*60);
         $trip->status = $request->status;
         $trip->save();
+        if($request->status == 0) TripBus::setInactive('trip_name',$request->id);
         return response()->json(['result' => "success"]);
     }
 
@@ -152,9 +155,9 @@ class TripController extends Controller
     {
         $trip = Trip::where('id', $id)->first();
         // dd(in_array("5", (json_decode($trip->trip_frequancy))));
-        $client = Client::get();
-        $city = City::where('status', 1)->get();
-        $area = Area::where('status',1)->get();
+        $client = Client::where('status', 1)->orderBy('name_en', 'asc')->get();
+        $city = City::where('status', 1)->orderBy('city_name_en', 'asc')->get();
+        $area = Area::where('status',1)->orderBy('area_name_en', 'asc')->get();
 
         return view('admin.pages.trip.edit', [
             'trip' => $trip,
@@ -174,6 +177,7 @@ class TripController extends Controller
     public function update(Request $request, $id)
     {
         Trip::where('id', $request->id)->update(['status' => toBoolean($request->status)]);
+        if($request->status == 0) TripBus::setInactive('trip_name',$request->id);
         return response()->json(['result' => "success"]);
     }
 
@@ -190,15 +194,16 @@ class TripController extends Controller
     public function status(Request $request)
     {
         Trip::where('id', $request->id)->update(['status' => toBoolean($request->status)]);
+        if($request->status == 0) TripBus::setInactive('trip_name',$request->id);
         return response()->json(['result' => "success"]);
     }
 
     public function getArea($id) {
         if ($id == 'undefined') {
-            $data = Area::where('status', 1)->get();
+            $data = Area::where('status', 1)->orderBy('area_name_en', 'asc')->get();
             return response()->json(['data' => $data]);
         }
-        $data = Area::where('city_id', $id)->where('status', 1)->get();
+        $data = Area::where('city_id', $id)->where('status', 1)->orderBy('area_name_en', 'asc')->get();
         return response()->json(['data' => $data]);
     }
 }

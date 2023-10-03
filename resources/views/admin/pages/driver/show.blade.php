@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') View Driver @endsection
-@section('page-title') View Driver @endsection
+@section('page-title') {{__('View Driver')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
                 <div class="col-md-7">
                     <div class="col-md-12">
                         <div class="row">
-                            <div style="text-align: center">PROFILE IMAGE</div>
+                            <div style="text-align: center">{{__('profile image')}}</div>
                             <div class="picture-container" style="margin-bottom: 30px">
                                 <div class="picture">
                                     <img src="{{ $driver->profile_image != '' ? asset('/uploads/driver').'/'.($driver->profile_image):asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">NAME </label>
+                                    <label class="form-label">{{__('name')}}</label>
                                     <input type="text" class="form-control" name="name_en" value="{{$driver->name_en}}" required>
                                 </div>
                                 <!-- <div class="mb-3">
@@ -35,57 +35,71 @@
                                     <input type="email" class="form-control" name="user_email" minlength="1" maxlength="100" value="{{$driver->user_email}}" required>
                                 </div> -->
                                 <div class="mb-3">
-                                    <label class="form-label">PHONE</label>
+                                    <label class="form-label">{{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" value="{{$driver->phone}}" required>
+                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" value="{{$driver->phone}}" placeholder="7 xxxx xxxx" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">ADDRESS</label>
+                                    <label class="form-label">{{__('address')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="5" name="address">{{$driver->address}}</textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-3">
-                                    <label class="form-label">STATUS</label>
+                                    <label class="form-label">{{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_1">
-                                                    Active
+                                                {{__('active')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
+                                                <label class="form-check-label labelRight" for="status_1">
+                                                {{__('active')}}
+                                                </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$driver->status == 0 ? "checked" : ""}}>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_2" value="0" {{$driver->status == 0 ? "checked" : ""}}>
+                                                @endif
                                                 <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                {{__('inactive')}}
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">DATE OF BIRTH</label>
+                                    <label class="form-label">{{__('date of birth')}}</label>
                                     <!-- <input type="number" class="form-control" name="age" value="{{$driver->age}}" required> -->
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
                                                 data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                                data-provide="datepicker" name="start_date" value="{{date('d/m/Y', strtotime($driver->age))}}" required>
+                                                data-provide="datepicker" name="start_date" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($driver->age))}}" required>
                                         </div>
                                         <div>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -93,21 +107,21 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">USERNAME</label>
+                                    <label class="form-label">{{__('username')}}</label>
                                     <input type="text" class="form-control" name="user_name" value="{{$driver->user_name}}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">LICENSE NUMBER</label>
+                                    <label class="form-label">{{__('license number')}}</label>
                                     <input type="text" class="form-control" name="license_number" value="{{$driver->license_number}}" required>
                                 </div>
-                                
+
                                 <div class="mb-3">
-                                    <label>LICENSE EXPIRY DATE</label>
+                                    <label>{{__('license expiry date')}}</label>
                                     <div class="input-group" id="datepicker2" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
                                             <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="enddate"
                                                 data-date-format="dd/mm/yyyy" data-date-container='#datepicker2'
-                                                data-provide="datepicker" name="end_date" value="{{date('d/m/Y', strtotime($driver->license_expiry_date))}}" required>
+                                                data-provide="datepicker" name="end_date" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($driver->license_expiry_date))}}" required>
                                         </div>
                                         <div>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -124,9 +138,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                
+
                 <a href="{{route('admin.driver.index')}}" class="btn btn-outline-primary waves-effect waves-light">
-                    Back
+                {{__('BACK')}}
                 </a>
             </div>
         </form>

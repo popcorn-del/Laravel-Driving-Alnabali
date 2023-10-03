@@ -17,12 +17,12 @@ $(document).ready(function(){
             data: formData,
             success: function (res) {
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
-                    setInterval(function(){ 
-                        location.href = list_url; 
-                    }, 2000);
+                    toastr["success"]($('#arc_success').val());
+                    setTimeout(function(){
+                        location.href = list_url;
+                    });
                 } else if(res.result == "fail") {
-                    toastr["warning"]("Driver and Bus is N/A!");
+                    // toastr["warning"]("Driver and Bus is N/A!");
                 } else {
                     toastr["warning"]("Trip name is already exist.");
                 }

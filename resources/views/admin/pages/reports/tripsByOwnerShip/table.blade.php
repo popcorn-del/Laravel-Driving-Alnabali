@@ -13,7 +13,7 @@
     <tbody>
 
         <tr>
-            <td>Owned</td>
+            <td>{{__('Owned')}}</td>
             <td>5</td>
             <td>4</td>
             <td>3</td>
@@ -23,7 +23,7 @@
 
         </tr>
         <tr>
-            <td>Rented</td>
+            <td>{{__('Rented')}}</td>
             <td>5</td>
             <td>4</td>
             <td>3</td>
@@ -37,7 +37,7 @@
     </tbody>
     <tfoot>
         <tr bgcolor="#FFF5EE">
-            <th>TOTAL</th>
+            <th>{{__('TOTAL')}}</th>
             <th>10</th>
             <th>8</th>
             <th>6</th>

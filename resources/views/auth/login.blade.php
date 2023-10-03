@@ -21,15 +21,17 @@
                         </div>
                         <div class="mb-3">
                             <label for="username" class="form-label">USERNAME</label>
-                            <input name="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email', '') }}" id="username"
-                                autocomplete="email" autofocus>
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <div class="input-group auth-pass-inputgroup @error('email') is-invalid @enderror">
+                                <input name="email" type="text"
+                                    class="form-control  @error('email') is-invalid @enderror"
+                                    value="{{ old('email', '') }}" id="username"
+                                    autofocus>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -53,11 +55,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="mt-5 text-center">
+                <!-- <div class="mt-5 text-center">
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="forgot-password">FORGOT PASSWORD</a>
                     @endif
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- end account-pages -->

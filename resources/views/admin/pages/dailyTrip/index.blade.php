@@ -17,9 +17,11 @@
                         <div class="table-filter" style="margin-bottom: 40px">
                             <div class = "row mb-3">
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('client')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('client')}}</label>
+                                    </div>
                                     <select class="form-select" name="client_filter" id="client_filter">
-                                        <option value="">{{__('all clients')}}</option>
+                                        <option value="">{{__('All Clients')}}</option>
                                         @foreach($client as $key=>$row)
                                             <option value="{{$row->name_en}}">
                                                 {{$lang=='jor'?$row->name_ar:$row->name_en}}
@@ -28,9 +30,11 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin city')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('origin city')}}</label>
+                                    </div>
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
-                                        <option value="">{{__('all cities')}}</option>
+                                        <option value="">{{__('All Cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">
                                                 {{$lang=='jor'?$row->city_name_ar:$row->city_name_en}}
@@ -39,18 +43,22 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin area')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('origin area')}}</label>
+                                    </div>
                                     <select class="form-select" name="origin_area_filter" id="origin_area_filter">
-                                        <option value="">{{__('all areas')}}</option>
+                                        <option value="">{{__('All Areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination city')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('destination city')}}</label>
+                                    </div>
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
-                                        <option value="">{{__('all cities')}}</option>
+                                        <option value="">{{__('All Cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">
                                                     {{$lang=='jor'?$row->city_name_ar:$row->city_name_en}}
@@ -59,9 +67,11 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination area')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('destination area')}}</label>
+                                    </div>
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
-                                        <option value="">{{__('all areas')}}</option>
+                                        <option value="">{{__('All Areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">
                                                 {{$lang=='jor'?$row->area_name_ar:$row->area_name_en}}
@@ -70,9 +80,11 @@
                                     </select>
                                 </div>
                                 <div class = "col">
-                                <div style="text-align: left; margin-bottom: 5px">{{__('driver')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('driver')}}</label>
+                                    </div>
                                     <select class="form-select" name="driver_filter" id="driver_filter">
-                                        <option value="">{{__('all drivers')}}</option>
+                                        <option value="">{{__('All Drivers')}}</option>
                                         @foreach($driver as $key=>$row)
                                             <option value="{{$row->name_en}}">
                                                 {{$lang=='jor'?$row->name_ar:$row->name_en}}
@@ -83,35 +95,39 @@
                             </div>
                             <div class = "row">
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('bus size')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('bus size')}}</label>
+                                    </div>
                                     <select class="form-select" name="bus_sizes_filter" id="bus_sizes_filter">
-                                        <option value="">{{__('all bus sizes')}}</option>
+                                        <option value="">{{__('All Bus Sizes')}}</option>
                                         @foreach($bus_size as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->size}}">{{$row->size}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('bus')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('bus')}}</label>
+                                    </div>
                                     <select class="form-select" name="bus_filter" id="bus_filter">
-                                        <option value="">{{__('all buses')}}</option>
+                                        <option value="">{{__('All Buses')}}</option>
                                         @foreach($bus as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->bus_no}}">{{$row->bus_no}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('status')}}</div>
+                                    <div style="text-align: left">
+                                        <label for="">{{__('status')}}</label>
+                                    </div>
                                     <select class="form-select" name="status_filter" id="status_filter">
-                                        <option value="">{{__('all status')}}</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Accepted">Accepted</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Started">Started</option>
-                                        <option value="Started with a delay">Started with a delay</option>
-                                        <option value="Finished">Finished</option>
-                                        <option value="Finished with a delay">Finished with a delay</option>
-                                        <option value="Canceled">Canceled</option>
+                                        <option value="">{{__('All Status')}}</option>
+                                        <option value="Pending">{{__('Pending')}}</option>
+                                        <option value="Accepted">{{__('Accepted')}}</option>
+                                        <option value="Rejected">{{__('Rejected')}}</option>
+                                        <option value="Started">{{__('Started')}}</option>
+                                        <option value="Finished">{{__('Finished')}}</option>
+                                        <option value="Canceled">{{__('Canceled')}}</option>
                                     </select>
                                 </div>
                                 <div class = "col-md-2">
@@ -119,9 +135,9 @@
                                         <label for="">{{__('start date')}}</label>
                                     </div>
                                     <div class="input-group" id="datepicker1">
-                                        <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="startdate"
-                                            data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                            data-provide="datepicker" name="first_trip_date" required>
+                                        <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="startdate"
+                                            data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
+                                            data-provide="datepicker" name="first_trip_date" required value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y')}}">
 
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
@@ -131,9 +147,9 @@
                                         <label for="">{{__('end date')}}</label>
                                     </div>
                                     <div class="input-group" id="datepicker1">
-                                        <input type="text" class="form-control" placeholder="dd/MM/yyyy" id="enddate"
-                                            data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                            data-provide="datepicker" name="first_trip_date" required>
+                                        <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="enddate"
+                                            data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
+                                            data-provide="datepicker" name="first_trip_date" required value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y')}}">
 
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
@@ -160,7 +176,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
     <script>
         url = "{{route('admin.daily.table')}}"
         var search_strings = new Array(14);
@@ -199,6 +215,7 @@
 
 
         $(document).ready(function(){
+
             $("#bus_sizes_filter").on('change', function (e) {
                 var id = $(this).find(':selected').data('id')
                 tripbus_url = "{{ route('admin.tripbus.busno',':id') }}";
@@ -343,35 +360,56 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {
                             extend: 'csv',
                             exportOptions: {
                                 orthogonal: 'csvoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
                                 orthogonal: 'exceloption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
                             }
                         },
                         {
-                            extend: 'pdf',
+                            extend: 'pdfHtml5',
+                            orientation: 'landscape',
                             exportOptions: {
                                 orthogonal: 'pdfoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
+                            },
+                            customize : function(doc) {
+                                doc.styles['td:nth-child(2)'] = {
+                                   width: '10px',
+                                   'max-width': '100px'
+                                }
                             }
                         },
                         {
                             extend: 'print',
+                            orientation: 'landscape',
                             exportOptions: {
                                 orthogonal: 'printoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-                            }
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
+                            },
+
                         }
                     ],
                     columnDefs: [
@@ -401,34 +439,54 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_" + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {
                             extend: 'csv',
                             exportOptions: {
                                 orthogonal: 'csvoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
                                 orthogonal: 'exceloption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
                             }
                         },
                         {
                             extend: 'pdf',
+                            orientation: 'landscape',
                             exportOptions: {
                                 orthogonal: 'pdfoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
+                            },
+                            customize : function(doc) {
+                                doc.styles['td:nth-child(2)'] = {
+                                   width: '10px',
+                                   'max-width': '100px'
+                                }
                             }
                         },
                         {
                             extend: 'print',
+                            orientation: 'landscape',
                             exportOptions: {
                                 orthogonal: 'printoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
                             }
                         }
                     ],
@@ -454,6 +512,9 @@
                 });
             }
 
+            $('#startdate').datepicker({
+                format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}"
+            });
             $( "#startdate" ).on( "change", function() {
                 $("#enddate").click();
                 $('this').datepicker('setDate', setval);
@@ -462,6 +523,9 @@
             });
 
             //  setEnd date
+            $('#enddate').datepicker({
+                format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}"
+            });
             $( "#enddate" ).on( "change", function() {
                 $("#startdate").click();
                 $('this').datepicker('setDate', setval);

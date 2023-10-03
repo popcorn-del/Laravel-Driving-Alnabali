@@ -9,6 +9,7 @@ use App\Models\Bus;
 use App\Models\BusSize;
 use App\Models\BusType;
 use App\Models\BusModel;
+use App\Models\TripBus;
 
 use Carbon\Carbon;
 
@@ -41,8 +42,8 @@ class BusController extends Controller
     public function create()
     {
         $bus_size = BusSize::where('status', 1)->get();
-        $bus_type = BusType::where('status', 1)->get();
-        $bus_model = BusModel::where('status', 1)->get();
+        $bus_type = BusType::where('status', 1)->orderby('type_en','asc')->get();
+        $bus_model = BusModel::where('status', 1)->orderby('model_en','asc')->get();
         $model_year = [];
         for ($i=date('Y'); $i >= 1950 ; $i--) {
             array_push($model_year, $i);
@@ -128,8 +129,8 @@ class BusController extends Controller
     {
         $bus = Bus::leftJoin('bus_models', 'buses.bus_model_id', '=', 'bus_models.id')->where('buses.id', $id)->select('buses.*', 'bus_models.model_en')->first();
         $bus_size = BusSize::where('status', 1)->get();
-        $bus_type = BusType::where('status', 1)->get();
-        $bus_model = BusModel::where('status', 1)->get();
+        $bus_type = BusType::where('status', 1)->orderby('type_en','asc')->get();
+        $bus_model = BusModel::where('status', 1)->orderby('model_en','asc')->get();
         $model_year = [];
         for ($i=date('Y'); $i >= 1950 ; $i--) {
             array_push($model_year, $i);
@@ -171,6 +172,11 @@ class BusController extends Controller
         ];
 
         $bus = Bus::where('id', $id)->update($content);
+        
+        if($request->status == 0){
+            TripBus::setInactive('bus_no',$id);
+        }
+            
         return response()->json(['result' => "success"]);
     }
 
@@ -188,11 +194,19 @@ class BusController extends Controller
     public function status(Request $request)
     {
         Bus::where('id', $request->id)->update(['status' => toBoolean($request->status)]);
+        if($request->status == 0){
+            TripBus::setInactive('bus_no',$request->id);
+        }
         return response()->json(['result' => "success"]);
     }
 
     public function getBuses(Request $request) {
         $buses = Bus::all();
         return response()->json(['result' => $buses]);
+    }
+    
+    public function getModel($id) {
+        $data = BusModel::where('bus_type_id', $id)->where('status', 1)->orderby('model_en','asc')->get();
+        return response()->json(['data' => $data]);
     }
 }

@@ -32,7 +32,7 @@
                                     <td>{{$row->bus_no}}</td>
                                     <td>{{$row->type_en}}</td>
                                     <td>{{$row->details}}</td>
-                                    <td>{{date("d/m/Y", strtotime($row->maintanence_date))}}</td>
+                                    <td>{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($row->maintanence_date))}}</td>
                                     <td>
                                         {{$row->cost}} JOD
                                     </td>
@@ -55,7 +55,7 @@
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
     <script>
 
         let makeExportBtn = () => {
@@ -96,6 +96,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {

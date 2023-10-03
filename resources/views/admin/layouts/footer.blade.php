@@ -5,9 +5,7 @@
                 <script>document.write(new Date().getFullYear())</script> © Skote.
             </div>
             <div class="col-sm-6">
-                <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by Themesbrand
-                </div>
+                <div class="text-sm-end d-none d-sm-block">{{__('footer')}}</div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') Change Password @endsection
-@section('page-title') Change Password @endsection
+@section('page-title') {{ __('Change Password')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -26,7 +26,7 @@
                             <input type="hidden" value="{{ Auth::user()->id }}" id="data_id">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="current_password"><span class="custom-val-color">*</span> OLD PASSWORD</label>
+                                    <label for="current_password"><span class="custom-val-color">*</span> {{ __('old password')}}</label>
                                     <input id="current-password" type="password"
                                         class="form-control @error('current_password') is-invalid @enderror"
                                         name="current_password" autocomplete="current_password"
@@ -34,14 +34,14 @@
                                     <div class="text-danger" id="current_passwordError" data-ajax-feedback="current_password"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="newpassword"><span class="custom-val-color">*</span> NEW PASSWORD</label>
+                                    <label for="newpassword"><span class="custom-val-color">*</span> {{ __('password')}}</label>
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         autocomplete="new_password" placeholder="Enter New Password">
                                     <div class="text-danger" id="passwordError" data-ajax-feedback="password"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="userpassword"><span class="custom-val-color">*</span> CONFIRM PASSWORD</label>
+                                    <label for="userpassword"><span class="custom-val-color">*</span> {{ __('confirm password')}}</label>
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
                                         autocomplete="new_password" placeholder="Enter New Confirm password" required>
                                     <div class="text-danger" id="password_confirmError" data-ajax-feedback="password-confirm"></div>
@@ -54,7 +54,7 @@
             </div>
             <div class="button-group" style="margin-top: 8vw;">
                         <button class="btn btn-primary waves-effect waves-light UpdatePassword" data-id="{{ Auth::user()->id }}"
-                            type="submit">Change</button>
+                            type="submit"> {{ __('change')}}</button>
                 <!-- <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</a>
                 <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button> -->
                 <!-- <button type="submit" class="btn btn-primary waves-effect waves-light">Change</button> -->

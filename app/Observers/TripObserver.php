@@ -6,6 +6,8 @@ use App\Models\DailyTripDetail;
 use App\Models\Transaction;
 use App\Models\Notification;
 use App\Models\TripBus;
+use App\Models\Driver;
+use App\Models\Trip;
 
 class TripObserver
 {
@@ -21,7 +23,8 @@ class TripObserver
         $transaction = new Transaction;
         $notification = new Notification;
         $tripbus = TripBus::where('trip_name', $dailyTripDetail->f_trip_id)->get();
-
+        \Log::info("*****======-----TripObserver::create DailyTripDetail create Notifacation-----======*****");
+            
         $transaction->client_name = $dailyTripDetail->client_name;
         $transaction->destination_name = $dailyTripDetail->destination_city;
         $transaction->origin_name = $dailyTripDetail->origin_city;
@@ -70,7 +73,7 @@ class TripObserver
         } else if ($transaction->old_status == 1) {
             $oldStatus = "Pending";
         }
-        $notification->message = 'Status of trip "' . $dailyTripDetail->trip_name . '" is changed to ' . $status . " from " . $oldStatus . ".";
+        $notification->message = 'Status of trip (' . $dailyTripDetail->trip_name . ') is changed to ' . $status . " from " . $oldStatus . ".";
         $notification->status = $dailyTripDetail->status;
         $notification->trip_id = $dailyTripDetail->id;
         $notification->trip_name = $dailyTripDetail->trip_name;
@@ -78,12 +81,29 @@ class TripObserver
         // $notification->save();
 
         $supervisor = json_decode($dailyTripDetail->supervisor);
-        for ($i = 0; $i < count($supervisor); $i++) {
-            $message_s = "New pending trip " . $dailyTripDetail->trip_name . " was assigned to " . $dailyTripDetail->dirver_name . ".";
-            app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s);
+        if(is_object($supervisor)){
+            for ($i = 0; $i < count($supervisor); $i++) {
+                $message_s = "New trip was assigned to:\n". $dailyTripDetail->dirver_name;
+                $driver = Driver::where('name_en', $dailyTripDetail->dirver_name)->first();
+                if($driver){
+                    $dirver_name_ar = $driver->name_ar;
+                } else{
+                    $dirver_name_ar = $dailyTripDetail->dirver_name;
+                }
+                $msg = "New trip was assigned to:\n". $dailyTripDetail->dirver_name."::::تم تخصيص رحلة جديدة إلى:\n". $dirver_name_ar;
+                app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s, $msg);
+            }
         }
-        $message_d = "You have new pending trip " . $dailyTripDetail->trip_name . ".";
-        app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $dailyTripDetail->driver_id, $message_d);
+        
+        $message_d = "You have new pending trip (" . $dailyTripDetail->trip_name . ").";
+        $trip = Trip::where('id', $dailyTripDetail->id)->first();
+        if($trip){
+            $trip_name_ar = $trip->trip_name_ar;
+        } else{
+            $trip_name_ar = $dailyTripDetail->trip_name;
+        }
+        $msg = "You have new pending trip (" . $dailyTripDetail->trip_name . ").::::لديك رحلة جديدة معلقة (" . $trip_name_ar . ").";
+        app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $dailyTripDetail->driver_id, $message_d, $msg);
     }
 
     /**
@@ -94,9 +114,11 @@ class TripObserver
      */
     public function updated(DailyTripDetail $dailyTripDetail)
     {
+        \Log::info("*****======-----DailyTripDetail Obsever-----======*****");
         if ($dailyTripDetail->isDirty('status')) {
             $message_d = "";
             $message_s = "";
+            \Log::info("*****======-----TripObserver:DailyTripDetail create Notifacation-----======*****");
             $notification = new Notification;
             $notification->client_name = $dailyTripDetail->client_name;
             $notification->destination_name = $dailyTripDetail->destination_city;
@@ -107,6 +129,7 @@ class TripObserver
 
             $dailyOldStatus = $dailyTripDetail->status;
             if ($dailyTripDetail->isDirty('status')) {
+                \Log::info("*****======-----TripObserver:DailyTripDetail create Notifacation => create Transaction -----======*****");
                 $transaction = new Transaction;
                 $tripbus = TripBus::where('trip_name', $dailyTripDetail->f_trip_id)->get();
                 $transaction->old_status = $dailyTripDetail->getRawOriginal('status');
@@ -115,32 +138,32 @@ class TripObserver
 
             if ($dailyTripDetail->status == 2) {
                 $status = "Accepted";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_d = "You have been ".$status. " trip";
+                $message_s = "has accepted the trip.";
             } else if ($dailyTripDetail->status == 3) {
                 $status = "Rejected";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_d = "You have been ".$status. " trip";
+                $message_s = "has rejected the trip.";
             } else if ($dailyTripDetail->status == 4) {
                 $status = "Started";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_d = "You have been ".$status. " trip";
+                $message_s = "has started the trip.";
             } else if ($dailyTripDetail->status == 5) {
                 $status = "Canceled";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_d = "You have been ".$status. " trip";
+                $message_s = "has canceled the trip.";
             } else if ($dailyTripDetail->status == 6) {
                 $status = "Finished";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_d = "You have been ".$status. " trip";
+                $message_s = "has finished the trip.";
             } else if ($dailyTripDetail->status == 7) {
                 $status = "Fake";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_d = "You have been ".$status. " trip";
+                $message_s = " fake the trip.";
             } else if ($dailyTripDetail->status == 1) {
                 $status = "Pending";
-                $message_d = $message_d . $status . " trip " . $dailyTripDetail->trip_name . ".";
-                $message_s = $message_s . $status . " trip " . $dailyTripDetail->trip_name . ".";
+                $message_d = "You have been ".$status. " trip";
+                $message_s = "has pending the trip.";
             }
 
             if ($dailyOldStatus == 2) {
@@ -158,7 +181,7 @@ class TripObserver
             } else if ($dailyOldStatus == 1) {
                 $oldStatus = "Pending";
             }
-            $notification->message = 'Status of trip "' . $dailyTripDetail->trip_name . '" was changed to ' . $status . " from " . $oldStatus . ".";
+            $notification->message = 'Status of trip ("' . $dailyTripDetail->trip_name . '") was changed to ' . $status . " from " . $oldStatus . ".";
             $notification->status = $dailyTripDetail->status;
             $notification->trip_id = $dailyTripDetail->id;
             $notification->trip_name = $dailyTripDetail->trip_name;
@@ -171,15 +194,33 @@ class TripObserver
             // }
 
             $supervisor = json_decode($dailyTripDetail->supervisor);
+            $temp = $message_s;
             for ($i = 0; $i < count($supervisor); $i++) {
-                $message_s = $dailyTripDetail->dirver_name . " has " . $message_s;
-                app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s);
+                $message_s = "(".$dailyTripDetail->dirver_name . ") " . $temp;
+                $driver = Driver::where('name_en', $dailyTripDetail->dirver_name)->first();
+                if($driver){
+                    $dirver_name_ar = $driver->name_ar;
+                } else{
+                    $dirver_name_ar = $dailyTripDetail->dirver_name;
+                }
+                $msg = "(".$dailyTripDetail->dirver_name . ") " . $temp."::::(".$dirver_name_ar . ") ".$this->makeMessage($temp);
+                \Log::info("*****======-----TripObserver:DailyTripDetail create Notifacation => supervisor :".$message_s."-----======*****");
+                app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s, $msg);
             }
-            $message_d = "You have been " . $message_d;
-            app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $dailyTripDetail->driver_id, $message_d);
+            $message_ds = $message_d. " (" . $dailyTripDetail->trip_name . ").";
+            $trip = Trip::where('id', $dailyTripDetail->id)->first();
+            if($trip){
+                $trip_name_ar = $trip->trip_name_ar;
+            } else{
+                $trip_name_ar = $dailyTripDetail->trip_name;
+            }
+            $msg = $message_d. " (" . $dailyTripDetail->trip_name . ").::::".$this->makeMessage($message_d). " (" . $trip_name_ar . ").";
+            \Log::info("*****======-----TripObserver:DailyTripDetail create Notifacation => driver :".$message_d."-----======*****");
+            app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $dailyTripDetail->driver_id, $message_ds, $msg);
         }
         //
         if ($dailyTripDetail->isDirty('status')) {
+            \Log::info("*****======-----TripObserver:DailyTripDetail create Notifacation => new Transaction -----======*****");
             $transaction = new Transaction;
             $tripbus = TripBus::where('trip_name', $dailyTripDetail->f_trip_id)->get();
 
@@ -202,8 +243,9 @@ class TripObserver
             $originDriverName = $dailyTripDetail->getRawOriginal('dirver_name');
             $newDriver = $dailyTripDetail->driver_id;
             $newDriverName = $dailyTripDetail->dirver_name;
-            $messageBody = 'Driver of trip "' . $dailyTripDetail->trip_name . '" was changed to ' . $newDriverName . " from " . $originDriverName;
-
+            $messageBody = 'Driver of trip (' . $dailyTripDetail->trip_name . ') was changed to (' . $newDriverName . ") from (" . $originDriverName.")";
+            \Log::info("*****======-----TripObserver:DailyTripDetail create Notifacation => new Transaction ".$messageBody."-----======*****");
+            
             $notification = new Notification;
             $notification->client_name = $dailyTripDetail->client_name;
             $notification->destination_name = $dailyTripDetail->destination_city;
@@ -227,13 +269,28 @@ class TripObserver
 
             $supervisor = json_decode($dailyTripDetail->supervisor);
             for ($i = 0; $i < count($supervisor); $i++) {
-                $message_s = "The trip " . $dailyTripDetail->trip_name . " was assigned to " . $newDriverName . " from " . $originDriverName . ".";
-                app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s);
+                $message_s = "The trip was assigned to:\n". $dailyTripDetail->dirver_name;
+                $driver = Driver::where('name_en', $dailyTripDetail->dirver_name)->first();
+                if($driver){
+                    $dirver_name_ar = $driver->name_ar;
+                } else{
+                    $dirver_name_ar = $dailyTripDetail->dirver_name;
+                }
+                $msg = "The trip was assigned to:\n". $dailyTripDetail->dirver_name."::::تم تخصيص الرحلة ل:\n". $dirver_name_ar;
+                app('App\Http\Controllers\Admin\NotificationController')->saveSupervisorNotification($dailyTripDetail, $supervisor[$i], $message_s, $msg);
             }
-            $message_d_new = "You have new assigned trip " . $dailyTripDetail->trip_name . ".";
+            $message_d_new = "You have new assigned trip (" . $dailyTripDetail->trip_name . ").";
+            $trip = Trip::where('id', $dailyTripDetail->id)->first();
+            if($trip){
+                $trip_name_ar = $trip->trip_name_ar;
+            } else{
+                $trip_name_ar = $dailyTripDetail->trip_name;
+            }
+            $msg = "You have new assigned trip (" . $dailyTripDetail->trip_name . ").::::لديك رحلة جديدة مخصصة (". $trip_name_ar . ").";
             $message_d_ori = "The trip has been Canceled.";
-            app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $newDriver, $message_d_new);
-            app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $originDriver, $message_d_ori);
+            app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $newDriver, $message_d_new, $msg);
+            $msg = "The trip has been Canceled.::::تم إلغاء الرحلة.";
+            app('App\Http\Controllers\Admin\NotificationController')->saveDriverNotification($dailyTripDetail, $originDriver, $message_d_ori, $msg);
         }
     }
 
@@ -268,5 +325,33 @@ class TripObserver
     public function forceDeleted(DailyTripDetail $dailyTripDetail)
     {
         //
+    }
+    
+    private function makeMessage($message)
+    {
+        $message = str_replace("You have new pending trip", "لديك رحلة جديدة معلقة", $message);
+        $message = str_replace("You have been Pending trip", "لقد كنت في انتظار الرحلة", $message);
+        $message = str_replace("You have been Accepted trip", "لقد تم قبولك الرحلة", $message);
+        $message = str_replace("You have been Rejected trip", "تم رفض رحلتك ", $message);
+        $message = str_replace("You have been Started trip", "لقد بدأت رحلتك", $message);
+        $message = str_replace("You have been Canceled trip", "لقد تم إلغاء رحلتك", $message);
+        $message = str_replace("You have been Finished trip", "لقد أنهيت رحلتك ", $message);
+        $message = str_replace("You have been Fake trip", "لقد قمت برحلة وهمية ", $message);
+
+        $message = str_replace("has accepted the trip", "قبل الرحلة.", $message);
+        $message = str_replace("has rejected the trip", "رفض الرحلة", $message);
+        $message = str_replace("has started the trip", "بدأ الرحلة", $message);
+        $message = str_replace("has canceled the trip", " ألغى الرحلة", $message);
+        $message = str_replace("has finished the trip", " أنهى الرحلة", $message);
+        $message = str_replace("has pending the trip", "لديه رحلة انتظار", $message);
+
+        $message = str_replace("has accepted the", "قبل الرحلة.", $message);
+        $message = str_replace("has rejected the", "رفض الرحلة", $message);
+        $message = str_replace("has started the", "بدأ الرحلة", $message);
+        $message = str_replace("has canceled the", " ألغى الرحلة", $message);
+        $message = str_replace("has finished the", " أنهى الرحلة", $message);
+        $message = str_replace("has pending the", "لديه رحلة انتظار", $message);
+
+        return $message;
     }
 }

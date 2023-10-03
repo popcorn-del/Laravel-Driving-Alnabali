@@ -18,54 +18,54 @@
                             <div class = "row mb-3">
 
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('client')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('client')}}</div>
                                     <select class="form-select" name="client_filter" id="client_filter">
-                                        <option value="">All Clients</option>
+                                        <option value="">{{__('All Clients')}}</option>
                                         @foreach($client as $key=>$row)
                                             <option value="{{$row->name_en}}">{{$row->name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin city')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('origin city')}}</div>
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
-                                        <option value="">All Cities</option>
+                                        <option value="">{{__('All Cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin area')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('origin area')}}</div>
                                     <select class="form-select" name="origin_area_filter" id="origin_area_filter">
-                                        <option value="">All Areas</option>
+                                        <option value="">{{__('All Areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination city')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('destination city')}}</div>
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
-                                        <option value="">All Cities</option>
+                                        <option value="">{{__('All Cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination area')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('destination area')}}</div>
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
-                                        <option value="">All Areas</option>
+                                        <option value="">{{__('All Areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                <div style="text-align: left; margin-bottom: 5px">{{__('driver')}}</div>
+                                <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('driver')}}</div>
                                     <select class="form-select" name="driver_filter" id="driver_filter">
-                                        <option value="">All Drivers</option>
+                                        <option value="">{{__('All Drivers')}}</option>
                                         @foreach($driver as $key=>$row)
                                             <option value="{{$row->name_en}}">{{$row->name_en}}</option>
                                         @endforeach
@@ -92,29 +92,29 @@
                                     </select>
                                 </div> -->
                                 <div class = "col-2">
-                                <div style="text-align: left; margin-bottom: 5px">{{__('old status')}}</div>
+                                <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('old status')}}</div>
                                     <select class="form-select" name="status_filter">
-                                        <option>All Old Status</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Accepted">Accepted</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Started">Started</option>
-                                        <option value="Canceled">Canceled</option>
-                                        <option value="Finished">Finished</option>
-                                        <option value="Fake">Fake</option>
+                                        <option>{{__('All Old Status')}}</option>
+                                        <option value="Pending">{{__('pending')}}</option>
+                                        <option value="Accepted">{{__('accepted')}}</option>
+                                        <option value="Rejected">{{__('rejected')}}</option>
+                                        <option value="Started">{{__('started')}}</option>
+                                        <option value="Canceled">{{__('canceled')}}</option>
+                                        <option value="Finished">{{__('finished')}}</option>
+                                        <option value="Fake">{{__('fake')}}</option>
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                <div style="text-align: left; margin-bottom: 5px">{{__('new status')}}</div>
+                                <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('new status')}}</div>
                                     <select class="form-select" name="status_filter">
-                                        <option>All New Status</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Accepted">Accepted</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Started">Started</option>
-                                        <option value="Canceled">Canceled</option>
-                                        <option value="Finished">Finished</option>
-                                        <option value="Fake">Fake</option>
+                                        <option>{{__('All New Status')}}</option>
+                                        <option value="Pending">{{__('Pending')}}</option>
+                                        <option value="Accepted">{{__('Accepted')}}</option>
+                                        <option value="Rejected">{{__('Rejected')}}</option>
+                                        <option value="Started">{{__('Started')}}</option>
+                                        <option value="Canceled">{{__('Canceled')}}</option>
+                                        <option value="Finished">{{__('Finished')}}</option>
+                                        <option value="Fake">{{__('Fake')}}</option>
                                     </select>
                                 </div>
                                 <!-- <div class = "col-md-2">
@@ -163,7 +163,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
 
     <script>
         url = "{{route('admin.daily.table')}}"
@@ -338,34 +338,47 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {
                             extend: 'csv',
                             exportOptions: {
                                 orthogonal: 'csvoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
                                 orthogonal: 'exceloption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
                             }
                         },
                         {
                             extend: 'pdf',
+                            orientation: 'landscape',
                             exportOptions: {
                                 orthogonal: 'pdfoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
                                 orthogonal: 'printoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
                             }
                         }
                     ],
@@ -410,34 +423,47 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_" + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {
                             extend: 'csv',
                             exportOptions: {
                                 orthogonal: 'csvoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
                             }
                         },
                         {
                             extend: 'excel',
                             exportOptions: {
                                 orthogonal: 'exceloption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
                             }
                         },
                         {
                             extend: 'pdf',
+                            orientation: 'landscape',
                             exportOptions: {
                                 orthogonal: 'pdfoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
                             }
                         },
                         {
                             extend: 'print',
                             exportOptions: {
                                 orthogonal: 'printoption',
-                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
                             }
                         }
                     ],

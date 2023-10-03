@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use App\Models\SuperVisor;
+use App\Models\DailyTripDetail;
+use App\Models\Trip;
+use App\Models\DateTime;
 use DB, Validator, Exception, Image, URL;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use Carbon\Carbon;
 use App\Services\FCMService;
@@ -66,7 +70,6 @@ class SuperVisorController extends Controller
             $validator = Validator::make($request->all(), [
                 'status' => 'required',
             
-                'phone' => 'required | unique:super_visors',
           
                 'user_name'=>'required | unique:super_visors',
                 // 'file' => 'required'
@@ -76,7 +79,6 @@ class SuperVisorController extends Controller
             ]);
             $attributeNames = array(
                 'status' => 'Status',           
-                'phone' => 'Phone Number',            
                 'user_name'=>'User Name',
                 // 'file'=> 'Profile image'
                 
@@ -187,20 +189,54 @@ class SuperVisorController extends Controller
     public function driverLogin(Request $request) {
         $driver_name = $request->get('email');
         $driver_pwd = $request->get('password');
-
+	
         $driver =  SuperVisor::where('user_name', $driver_name)->first();
-        if ($driver == null) return response()->json(['result' => 'Invalid SuperVisor']);
+        if($driver == null) $driver =  SuperVisor::where('name', $driver_name)->first();
+            if ($driver == null) return response()->json(['result' => 'Invalid SuperVisor']);
 
         if ( !(Hash::check($driver_pwd, $driver->password)) ) {
             return response()->json(['result' => 'Invalid Password']);
         } else {
-            return response()->json(['result' => 'Login Successfully', 'id' => $driver->id]);
+            return response()->json(['result' => 'Login Successfully', 'id' => $driver->id, 'name'=>$driver->name, 'date' => DateTime::getDateTime()['date']]);
         }
     }
 
     public function getProfile( $id ) {
         $driver = SuperVisor::findOrFail($id);
+        $total = $this->getTripData($id);
+        $result = "http://213.136.71.7/alnabali/public/uploads/supervisor/";
+        $result .= $driver->profile_image;
+        $driver->profile_image = $result;
+        $driver['workingHours'] = $total['workingHours'];
+        $driver['totalTrips'] = $total['totalTrips'];
+        $driver['totalDistance'] = $total['totalDistance'];
         return response()->json(['driver' => $driver]);
+    }
+
+    private function getTripData($id) {
+        $diff = 0;
+        $total_trips = 0;
+        $totalDistance = 0;
+        $daily_trips = DailyTripDetail::where('supervisor', 'LIKE', '%"'.$id.'"%')->where('status', 6)->orderBy('start_date','desc')->get();
+        
+        $result['workingHours'] = $diff;
+        $result['totalTrips'] = $total_trips;
+        $result['totalDistance'] = $totalDistance;
+        if(count($daily_trips) >= 1){
+            foreach ($daily_trips as $key => $value) {
+                $trip = Trip::where('id', $value->f_trip_id)->first();
+                $start = Carbon::parse($trip->departure_time);
+                $end = Carbon::parse($trip->arrival_time);
+                $duration = $end->diffInMinutes($start, true);
+                $diff += $duration;      
+                $total_trips++;                                  
+            }
+            $result['workingHours'] = round($diff/60,1);
+            $result['totalTrips'] = $total_trips;
+            $result['totalDistance'] = round($result['workingHours'] * 36,1);
+        }
+        
+        return $result;
     }
 
     public function editProfile(Request $request) {
@@ -288,34 +324,48 @@ class SuperVisorController extends Controller
     // }
 
     public function uploadImage(Request $request) {
-
-        if(isset($_POST["image"])){
-
-            $id = $request->get('id');
-
-            $base64_string = $_POST["image"];
-
-            mt_srand(time());
-            $imgName = mt_rand();  
-            $imgName = $imgName.".jpg";      
-            $outputfile = "".$imgName;
-
-            $decoded_image = base64_decode($base64_string); // decode the file
-
-            $f = finfo_open();
-            $mime_type = finfo_buffer($f, $decoded_image, FILEINFO_MIME_TYPE);
-            $ext = explode('/', $mime_type)[1];
-            $ext = ".".$ext;
-            $this->image_name .= $ext;
-
-            $this->image_string = $base64_string;
-            return $this->save($id);
-        }else{
-            return response()->json(['result' => 'No image is submited.']);
+            
+        $image = $_POST['image']; 
+        $name = $_POST['image_name'];   
+        $realImage = base64_decode($image);
+        if($request->id){
+            $driver = SuperVisor::findOrFail($request->id);
+            if ($realImage) {
+                $path = public_path('uploads/supervisor/');
+                if(!file_exists($path)){
+                    File::makeDirectory($path);
+                }
+                $file = $realImage;
+                $fileName = time().'_'.$name;
+                file_put_contents($path.$fileName, $realImage);
+ 
+                $driver->profile_image = $fileName;
+                $driver->save();
+                return response()->json(['result' => $driver->profile_image]);
+            }    
+        } else {
+            return response()->json(['result' => 'error']);
         }
+
     }
 
-    
+    public function removeImage(Request $request) {
+            
+        if($request->id){
+            $driver = SuperVisor::findOrFail($request->id);
+            $image_path = public_path('uploads/supervisor/' . $driver->profile_image);  // Value is not URL but directory file path
+            if(File::exists($image_path)) {
+                File::delete($image_path);
+            }
+            $driver->profile_image = NULL;
+            $driver->save();
+            return response()->json(['result' => $driver->profile_image]);  
+        } else {
+            return response()->json(['result' => 'error']);
+        }
+        
+
+    }
 
     public function save($id){
         if(!empty($this->image_name) && !empty($this->image_string)){
@@ -360,7 +410,7 @@ class SuperVisorController extends Controller
         return response()->json(['result' => 'success']);
     }
 
-    public function sendNotificationToSupervisor($id, $messageBody)
+    public function sendNotificationToSupervisor($id, $messageBody, $trip_id=0)
     {
         if($id == "" || $id == null) return "null";
        // get a user to get the fcm_token that already sent.               from mobile apps 
@@ -371,10 +421,19 @@ class SuperVisorController extends Controller
           $supervisor->fcm_token,
           [
               'title' => 'Alnabali Supervisor',
-              'body' => $messageBody,
+              'body' => $messageBody."::::".$trip_id,
               'android_channel_id' => 'channelId'
           ]
        );
        return response()->json(['result' => $supervisor->fcm_token, 'ddd' => $id, 'sss' => $return, 'ggg' => $serverkey]);
+    }
+
+    public function getAll(){
+        $super_visors = SuperVisor::orderBy('id', 'asc')->get();
+        foreach ($super_visors as $super_visor) {
+            $super_visor->profile_image = "http://213.136.71.7/alnabali/public/uploads/supervisor/".$super_visor->profile_image;
+        }
+
+        return response()->json(['supervisor' => $super_visors]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB, Validator, Exception, Image, URL;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::orderBy('users.id', 'DESC')->get();
+        $user = User::where('role','>',Auth::user()->role)->orderBy('users.id', 'DESC')->get();
         // return $user;
         return view('admin.pages.user.index', [
             'user' => $user,
@@ -53,7 +54,6 @@ class UserController extends Controller
                 'role' => 'required',
                 // 'file' => 'required',
                 'user_name' => 'required | unique:users',
-                'phone' => 'required | unique:users',
             ]);
             $attributeNames = array(
                 'status' => 'Status',
@@ -75,6 +75,7 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->birth_day = $request->start_date;
         $user->user_name = $request->user_name;
+        $user->email = $request->user_name;
         $user->status = $request->status;
         if ($request->has('file')) {
             $path = public_path('uploads/user/');

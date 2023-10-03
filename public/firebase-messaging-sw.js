@@ -2,12 +2,12 @@ importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging.js');
    
 firebase.initializeApp({
-    apiKey: "AIzaSyBOuhG1Ht31r2SyrBD3Wa8riG7gZ5OfpPs",
+    apiKey: "AIzaSyCB1kU6T7OxTLl9tXbV-gAKEnWhochnVEY",
     authDomain: "fluttersupervisor.firebaseapp.com",
-    projectId: "fluttersupervisor",
+    projectId: "alnabaliapp",
     storageBucket: "fluttersupervisor.appspot.com",
-    messagingSenderId: "906276400183",
-    appId: "1:906276400183:web:cd50a9bf75ba167ca2a3b2",
+    messagingSenderId: "171718709025",
+    appId: "1:171718709025:android:a029b4145295fa5925f860",
     measurementId: "G-XHMGLHKYDW"
 });
   

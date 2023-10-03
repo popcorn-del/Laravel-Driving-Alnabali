@@ -24,7 +24,7 @@ $(document).ready(function(){
             data: formData,
             success: function (res) {
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
+                    toastr["success"]($('#arc_success').val());
                     setInterval(function(){ 
                         location.href = list_url; 
                     }, 2000);
@@ -58,7 +58,7 @@ $(document).ready(function(){
                 data: $(this).serialize(),
                 success: function (res) {
                     if(res.result == "success" ){
-                        toastr["success"]("Success!!!");
+                        toastr["success"]($('#arc_success').val());
                         $('#myModal').modal('hide');
                     }
                 },
@@ -86,12 +86,13 @@ $(document).ready(function(){
             data:{status:status, id:id},
             success:function(res){
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
+                    toastr["success"]($('#arc_success').val());
                 }
             }
         })
     })
     if ( $.fn.dataTable.isDataTable( '#datatable' ) ) {
+        
         table = $('#datatable').DataTable({
             bDestroy: true,
             dom: 'Bfrtip',
@@ -113,7 +114,7 @@ $(document).ready(function(){
                     extend: 'pdf',
                     exportOptions: {
                         orthogonal: 'pdfoption'
-                    }
+                    },
                 },
                 {
                     extend: 'print',

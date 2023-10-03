@@ -24,6 +24,7 @@
                                     <th>{{__('destination')}}</th>
                                     <th>{{__('period')}}</th>
                                     <th>{{__('duration')}}</th>
+                                    <th>{{__('trip time')}}</th>
                                     <th>{{__('status')}}</th>
                                     <th>{{__('action')}}</th>
 
@@ -38,7 +39,8 @@
                                     <td>{{$row->origin_city_name_en}} {{$row->origin_area_name_en}}</td>
                                     <td>{{$row->destination_city_name_en}} {{$row->destination_area_name_en}}</td>
                                     <td>{{date("d/m/Y", strtotime($row->first_trip_date))}} - {{date("d/m/Y", strtotime($row->last_trip_date))}}</td>
-                                    <td>{{date("h:i A", strtotime($row->departure_time))}} - {{date("h:i A", strtotime($row->arrival_time))}}</td>
+                                    <td dir ="ltr">{{date("h:i A", strtotime($row->departure_time))}} - {{date("h:i A", strtotime($row->arrival_time))}}</td>
+                                    <td>{{$row->trip_time}}</td>
                                     <td>
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">
@@ -69,7 +71,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
     <script>
         store = "{{route('admin.trip.store')}}";
         list_url = "{{route('admin.trip.index')}}";
@@ -148,6 +150,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {

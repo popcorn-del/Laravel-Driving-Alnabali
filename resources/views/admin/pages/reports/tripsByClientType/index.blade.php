@@ -19,7 +19,7 @@
                                 <div class = "col-md-2">
                                     <label for="" style="float: left">{{__('client type')}}</label>
                                     <select class="form-select" id="client_filter" name="client_filter">
-                                        <option value="">All  Client Types</option>
+                                        <option value="">{{__('All  Client Types')}}</option>
                                             @foreach($clienttype_data as $key=>$row)
                                                 <option value="{{$row->type_name_en}}">{{$row->type_name_en}}</option>
                                             @endforeach
@@ -71,7 +71,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/dailyTrip/index.js') }}"></script>
     <script>
         url = "{{route('admin.daily.table')}}"
@@ -155,6 +155,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         'csv', 'excel', 'pdf', 'print'
                     ],
@@ -185,6 +197,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_" + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         'csv', 'excel', 'pdf', 'print'
                     ],

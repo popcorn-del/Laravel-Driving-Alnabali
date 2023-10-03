@@ -114,18 +114,39 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
+                        @if(Session::get('lang') != 'jor')
                         <div class="custom-chart">
                             <h4 class="card-title mb-4">{{__('daily trips')}}</h4>
                             <div class="chart-dropdown">
                                 <select class="form-select" id="chart-select">
                                     <option selected="">{{__('last 7 days')}}</option>
-                                    <option value="1">{{__('one')}}</option>
-                                    <option value="2">{{__('two')}}</option>
-                                    <option value="3">{{__('three')}}</option>
+                                    <option value="SAT">{{__('saturday')}}</option>
+                                    <option value="SUN">{{__('sunday')}}</option>
+                                    <option value="MON">{{__('monday')}}</option>
+                                    <option value="TUE">{{__('tuesday')}}</option>
+                                    <option value="WED">{{__('wednesday')}}</option>
+                                    <option value="THU">{{__('thursday')}}</option>
+                                    <option value="FRI">{{__('friday')}}</option>
                                 </select>
                             </div>
                         </div>
-
+                        @else
+                        <div class="custom-chart">
+                            <div class="chart-dropdown" style="float: left;">
+                                <select class="form-select" id="chart-select">
+                                    <option selected="">{{__('last 7 days')}}</option>
+                                    <option value="SAT">{{__('saturday')}}</option>
+                                    <option value="SUN">{{__('sunday')}}</option>
+                                    <option value="MON">{{__('monday')}}</option>
+                                    <option value="TUE">{{__('tuesday')}}</option>
+                                    <option value="WED">{{__('wednesday')}}</option>
+                                    <option value="THU">{{__('thursday')}}</option>
+                                    <option value="FRI">{{__('friday')}}</option>
+                                </select>
+                            </div>
+                            <h4 class="card-title mb-4" style="float: right;">{{__('daily trips')}}</h4>
+                        </div>
+                        @endif
                         <div id="line_chart_dashed" class="apex-charts" dir="ltr"></div>
                     </div>
                 </div>

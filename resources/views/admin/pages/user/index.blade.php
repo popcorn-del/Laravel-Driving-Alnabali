@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-filter">
-                            <a href="{{route('admin.user.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD USER</a>
+                            <a href="{{route('admin.user.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> {{__('ADD USER')}}</a>
                         </div>
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
                             <thead>
@@ -30,9 +30,9 @@
                                 @foreach($user as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td> <img src="{{$row->avatar == '' ? 'http://167.86.102.230/Alnabali/public/images/admin/user-profile.jpg' : 'http://167.86.102.230/Alnabali/public/uploads/user/' . $row->avatar }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$row->name}}</td>
-                                    <td>{{$row->role==1 ? "Admin" : "Editor"}}</td>
-                                    <td>{{$row->phone}}</td>
+                                    <td> <img src="{{$row->avatar == '' ? 'http://213.136.71.7/alnabali/public/images/admin/user-profile.jpg' : 'http://213.136.71.7/alnabali/public/uploads/user/' . $row->avatar }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$row->name}}</td>
+                                    <td>{{$row->role==2 ? "Admin" : "Editor"}}</td>
+                                    <td>{{is_null($row->phone) ? 'N/A' : '+962 '.$row->phone}}</td>
                                     <td>{{$row->user_name}}</td>
                                     <td>
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
@@ -41,10 +41,10 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{route('admin.user.show', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('view')}}</button>
-                                        <a href="{{route('admin.user.edit', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('edit')}}</button>
+                                        <a href="{{route('admin.user.show', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('VIEW')}}</button>
+                                        <a href="{{route('admin.user.edit', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('EDIT')}}</button>
                                         <a href="javsciript::void(0)" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light reset-password" data-id="{{$row->id}}" data-src="{{route('admin.user.update', ['user' => $row->id])}}" data-bs-toggle="modal"
-                                                data-bs-target="#myModal">{{__('reset password')}}</button>
+                                                data-bs-target="#myModal">{{__('RESET PASSWORD')}}</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -60,8 +60,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="myModalLabel">RESET PASSWORD</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    <h5 class="modal-title mt-0" id="myModalLabel">{{__('RESET PASSWORD')}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="margin:0rem 0rem 0rem 0rem"
                         aria-label="Close"></button>
                 </div>
                 <form class="custom-validation" action="" id="rest-form">
@@ -71,13 +71,13 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> NEW PASSWORD</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('password')}}</label>
                                     <div>
                                         <input type="password" id="pass2" class="form-control" name="password" required />
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> CONFIRM NEW PASSWORD</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('confirm password')}}</label>
                                     <div>
                                         <input type="password" class="form-control" required data-parsley-equalto="#pass2" />
                                     </div>
@@ -87,9 +87,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect"
-                            data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light save_button">Save</button>
+                        <button type="button" class="btn btn-secondary waves-effect text-capitalize"
+                            data-bs-dismiss="modal">{{__('cancel')}}</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light save_button text-capitalize">{{__('save')}}</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
@@ -104,7 +104,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
     <script>
         status_url = "{{route('admin.user.status')}}"
 
@@ -174,6 +174,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val(),
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {

@@ -32,21 +32,35 @@ class NotificationController extends Controller
     public function index()
     {
         //
-        $notification = Notification::orderBy('notifications.id', 'DESC')->get();
+        set_time_limit(60);
+        $notification = Notification::orderBy('notifications.id', 'DESC')->limit(10000)->get();
         $client = Client::where('status', 1)->get();
         $city = City::where('status', 1)->get();
         $bus = Bus::where('status', 1)->get();
         $bus_size = BusSize::where('status', 1)->get();
         $drivers = Driver::where('status', 1)->get();
+        $supervisors = SuperVisor::where('status', 1)->get();
         $trip = Trip::where('status', 1)->get();
         $area = Area::where('status', 1)->get();
         foreach ($notification as $key => $value) {
             if (is_numeric($value->receiver)) {
                 $driver = Driver::where('id', $value->receiver)->first();
-                $value->receiver = $driver->name_en;
+                if(is_object($driver))
+                    $value->receiver = $driver->name_en;
+            } else {
+                if(count(explode('_', $value->receiver)) > 1 )
+                    $supervisor = SuperVisor::where('id', explode('_', $value->receiver)[1])->first();
+                else
+                    $supervisor = SuperVisor::where('name', $value->receiver)->first();
+                if(is_object($supervisor))
+                    $value->receiver = $supervisor->name;
             }
-            $value->client_name = Client::where('id', $value->client_name)->first()->name_en;
+
+
+                  $value->client_name = Client::where('id', $value->client_name)->first()->name_en;
+
             $daily_trip = DailyTripDetail::where('id', $value->daily_trip_id)->get();
+
             if (count($daily_trip) > 0) {
                 $value->origin_city = $daily_trip[0]->origin_city;
                 $value->origin_area = $daily_trip[0]->origin_area;
@@ -62,6 +76,7 @@ class NotificationController extends Controller
             'area' => $area,
             'bus_size' => $bus_size,
             'driver' => $drivers,
+            'supervisor' => $supervisors,
             'trip' => $trip,
         ]);
     }
@@ -99,7 +114,12 @@ class NotificationController extends Controller
         $notification = Notification::findOrFail($id);
         if (is_numeric($notification->receiver)) {
             $driver = Driver::where('id', $notification->receiver)->first();
-            $notification->receiver = $driver->name_en;
+            if(is_object($driver))
+                $notification->receiver = $driver->name_en;
+        } else {
+            $supervisor = SuperVisor::where('id', explode('_', $notification->receiver)[1])->first();
+            if(is_object($supervisor))
+                $notification->receiver = $supervisor->name;
         }
         $client = Client::findOrFail($notification->client_name);
         $trip = Trip::findOrFail($notification->trip_id);
@@ -168,7 +188,7 @@ class NotificationController extends Controller
         $today_month = Carbon::now()->format('m');
         $today_date = Carbon::now()->format('d');
 
-        $notifications = Notification::orderBy('created_at', 'DESC')->get();
+        $notifications = Notification::orderBy('id', 'DESC')->get();
         foreach ($notifications as $notification) {
             $trip_month = $notification->updated_at->format('m');
             $trip_date = $notification->updated_at->format('d');
@@ -179,7 +199,7 @@ class NotificationController extends Controller
                 }
 
                 $client = Client::findOrFail($notification->client_name);
-                $result = "http://167.86.102.230/alnabali/public/uploads/image/";
+                $result = "http://213.136.71.7/alnabali/public/uploads/image/";
                 $result .= $client->client_avatar;
                 $notification->client_avatar = $result;
             }
@@ -188,19 +208,63 @@ class NotificationController extends Controller
         return response()->json(['result' => $return_val, 'today' => $today]);
     }
 
-    public function getAllNotification($id) {
+    public function getAllNotification($id,$lang='en') {
+
         $return_val = [];
         $today = Carbon::now()->format('m-d-Y');
-        $notifications = Notification::where('receiver', $id)->orderBy('created_at', 'DESC')->paginate(20);
+        $notifications = Notification::where('receiver', $id)->orderBy('created_at', 'desc')->limit(500)->get();
+
         foreach ($notifications as $notification) {
             $client = Client::findOrFail($notification->client_name);
-            $result = "http://167.86.102.230/alnabali/public/uploads/image/";
+            $result = "http://213.136.71.7/alnabali/public/uploads/image/";
             $result .= $client->client_avatar;
             $notification->client_avatar = $result;
             $notification->viewed=$notification->read_at?true:false;
-        }
 
-        return response()->json(['result' => $notifications, 'today' => $today]);
+            $trip = Trip::findOrFail($notification->trip_id);
+
+            if($lang == 'ar') {
+
+                $notification->message = str_replace("You have new pending trip", "لديك رحلة جديدة معلقة", $notification->message);
+                $notification->message = str_replace("You have been Pending trip", "لقد كنت في انتظار الرحلة", $notification->message);
+                $notification->message = str_replace("You have been Accepted trip", "لقد تم قبولك الرحلة", $notification->message);
+                $notification->message = str_replace("You have been Rejected trip", "تم رفض رحلتك ", $notification->message);
+                $notification->message = str_replace("You have been Started trip", "لقد بدأت رحلتك", $notification->message);
+                $notification->message = str_replace("You have been Canceled trip", "لقد تم إلغاء رحلتك", $notification->message);
+                $notification->message = str_replace("You have been Finished trip", "لقد أنهيت رحلتك ", $notification->message);
+                $notification->message = str_replace("You have been Fake trip", "لقد قمت برحلة وهمية ", $notification->message);
+
+                $notification->message = str_replace($notification->trip_name, $trip->trip_name_ar, $notification->message);
+
+                //driver
+                $driver = Driver::where('name_en', $notification->driver_name)->first();
+                if ($driver) {
+                    $notification->message = str_replace("has accepted the trip", "قبل الرحلة.", $notification->message);
+                    $notification->message = str_replace("has rejected the trip", "رفض الرحلة", $notification->message);
+                    $notification->message = str_replace("has started the trip", "بدأ الرحلة", $notification->message);
+                    $notification->message = str_replace("has canceled the trip", " ألغى الرحلة", $notification->message);
+                    $notification->message = str_replace("has finished the trip", " أنهى الرحلة", $notification->message);
+                    $notification->message = str_replace("has pending the trip", "لديه رحلة انتظار", $notification->message);
+
+                    $notification->message = str_replace("has accepted the", "قبل الرحلة.", $notification->message);
+                    $notification->message = str_replace("has rejected the", "رفض الرحلة", $notification->message);
+                    $notification->message = str_replace("has started the", "بدأ الرحلة", $notification->message);
+                    $notification->message = str_replace("has canceled the", " ألغى الرحلة", $notification->message);
+                    $notification->message = str_replace("has finished the", " أنهى الرحلة", $notification->message);
+                    $notification->message = str_replace("has pending the", "لديه رحلة انتظار", $notification->message);
+
+
+
+                    $notification->message = str_replace($notification->driver_name, $driver->name_ar, $notification->message);
+                }
+
+                $notification->trip_name = $trip->trip_name_ar;
+
+            }
+
+
+        }
+        return response()->json(['result' => $notifications, 'today' => $lang]);
 
         // $notifications = Notification::all();
         // foreach ($notifications as $notification) {
@@ -214,6 +278,7 @@ class NotificationController extends Controller
     }
 
     public function markAsRead($id){
+
         $notification=Notification::find($id);
         if($notification){
             $notification->read_at=now();
@@ -223,7 +288,7 @@ class NotificationController extends Controller
         return response()->json(['success'=>false,'message'=>'invalid notification id']);
     }
 
-    public static function saveDriverNotification($dailyTripDetail, $driver_id, $message) {
+    public static function saveDriverNotification($dailyTripDetail, $driver_id, $message, $msg) {
         $notification = new Notification;
         $notification->client_name = $dailyTripDetail->client_name;
         $notification->destination_name = $dailyTripDetail->destination_city;
@@ -237,12 +302,12 @@ class NotificationController extends Controller
         $notification->daily_trip_id = $dailyTripDetail->id;
         $notification->receiver = $dailyTripDetail->driver_id;
         $notification->receive_app = 1;
-        app('App\Http\Controllers\Admin\DriverController')->sendNotificationToDriver($driver_id, $message);
+        app('App\Http\Controllers\Admin\DriverController')->sendNotificationToDriver($driver_id, $msg, $dailyTripDetail->id);
         $notification->save();
         return "success";
     }
 
-    public static function saveSupervisorNotification($dailyTripDetail, $supervisor_id, $message) {
+    public static function saveSupervisorNotification($dailyTripDetail, $supervisor_id, $message, $msg) {
         $notification = new Notification;
         $notification->client_name = $dailyTripDetail->client_name;
         $notification->destination_name = $dailyTripDetail->destination_city;
@@ -257,8 +322,8 @@ class NotificationController extends Controller
         $notification->receive_app = 0;
 
         $supervisor_name = SuperVisor::where('id', $supervisor_id)->first()->name;
-        $notification->receiver = $supervisor_name;
-        app('App\Http\Controllers\Admin\SuperVisorController')->sendNotificationToSupervisor($supervisor_id, $message);
+        $notification->receiver = 'supervisor_'.$supervisor_id;
+        app('App\Http\Controllers\Admin\SuperVisorController')->sendNotificationToSupervisor($supervisor_id, $msg,$dailyTripDetail->id);
         $notification->save();
         return "success";
     }

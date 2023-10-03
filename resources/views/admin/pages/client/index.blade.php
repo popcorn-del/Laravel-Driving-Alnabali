@@ -37,7 +37,7 @@
                                 @foreach($client as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td> <img src="{{$row->client_avatar == '' ? 'http://167.86.102.230/Alnabali/public/images/admin/client_default.png' : 'http://167.86.102.230/Alnabali/public/uploads/image/' . $row->client_avatar }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$lang=='jor'?$row->name_ar:$row->name_en}}</td>
+                                    <td> <img src="{{$row->client_avatar == '' ? 'http://213.136.71.7/alnabali/public/images/admin/client_default.png' : 'http://213.136.71.7/alnabali/public/uploads/image/' . $row->client_avatar }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$lang=='jor'?$row->name_ar:$row->name_en}}</td>
                                     <td>{{$lang=='jor'?$row->client_type_name_ar:$row->client_type_name_en}}</td>
                                     <td>{{$lang=='jor'?$row->contract_type_name_ar:$row->contract_type_name_en}}</td>
                                     <td>{{date("d/m/Y", strtotime($row->contract_start_date))}}</td>
@@ -68,7 +68,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
 
     <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -94,7 +94,7 @@
             data:{status:status},
             success:function(res){
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
+                    toastr["success"]($('#arc_success').val());
                 }
             }
         })
@@ -109,6 +109,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {

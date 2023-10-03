@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<html dir="{{ app()->getLocale() === 'jor' ? 'rtl' : 'ltr' }}" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8" />
     <title> @yield('title') | Skote - Admin & Dashboard Template</title>
@@ -15,7 +14,7 @@
 @section('body')
     <body data-topbar="dark" data-layout="horizontal">
 @show
-
+    
     <!-- Begin page -->
     <div id="layout-wrapper">
         @include('layouts.horizontal')

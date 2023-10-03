@@ -32,8 +32,8 @@
             <td>{{$row->origin_area}}</td>
             <td>{{$row->destination_city}}</td>
             <td>{{$row->destination_area}}</td>
-            <td>{{date('d/m/Y',strtotime($row->start_date)) . " " . date('h:i A', strtotime($row->start_time))}}</td>
-            <td>{{date('d/m/Y',strtotime($row->end_date)) . " " . date('h:i A', strtotime($row->end_time))}}</td>
+            <td dir ="ltr">{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y' ,strtotime($row->start_date)) . " " . date('h:i A', strtotime($row->start_time))}}</td>
+            <td dir ="ltr">{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y' ,strtotime($row->end_date)) . " " . date('h:i A', strtotime($row->end_time))}}</td>
             <td>
                 @switch($row->status)
                     @case(1)

@@ -32,9 +32,14 @@ Route::prefix('/admin')->middleware(['auth:web', 'Admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
     Route::get('/cronjob', [App\Http\Controllers\Admin\CronJobController::class, 'index'])->name('cronjob');
     Route::post('/cronjob/start', [App\Http\Controllers\Admin\CronJobController::class, 'start'])->name('cronjob.start');
+
+    // DateTime
+    Route::get('/datetime', [App\Http\Controllers\Admin\DateTimeController::class, 'index'])->name('datetime');
+    Route::post('/datetime', [App\Http\Controllers\Admin\DateTimeController::class, 'store'])->name('datetime.save');
     //Client section
     Route::resource('client', App\Http\Controllers\Admin\ClientController::class, ['as' => 'admin']);
     Route::resource('bus', App\Http\Controllers\Admin\BusController::class, ['as' => 'admin']);
+    Route::get('/admin/bus/model/{id}', [App\Http\Controllers\Admin\BusController::class, 'getModel'])->name('admin.bus.model');
     Route::post('bus/status', [App\Http\Controllers\Admin\BusController::class, 'status'])->name('admin.bus.status');
     Route::get('daily/table', [App\Http\Controllers\Admin\CommonController::class, 'setTableData'])->name('admin.daily.table');
     Route::resource('trip', App\Http\Controllers\Admin\TripController::class, ['as' => 'admin']);
@@ -125,6 +130,8 @@ Route::post('/android/driver/pwd/change', [App\Http\Controllers\Admin\DriverCont
 Route::get('/android/driver/profile/{id}', [App\Http\Controllers\Admin\DriverController::class, 'getProfile'])->name('android.driver.profile');
 Route::post('/android/driver/profile_edit', [App\Http\Controllers\Admin\DriverController::class, 'editProfile'])->name('android.driver.profile_edit');
 Route::get('/android/driver/token', [App\Http\Controllers\Admin\DriverController::class, 'getToken'])->name('android.driver.token');
+Route::post('/android/driver/upload/image', [App\Http\Controllers\Admin\DriverController::class, 'uploadImage'])->name('android.supervisor.upload.image');
+Route::post('/android/driver/remove_image', [App\Http\Controllers\Admin\DriverController::class, 'removeImage'])->name('android.supervisor.remove_image.image');
 
 Route::post('/android/driver/save/fcm_token', [App\Http\Controllers\Admin\DriverController::class, 'saveFCMToken'])->name('android.driver.save.fcm_token');
 
@@ -137,7 +144,9 @@ Route::post('/android/supervisor/pwd/change', [App\Http\Controllers\Admin\SuperV
 Route::get('/android/supervisor/profile/{id}', [App\Http\Controllers\Admin\SuperVisorController::class, 'getProfile'])->name('android.supervisor.profile');
 Route::post('/android/supervisor/profile_edit', [App\Http\Controllers\Admin\SuperVisorController::class, 'editProfile'])->name('android.supervisor.profile_edit');
 Route::post('/android/supervisor/upload/image', [App\Http\Controllers\Admin\SuperVisorController::class, 'uploadImage'])->name('android.supervisor.upload.image');
+Route::post('/android/supervisor/upload_remove/image', [App\Http\Controllers\Admin\SuperVisorController::class, 'removeImage'])->name('android.supervisor.remove_image.image');
 Route::get('/android/supervisor/token', [App\Http\Controllers\Admin\SuperVisorController::class, 'getToken'])->name('android.supervisor.token');
+Route::get('/android/supervisor/all', [App\Http\Controllers\Admin\SuperVisorController::class, 'getAll'])->name('android.supervisor.all');
 
 Route::post('/android/supervisor/save/fcm_token', [App\Http\Controllers\Admin\SuperVisorController::class, 'saveFCMToken'])->name('android.supervisor.save.fcm_token');
 Route::get('/android/supervisor/send/notification/{id}', [App\Http\Controllers\Admin\SuperVisorController::class, 'sendNotificationToSupervisor'])->name('android.supervisor.send.notification');
@@ -161,15 +170,15 @@ Route::post('/android/daily-trip/edit', [App\Http\Controllers\Admin\DailyTripCon
 //////////////////////* Notification *//////////////////////
 ////////////////////////////////////////////////////////////
 Route::get('/android/notification/today', [App\Http\Controllers\Admin\NotificationController::class, 'getTodayNotification'])->name('android.notification.today');
-Route::get('/android/notification/all/{id}', [App\Http\Controllers\Admin\NotificationController::class, 'getAllNotification'])->name('android.notification.all');
-Route::post('/android/notification/{id}/mark-read', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('android.notification.all');
+Route::get('/android/notification/all/{id}/{lang?}', [App\Http\Controllers\Admin\NotificationController::class, 'getAllNotification'])->name('android.notification.all');
+Route::post('/android/notification/mark-read/{id}', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('android.notification.all');
 
 ////////////////////////////////////////////////////////////
 /////////////////////* DriverLocation */////////////////////
 ////////////////////////////////////////////////////////////
 Route::post('/android/driver-location/update', [App\Http\Controllers\Admin\DriverLocationController::class, 'updateLocation'])->name('android.driver-location.update');
 Route::post('/android/driver-status/disable', [App\Http\Controllers\Admin\DriverLocationController::class, 'disableStatus'])->name('android.driver-status.disable');
-Route::get('/android/driver-location', [App\Http\Controllers\Admin\DriverLocationController::class, 'getDriver'])->name('android.driver-location');
+Route::post('/android/driver-location', [App\Http\Controllers\Admin\DriverLocationController::class, 'getDriver'])->name('android.driver-location');
 
 ////////////////////////////////////////////////////////////
 /////////////////////* Transaction *////////////////////////

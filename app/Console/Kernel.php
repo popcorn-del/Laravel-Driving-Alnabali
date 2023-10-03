@@ -25,7 +25,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\DemoCron::class,
+        Commands\FiveUpdate::class,
     ];
 
     /**
@@ -44,10 +45,16 @@ class Kernel extends ConsoleKernel
             
         });
 
-        $schedule->command('day:update')->dailyAt('00:05')->withoutOverlapping();
-        // $schedule->command('day:update')->everyFiveMinutes()->withoutOverlapping();
+        // \Log::info("===== day:update is working fine!");
+        // $schedule->command('day:update')->dailyAt('00:05');
+        
+        // \Log::info("***** five:update is working fine!");
+        // $schedule->command('five:update')->everyFiveMinutes();
+        \Log::info("***** five:update is working fine!");
+        $schedule->command('five:update')->everyMinute();
 
-        $schedule->command('five:update')->everyFiveMinutes()->withoutOverlapping();
+        \Log::info("***** demo:cron is working fine!");
+        $schedule->command('demo:cron')->dailyAt('20:35');
     }
  
     /**

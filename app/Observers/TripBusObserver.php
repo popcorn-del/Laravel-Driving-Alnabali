@@ -18,6 +18,8 @@ class TripBusObserver
     public function created(TripBus $tripBus)
     {
         //
+        \Log::info("*****======-----TripBusObserver::create-----======*****");
+        
         $trip_id = $tripBus->trip_name;
         $trip = Trip::where('id', $trip_id)->first();
         $trip->created_at = Carbon::today();

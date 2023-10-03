@@ -21,7 +21,7 @@
                 <div class="col-md-7">
                     <div class="col-md-12">
                         <div class="row">
-                            <div style="text-align: center;">{{__('profile image')}}</div>
+                            <div style="text-align: center;" class="text-uppercase">{{__('profile image')}}</div>
                             <div class="picture-container" style="margin-bottom: 30px">
                                 <div class="picture">
                                     <img src="{{ asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -44,13 +44,13 @@
                                     <input type="text" class="form-control" name="name" minlength="1" maxlength="100" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
+                                    <label class="form-label">{{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div>
                                             <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                            <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control" name="phone" id="phone_inp" required>
+                                            <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control" name="phone" id="phone_inp" placeholder="7 xxxx xxxx">
                                         </div>
                                     </div>
                                 </div>
@@ -67,21 +67,37 @@
                                     <div class="row">
                                         <?php if(Auth::user()->role == 1) { ?> <div class="col-md-6">
                                                 <div class="form-check form-radio-warning mb-3">
+                                                    @if(Session::get('lang') != 'jor')
                                                     <input class="form-check-input" type="radio" name="role"
                                                         id="level_2" value="2" checked>
                                                     <label class="form-check-label" for="level_2">
                                                         {{__('admin')}}
                                                     </label>
+                                                    @else
+                                                    <input class="form-check-input radioRight" type="radio" name="role"
+                                                        id="level_2" value="2" checked>
+                                                    <label class="form-check-label labelRight" for="level_2">
+                                                        {{__('admin')}}
+                                                    </label>
+                                                    @endif
                                                 </div>
                                             </div><?php } ?>
 
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="role"
-                                                    id="level_3" value="3">
+                                                    id="level_3" value="3" {{Auth::user()->role == 2 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="level_3">
                                                     {{__('editor')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="role"
+                                                    id="level_3" value="3" {{Auth::user()->role == 2 ? "checked" : ""}}>
+                                                <label class="form-check-label labelRight" for="level_3">
+                                                    {{__('editor')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -93,8 +109,8 @@
                                         <label><span class="custom-val-color">*</span> {{__('date of birth')}}</label>
                                         <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                             <div style="width: 100%">
-                                                    <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
-                                                    data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
+                                                    <input type="text" class="form-control mydatepicker" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="startdate"
+                                                    data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
                                                     data-provide="datepicker" name="start_date" required>
                                             </div>
                                             <div>
@@ -124,20 +140,36 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" checked>
                                                 <label class="form-check-label" for="status_1">
                                                     {{__('active')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_1" value="1" checked>
+                                                <label class="form-check-label labelRight" for="status_1">
+                                                    {{__('active')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0">
                                                 <label class="form-check-label" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_2" value="0">
+                                                <label class="form-check-label" for="status_2">
+                                                    {{__('inactive')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -149,9 +181,9 @@
                 <div class="col-md-6"></div>
             </div>
             <div class="button-group">
-                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
+                <a href="#" class="btn btn-outline-primary waves-effect waves-light text-uppercase" id="backbtn">{{__('back')}}</a>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn text-uppercase">{{__('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase">{{__('save')}}</button>
             </div>
         </form>
     </div>
@@ -200,7 +232,10 @@
         let setval = new Date();
         setval = (setval.getMonth() + 1) + '/' +  (setval.getDate() - 1) + '/' + setval.getFullYear();
         // console.log(setval)
-        $('#startdate').datepicker('setEndDate',new Date(setval));
+        $('#startdate').datepicker({
+            format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}",
+            endDate: new Date(setval),
+        });
         $('#startdate').change(function () {
             if (new Date($('#startdate').val()) > new Date(setval)) {
                 $('#startdate').val(setval);

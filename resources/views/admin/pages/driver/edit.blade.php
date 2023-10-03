@@ -8,6 +8,9 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('/assets/admin/driver/style.css')}}" rel="stylesheet" type="text/css" >
+
+    <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
+
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -43,13 +46,13 @@
                                     <input type="email" class="form-control" name="user_email" minlength="1" maxlength="100" value="{{$driver->user_email}}" required>
                                 </div> -->
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
+                                    <label class="form-label">{{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" value="{{$driver->phone}}" required>
+                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" id="phone_inp" value="{{$driver->phone}}" minlength="8" maxlength="9" placeholder="7 xxxx xxxx">
                                         </div>
                                     </div>
                                 </div>
@@ -61,21 +64,35 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span>{{__('status')}}</label>
+                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
-                                                <input class="form-check-input" type="radio" name="status"
+                                                @if(Session::get('lang') != 'jor')
+                                                <input class="form-check-input normal" type="radio" name="status"
                                                     id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
                                                 <label class="form-check-label" for="status_1">
                                                     {{__('active')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
+                                                <label class="form-check-label labelRight" for="status_1">
+                                                    {{__('active')}}
+                                                </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$driver->status == 0 ? "checked" : ""}}>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_2" value="0" {{$driver->status == 0 ? "checked" : ""}}>
+                                                @endif
                                                 <label class="form-check-label" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
@@ -91,9 +108,9 @@
                                     <!-- <input type="number" class="form-control" name="age" value="{{$driver->age}}" required> -->
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
-                                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
-                                                data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                                data-provide="datepicker" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" name="start_date" value="{{date('d/m/Y', strtotime($driver->age))}}" required>
+                                            <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="startdate"
+                                                data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
+                                                data-provide="datepicker" name="start_date" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($driver->age))}}" required>
                                         </div>
                                         <div>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -113,9 +130,9 @@
                                     <label><span class="custom-val-color">*</span> {{__('license expiry date')}}</label>
                                     <div class="input-group" id="datepicker2" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
-                                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="enddate"
-                                                data-date-format="dd/mm/yyyy" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" data-date-container='#datepicker2'
-                                                data-provide="datepicker" name="end_date" value="{{date('d/m/Y', strtotime($driver->license_expiry_date))}}" required>
+                                            <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="enddate"
+                                                data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker2'
+                                                data-provide="datepicker" name="end_date" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($driver->license_expiry_date))}}" required>
                                         </div>
                                         <div>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -132,9 +149,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <a href="{{ URL::previous()}}" class="btn btn-outline-primary waves-effect waves-light">{{__('back')}}</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
+                <a href="{{ URL::previous()}}" class="btn btn-outline-primary waves-effect waves-light">{{__('BACK')}}</a>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('RESET')}}</button>
+                <button type="button" id="submit" class="btn btn-primary waves-effect waves-light">{{__('SAVE')}}</button>
             </div>
         </form>
     </div>
@@ -168,7 +185,7 @@
         })
 
         $(document).ready(() => {
-            if($("#wizardPicturePreview").attr('src') != 'http://167.86.102.230/Alnabali/public/images/admin/user-profile.jpg') {
+            if($("#wizardPicturePreview").attr('src') != 'http://213.136.71.7/Alnabali/public/images/admin/user-profile.jpg') {
                 $("#edit-avatar").css('display', 'none');
                 $("#avatar_close").css('display', 'block');
             } else {
@@ -180,9 +197,13 @@
         list_url = "{{route('admin.driver.index')}}";
 
         let setval = new Date();
-        setval = (setval.getMonth() + 1) + '/' +  (setval.getDate() - 1) + '/' + setval.getFullYear();
+        setval = (setval.getDate() + 1) + '/' +  (setval.getMonth() - 1) + '/' + setval.getFullYear();
         // console.log(setval)
-        $('#startdate').datepicker('setEndDate',new Date(setval));
+        // $('#startdate').datepicker('setEndDate',new Date(setval));
+        $('#startdate').datepicker({
+            format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}",
+            setEndDate: new Date(setval),
+        });
             //  setStart date
         $( "#startdate" ).on( "change", function() {
             if (new Date($('#startdate').val()) > new Date(setval)) {
@@ -191,7 +212,10 @@
             $("#startdate-div").children("ul").removeClass("filled");
             $("#startdate-div").children("input").removeClass( "parsley-error" );
         });
-
+        $('#enddate').datepicker({
+            format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}",
+            setStartDate: new Date(setval),
+        });
         //  setEnd date
         $( "#enddate" ).on( "change", function() {
             $("#enddate-div").children("ul").removeClass("filled");
@@ -202,11 +226,34 @@
         $(".reset-btn").click(function(){
             // $( ".parsley-errors-list.filled" ).hide();
             location.reload();
-            });
+        });
 
-            $('#custom-form').submit(function(e){
-                // $( ".parsley-errors-list.filled" ).show();
-            });
+        $('#submit').click(e => {
+            var radios = document.querySelectorAll('input[name="status"]');
+            var selectedValue;
+
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    selectedValue = radios[i].value;
+                    break;
+                }
+            }
+            if(selectedValue == 0)
+            {
+                if(!confirm($('#arc_driver_inactive').val()))
+                    return;
+            }
+            $('#custom-form').submit();
+        });
+
+        bootstrapValidate(
+                '#phone_inp',
+                'max:9:Don\'t Enter more than 9 Characters'
+            );
+            bootstrapValidate(
+                '#phone_inp',
+                'min:8:Enter at least 8 Characters'
+            );
             // end validate
     </script>
 @endsection

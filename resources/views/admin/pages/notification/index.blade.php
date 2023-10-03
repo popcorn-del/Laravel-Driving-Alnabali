@@ -17,56 +17,56 @@
                         <div class="table-filter" style="margin-bottom: 40px">
                             <div class = "row mb-3">
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('client')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('client')}}</div>
                                     <select class="form-select" name="client_filter" id="client_filter">
-                                        <option value="">All Clients</option>
+                                        <option value="">{{__('All Clients')}}</option>
                                         @foreach($client as $key=>$row)
                                             <option value="{{$row->name_en}}">{{$row->name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin city')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('origin city')}}</div>
                                     <select class="form-select" name="origin_city_filter" id="origin_city_filter">
-                                        <option value="">All Cities</option>
+                                        <option value="">{{__('All Cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('origin area')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('origin area')}}</div>
                                     <select class="form-select" name="origin_area_filter" id="origin_area_filter">
-                                        <option value="">All Areas</option>
+                                        <option value="">{{__('All Areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination city')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('destination city')}}</div>
                                     <select class="form-select" name="destinations_city_filter" id="destinations_city_filter">
-                                        <option value="">All Cities</option>
+                                        <option value="">{{__('All Cities')}}</option>
                                         @foreach($city as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->city_name_en}}">{{$row->city_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('destination area')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('destination area')}}</div>
                                     <select class="form-select" name="destinations_area_filter" id="destinations_area_filter">
-                                        <option value="">All Areas</option>
+                                        <option value="">{{__('All Areas')}}</option>
                                         @foreach($area as $key=>$row)
                                             <option data-id="{{$row->id}}" value="{{$row->area_name_en}}">{{$row->area_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('notified app')}}</div>
-                                    <select class="form-select" name="bus_filter" id="bus_filter">
-                                        <option value="Select Notified App">Select Notified App</option>
-                                        <option value="Supervisor">Supervisor</option>
-                                        <option value="Driver">Driver</option>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('notified app')}}</div>
+                                    <select class="form-select" name="app_filter" id="app_filter">
+                                        <option  value="">{{__('Select Notified App')}}</option>
+                                        <option value="Supervisor">{{__('supervisor')}}</option>
+                                        <option value="Driver">{{__('driver')}}</option>
                                     </select>
                                 </div>
                                 <!-- <div class = "col-2">
@@ -87,26 +87,31 @@
                                     </select>
                                 </div> -->
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('notified person')}}</div>
-                                    <select class="form-select" name="bus_filter" id="bus_filter">
-                                        <option value="Select Notified Person">Select Notified Person</option>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('notified person')}}</div>
+                                    <select class="form-select" name="person_filter" id="person_filter">
+                                        <option value="Select Notified Person">{{__('Select Notified Person')}}</option>
+                                        @foreach($driver as $key=>$row)
+                                            <option data-id="{{$row->id}}" value="{{$row->name_en}}">{{$row->name_en}}</option>
+                                        @endforeach
+                                        @foreach($supervisor as $key=>$row)
+                                            <option data-id="{{$row->id}}" value="{{$row->name}}">{{$row->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class = "col-2">
-                                    <div style="text-align: left; margin-bottom: 5px">{{__('status')}}</div>
+                                    <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('status')}}</div>
                                     <select class="form-select" name="status_filter" id="status_filter">
-                                        <option>All Status</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Accepted">Accepted</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Started">Started</option>
-                                        <option value="Started with a delay">Started with a delay</option>
-                                        <option value="Finished">Finished</option>
-                                        <option value="Finished with a delay">Finished with a delay</option>
-                                        <option value="Canceled">Canceled</option>
+                                        <option value="">{{__('All Status')}}</option>
+                                        <option value="Pending">{{__('Pending')}}</option>
+                                        <option value="Accepted">{{__('Accepted')}}</option>
+                                        <option value="Rejected">{{__('Rejected')}}</option>
+                                        <option value="Started">{{__('Started')}}</option>
+                                        <option value="Finished">{{__('Finished')}}</option>
+                                        <option value="Canceled">{{__('Canceled')}}</option>
+                                        <option value="Fake">{{__('Fake')}}</option>
                                     </select>
                                 </div>
-                                <div class = "col-md-2">
+                                <!-- <div class = "col-md-2">
                                     <div style="text-align: left">
                                         <label for="">{{__('start date')}}</label>
                                     </div>
@@ -129,7 +134,7 @@
 
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             {{-- <a href="{{route('admin.daily.task')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DAILY TRIP</a> --}}
                         </div>
@@ -152,9 +157,11 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
 
     <script>
+        var search_strings = new Array(14);
+        search_strings.fill("");
         url = "{{route('admin.daily.table')}}"
 
         $.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col )
@@ -211,6 +218,134 @@
                 $('#startdate').datepicker('setEndDate',setval);
             });
 
+            $("#client_filter").change(() => {
+                search_strings[3] = $("#client_filter").val();
+                filterData();
+            });
+
+            $("#origin_city_filter").change(() => {
+                search_strings[4] = $("#origin_city_filter").val();
+                filterData();
+            });
+
+            $("#origin_area_filter").change(() => {
+                search_strings[5] = $("#origin_area_filter").val();
+                filterData();
+            });
+
+            $("#destinations_city_filter").change(() => {
+                search_strings[6] = $("#destinations_city_filter").val();
+                filterData();
+            });
+
+            $("#destinations_area_filter").change(() => {
+                search_strings[7] = $("#destinations_area_filter").val();
+                filterData();
+            });
+            $("#app_filter").change(() => {
+                search_strings[11] = $("#app_filter").val();
+                filterData();
+            });
+            $("#person_filter").change(() => {
+                search_strings[12] = $("#person_filter").val();
+                filterData();
+            });
+            $("#status_filter").change(() => {
+                search_strings[8] = $("#status_filter").val();
+                filterData();
+            });
+
+            $("#startdate").change(() => {
+                search_strings[13] = $("#startdate").val();
+                filterData();
+            });
+
+            $("#enddate").change(() => {
+                search_strings[14] = $("#enddate").val();
+                filterData();
+            });
+
+            function filterData() {
+                $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                    for (var i = 0; i < search_strings.length; i++) {
+                        if (search_strings[i] != '') {
+                            if (i == 14 && new Date(data[10]) < new Date(search_strings[14])) {
+                                return false;
+                            } else if (i == 13 && new Date(data[10]) > new Date(search_strings[13])) {
+                                return false;
+                            } else if((i != 13 && i != 14) && data[i].toLowerCase() != search_strings[i].toLowerCase()) {
+                                return false;
+                            }
+                        }
+                    }
+                    return true;
+                })
+                table = $('#datatable').DataTable({
+	                bDestroy: true,
+                    scrollX: true,
+                    dom: 'Blfrtip',
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All'],
+                    ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
+                    buttons: [
+                        // 'csv', 'excel', 'pdf', 'print'
+                        {
+                            extend: 'csv',
+                            exportOptions: {
+                                orthogonal: 'csvoption',
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+
+
+                            }
+                        },
+                        {
+                            extend: 'excel',
+                            exportOptions: {
+                                orthogonal: 'exceloption',
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+
+
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            exportOptions: {
+                                orthogonal: 'pdfoption',
+
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                orthogonal: 'printoption',
+
+                                columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+
+                            }
+                        }
+                    ],
+                    columnDefs: [
+
+                    ]
+                });
+                makeExportBtn();
+            }
+
             if ( $.fn.dataTable.isDataTable( '#datatable' ) ) {
                 table = $('#datatable').DataTable({
 	                bDestroy: true,
@@ -220,6 +355,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_" + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {

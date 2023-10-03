@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') View Maintenace Record @endsection
-@section('page-title') View Maintenance Record @endsection
+@section('page-title') {{__('View Maintenance Record')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -18,40 +18,40 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="mb-3">
-                                    <label class="form-label">BUS NO.</label>
+                                    <label class="form-label">{{__('bus no.')}}</label>
                                     <select class="form-select" name="bus_no" required>
-                                        <option value="">Select Bus NO. </option>
+                                        <option value="">{{__('Select Bus No.')}} </option>
                                         @foreach($bus as $row)
                                         <option value="{{$row->id}}" {{$bus_maintenace->bus_no == $row->id ? "selected" : ""}}>{{$row->bus_no}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label>TYPE</label>
+                                    <label>{{__('type')}}</label>
                                     <select class="form-select" name="maintenace_type" required>
-                                        <option value="">Select Tyepe</option>
+                                        <option value="">{{__('Select Type')}}</option>
                                         @foreach($bus_maintenace_type as $row)
                                         <option value="{{$row->id}}" {{$bus_maintenace->maintanence_type_id == $row->id ? "selected" : ""}}>{{$row->type_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">DETAILS</label>
+                                    <label class="form-label">{{__('details')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="3" name="details">{{$bus_maintenace->details}}</textarea>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label>DATE</label>
+                                    <label>{{__('date')}}</label>
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="dd/mm/yyyy"
                                             data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                            data-provide="datepicker" name="date" value="{{date('d/m/Y', strtotime($bus_maintenace->maintanence_date))}}" required>
+                                            data-provide="datepicker" name="date" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($bus_maintenace->maintanence_date))}}" required>
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">COST</label>
+                                    <label class="form-label">{{__('cost')}}</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" name="cost" value="{{$bus_maintenace->cost}}" required>
                                         <div class="input-group-prepend">
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                 <div class="col-md-2"></div>
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('BACK')}}</button>
             </div>
         </form>
     </div>

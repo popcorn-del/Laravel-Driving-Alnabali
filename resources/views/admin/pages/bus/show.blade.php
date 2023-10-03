@@ -1,12 +1,14 @@
 @extends('admin.layouts.master')
-@section('title') View Bus @endsection
-@section('page-title') View Bus @endsection
+@section('title') {{__('View Bus')}} @endsection
+@section('page-title') {{__('View Bus')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/bootstrap-timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
+
+    <link rel="stylesheet" href="{{ URL::asset('/assets/admin/bus/style.css')}}" rel="stylesheet" type="text/css" >
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -17,24 +19,24 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="mb-3">
-                                    <label class="form-label">BUS NO</label>
+                                    <label class="form-label">{{__('bus no.')}}</label>
                                     <input type="text" class="form-control" name="bus_no" value="{{$bus->bus_no}}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label>BUS SIZE</label>
+                                    <label>{{__('bus size')}}</label>
                                     <select class="form-select" name="bus_size" required>
-                                        <option value="">Select bus size</option>
+                                        <option value="">Select Bus Size</option>
                                         @foreach($bus_size as $row)
                                         <option value="{{$row->id}}" {{$bus->bus_size_id == $row->id ? 'selected' :''}}>{{$row->size}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">LICENSE NUMBER</label>
+                                    <label class="form-label">{{__('license number')}}</label>
                                     <input type="text" class="form-control" name="license_number" value="{{$bus->license_no}}"  required>
                                 </div>
                                 <div class="mb-3">
-                                    <label>LICENSE EXPIRY DATE</label>
+                                    <label>{{__('license expiry date')}}</label>
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="dd/mm/yyyy"
                                             data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
@@ -43,7 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label>TYPE</label>
+                                    <label>{{__('type')}}</label>
                                     <select class="form-select" name="bus_type" required>
                                         <option value="">Select</option>
                                         @foreach($bus_type as $row)
@@ -52,14 +54,14 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label>MODEL</label>
+                                    <label>{{__('model')}}</label>
                                     <select class="form-select" name="bus_model" required>
-                                        <option value="">Select model</option>
+                                        <option value="">Select Model</option>
                                         <option value="{{$bus->bus_model_id}}" selected>{{$bus->model_en}}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label>SELECT MODEL YEAR</label>
+                                    <label>{{__('model year')}}</label>
                                     <select class="form-select" name="model_year" required>
                                         <option value="">Select Model Year</option>
                                         @foreach($model_year as $row)
@@ -68,54 +70,90 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">OWNERSHIP</label>
+                                    <label class="form-label">{{__('ownership')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="ownership"
                                                     id="owned" value="1" {{$bus->owner_ship == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label" for="owned">
-                                                    Owned
+                                                <label class="form-check-label normal-text" for="owned">
+                                                    {{__('Owned')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="ownership"
+                                                    id="owned" value="1" {{$bus->owner_ship == 1 ? 'checked' :''}}>
+                                                <label class="form-check-label labelRight normal-text" for="owned">
+                                                    {{__('Owned')}}
+                                                </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="ownership"
                                                     id="rented" value="0" {{$bus->owner_ship == 0 ? 'checked' :''}}>
                                                 <label class="form-check-label" for="rented">
-                                                    Rented
+                                                    {{__('Rented')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="ownership"
+                                                    id="rented" value="0" {{$bus->owner_ship == 0 ? 'checked' :''}}>
+                                                <label class="form-check-label labelRight normal-text" for="rented">
+                                                    {{__('Rented')}}
+                                                </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">STATUS</label>
+                                    <label class="form-label">{{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$bus->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label" for="status_1">
-                                                    Active
+                                                <label class="form-check-label normal-text" for="status_1">
+                                                    {{__('active')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input  radioRight" type="radio" name="status"
+                                                    id="status_1" value="1" {{$bus->status == 1 ? 'checked' :''}}>
+                                                <label class="form-check-label labelRight normal-text" for="status_1">
+                                                    {{__('active')}}
+                                                </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$bus->status == 0 ? 'checked' :''}}>
-                                                <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                <label class="form-check-label normal-text" for="status_2">
+                                                {{__('inactive')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_2" value="0" {{$bus->status == 0 ? 'checked' :''}}>
+                                                <label class="form-check-label labelRight normal-text" for="status_2">
+                                                    {{__('inactive')}}
+                                                </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -125,7 +163,7 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('BACK')}}</button>
             </div>
         </form>
     </div>
@@ -160,10 +198,10 @@
             history.back();
         })
 
-            
+
             store = "{{route('admin.bus.update', ['bu' => $bus->id])}}";
             list_url = "{{route('admin.bus.index')}}";
-            $("select[name='bus_type']").on("change", function (e) { 
+            $("select[name='bus_type']").on("change", function (e) {
                 var select_val = $(e.currentTarget).val();
                 show_url = "{{route('admin.bus.show', ['bu' => 1])}}";
                 show_url = show_url.replace(':bu', select_val);

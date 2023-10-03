@@ -49,13 +49,13 @@
                                     <input type="email" class="form-control" name="user_email" minlength="1" maxlength="100" required>
                                 </div> -->
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('phone')}}</label>
+                                    <label class="form-label">{{__('phone')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div >
                                             <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" id="phone_inp" required>
+                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" id="phone_inp" minlength="8" maxlength="9" placeholder="7 xxxx xxxx">
                                         </div>
 
                                     </div>
@@ -75,18 +75,33 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" checked>
-                                                <label class="form-check-label" for="status_1">
+                                                <label class="form-check-label normal-text" for="status_1">
                                                     {{__('active')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_1" value="1" checked>
+                                                <label class="form-check-label labelRight normal-text" for="status_1">
+                                                    {{__('active')}}
+                                                </label>
+                                                @endif
+
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0">
-                                                <label class="form-check-label" for="status_2">
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_2" value="0">
+                                                @endif
+                                                <label class="form-check-label normal-text" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                             </div>
@@ -99,9 +114,9 @@
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('date of birth')}}</label>
                                     <div class="input-group" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
-                                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
-                                                data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                                data-provide="datepicker" name="start_date"  pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" required>
+                                            <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="startdate"
+                                                data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
+                                                data-provide="datepicker" name="start_date" required>
                                         </div>
                                         <div>
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -128,8 +143,8 @@
                                     <label><span class="custom-val-color">*</span> {{__('license expiry date')}}</label>
                                     <div class="input-group" id="datepicker2" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
-                                            <input type="text" class="form-control" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" placeholder="dd/mm/yyyy" id="enddate"
-                                                data-date-format="dd/mm/yyyy" data-date-container='#datepicker2'
+                                            <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="enddate"
+                                                data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker2'
                                                 data-provide="datepicker" name="end_date" required>
                                         </div>
                                         <div>
@@ -147,9 +162,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</a>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
+                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('BACK')}}</a>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('RESET')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('SAVE')}}</button>
             </div>
         </form>
     </div>
@@ -197,7 +212,10 @@
         let setval = new Date();
         setval = (setval.getMonth() + 1) + '/' +  (setval.getDate() - 1) + '/' + setval.getFullYear();
         // console.log(setval)
-        $('#startdate').datepicker('setEndDate',new Date(setval));
+        $('#startdate').datepicker({
+            format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}",
+            endDate: new Date(setval),
+        });
             //  setStart date
         $( "#startdate" ).on( "change", function() {
             if (new Date($('#startdate').val()) > new Date(setval)) {
@@ -207,6 +225,10 @@
             $("#startdate-div").children("input").removeClass( "parsley-error" );
         });
 
+        $('#enddate').datepicker({
+            format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}",
+            startDate: new Date(setval),
+        });
         //  setEnd date
         $( "#enddate" ).on( "change", function() {
             $("#enddate-div").children("ul").removeClass("filled");

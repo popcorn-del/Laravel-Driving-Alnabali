@@ -20,7 +20,7 @@
                                 <div class="mb-3">
                                     <label><span class="custom-val-color">*</span>TRIPE NAME</label>
                                     <select class="form-select" name="tripe_name" required>
-                                        <option>Select trip</option>
+                                        <option>Select Trip</option>
                                         @foreach($trip as $key=>$row)
                                             <option value="{{$row->trip_name_en}}">{{$row->trip_name_en}}</option>
                                         @endforeach
@@ -35,14 +35,14 @@
                                                 @foreach($city as $key=>$row)
                                                     <option value="{{$row->city_name_en}}" data-id="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
-                                            </select>  
+                                            </select>
                                         </div>
                                         <div class = "col-md-6">
                                             <select class="form-select" name="origin_area" required>
-                                                <option>Select area</option>
-                                            </select> 
+                                                <option>Select Area</option>
+                                            </select>
                                         </div>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class = "mb-3">
                                     <div class = "row">
@@ -54,14 +54,14 @@
                                                     data-provide="datepicker" name="start_trip_date" required>
 
                                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div class = "col-md-6">
                                             <label for=""><span class = "custom-val-color">*</span>START TIME</label>
                                             <div class="input-group" id="timepicker-input-group1">
                                                 <input id="timepicker" type="text" class="form-control" data-provide="timepicker" name = "start_trip_time">
                                                 <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -148,14 +148,14 @@
                                                 @foreach($city as $key=>$row)
                                                     <option value="{{$row->city_name_en}}" data-id="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
-                                            </select>  
+                                            </select>
                                         </div>
                                         <div class = "col-md-6">
                                             <select class="form-select" name="destination_area" required>
                                                 <option>Select Area</option>
-                                            </select> 
+                                            </select>
                                         </div>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class = "mb-3">
                                     <div class = "row">
@@ -167,14 +167,14 @@
                                                     data-provide="datepicker" name="end_trip_date" required>
 
                                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div class = "col-md-6">
                                             <label for=""><span class = "custom-val-color">*</span>END TIME</label>
                                             <div class="input-group" id="timepicker-input-group1">
                                                 <input id="timepicker" type="text" class="form-control" data-provide="timepicker" name = "end_trip_time">
                                                 <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -198,14 +198,14 @@
                                 </div>
                                 <div class = "mb-3">
                                     <label class="form-label"><span class="custom-val-color">*</span>STATUS</label>
-                                                                          
+
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_1" value="1" checked>
                                         <label class="form-check-label" for="status_1">
                                             Pending
                                         </label>
-                                    </div>                       
+                                    </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_2" value="2">
@@ -254,22 +254,22 @@
                                         <label class="form-check-label" for="status_8">
                                             Canceled
                                         </label>
-                                    </div>    
-                                </div>        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                                     
-                    
+
+
                 </div>
                 <div class="col-md-5">
                     <img src="{{ URL::asset ('/images/admin/bus.png') }}" alt="" width="100%">
                 </div>
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">BACK</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">RESET</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">SAVE</button>
             </div>
         </form>
     </div>
@@ -286,24 +286,24 @@
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/dailyTrip/create.js') }}"></script>
     <script>
-        
+
          $(document).ready(function(){
             store = "{{route('admin.daily_trip.store')}}";
             list_url = "{{route('admin.daily_trip.index')}}";
             origin_area = $("select[name='origin_area']");
             destination_area = $("select[name='destination_area']");
-        
+
             $("#backbtn").on('click', () => {
                 history.back();
             })
-            
-            // display area when click origin_city 
-            $("select[name='origin_city']").on("change", function (e) { 
+
+            // display area when click origin_city
+            $("select[name='origin_city']").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 selectFunction(origin_area, id)
             })
-            // display area when click destination_area 
-            $("select[name='destination_city']").on("change", function (e) { 
+            // display area when click destination_area
+            $("select[name='destination_city']").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 selectFunction(destination_area, id)
             })

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
-@section('title') View Daily Trip @endsection
-@section('page-title') View Daily Trip <p style="text-align: center;width: 100%;font-size: .8rem;color: #aaa"> {{$daily_trip->trip_id}} </p> @endsection
+@section('title') {{__('VIEW Daily Trip')}} @endsection
+@section('page-title') {{__('VIEW DAILY TRIP')}} <p style="text-align: center;width: 100%;font-size: .8rem;color: #aaa"> {{$daily_trip->trip_id}} </p> @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -19,16 +19,17 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label>TRIPE NAME</label>
-                                    <select class="form-select" name="tripe_name" disabled required>
-                                        <option>Select trip</option>
-                                        @foreach($trip as $key=>$row)
-                                            <option value="{{$row->trip_name_en}}" {{$daily_trip->trip_name == $row->trip_name_en ? "selected" : ""}}>{{$row->trip_name_en}}</option>
+                                    <label>{{__('client')}}</label>
+                                    <select class="form-select" name="client" disabled required>
+                                        <option>{{__('Select Client')}}</option>
+                                        @foreach($client as $key=>$row)
+                                            <option value="{{$row->id}}" {{$daily_trip->client_name == $row->id ? "selected" : ""}}>{{$row->name_en}}</option>
                                         @endforeach
                                     </select>
+                                            <input type="hidden" name="client" value="{{$daily_trip->client_name}}">
                                 </div>
                                 <div class = "mb-3">
-                                    <label>ORIGIN</label>
+                                    <label>{{__('origin')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" name="origin_city" disabled required>
@@ -41,68 +42,84 @@
                                         <div class = "col-md-6">
                                             <select class="form-select" name="origin_area" disabled required>
                                                 <option selected>{{$daily_trip->origin_area}}</option>
-                                            </select> 
+                                            </select>
                                         </div>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class = "mb-3">
                                     <div class = "row">
                                         <div class = "col-md-6">
-                                            <label>START DATE</label>
+                                            <label>{{__('start date')}}</label>
                                             <div class="input-group" id="datepicker1">
                                                 <input type="text" class="form-control" disabled placeholder="dd/mm/yyyy"
                                                     data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                                    data-provide="datepicker" name="start_trip_date" value="{{date('d/m/Y',strtotime($daily_trip->start_date))}}" required>
+                                                    data-provide="datepicker" name="" value="{{ date(Session::get('date') == 0 ? 'd/m/Y' : 'm/d/Y',strtotime($daily_trip->start_date)) }}" required>
 
                                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div class = "col-md-6">
-                                            <label for="">START TIME</label>
+                                            <label for="">{{__('start time')}}</label>
                                             <div class="input-group" id="timepicker-input-group1">
-                                                <input id="timepicker" disabled type="text" class="form-control" data-provide="timepicker" value="{{date('h:i A', strtotime($daily_trip->start_time))}}" name = "start_trip_time">
+                                                <input id="timepicker" disabled type="text" class="form-control" data-provide="timepicker" value="{{$daily_trip->start_time}}" name = "start_trip_time">
                                                 <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label>BUS SIZE</label>
+                                    <label>{{__('bus size')}}</label>
                                     <select class="form-select" name="bus_size" disabled required>
-                                        <option>Select Bus Size</option>
+                                        <option> {{__('Select Bus Size')}}</option>
                                         @foreach($bus_size as $key=>$row)
-                                            <option value="{{$row->size}}" {{$daily_trip->bus_size == $row->size ? "selected" : ""}}>{{$row->size}}</option>
+                                            <option value="{{$row->size}}" {{$daily_trip->bus_size_id == $row->size ? "selected" : ""}}>{{$row->size}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Details</label>
+                                    <label class="form-label">{{__('details')}}</label>
                                     <div>
                                         <textarea class="form-control" rows="5" name="details" disabled>{{$daily_trip->details}}</textarea>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">TRIP TYPE</label>
+                                    <label class="form-label">{{__('trip type')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" disabled name="trip_type"
                                                     id="trip_type_1" value="1" {{$daily_trip->trip_type == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label" for="trip_type_1">
-                                                    Periodic
+                                                <label class="form-check-label text-capitalize" for="trip_type_1">
+                                                {{__('periodic')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" disabled name="trip_type"
+                                                    id="trip_type_1" value="1" {{$daily_trip->trip_type == 1 ? "checked" : ""}}>
+                                                <label class="form-check-label labelRight text-capitalize" for="trip_type_1">
+                                                {{__('periodic')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" disabled name="trip_type"
                                                     id="trip_type_2" value="0" {{$daily_trip->trip_type == 0 ? "checked" : ""}}>
-                                                <label class="form-check-label" for="trip_type_2">
-                                                    Non-Periodic
+                                                <label class="form-check-label text-capitalize" for="trip_type_2">
+                                                   {{__('non-periodic')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" disabled name="trip_type"
+                                                    id="trip_type_2" value="0" {{$daily_trip->trip_type == 0 ? "checked" : ""}}>
+                                                <label class="form-check-label text-capitalize" for="trip_type_2">
+                                                   {{__('non-periodic')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <!-- <div class="mb-3">
@@ -132,74 +149,73 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label>CLIENT</label>
-                                    <select class="form-select" name="client" disabled required>
-                                        <option>Select Client</option>
-                                        @foreach($client as $key=>$row)
-                                            <option value="{{$row->name_en}}" {{$daily_trip->client_name == $row->name_en ? "selected" : ""}}>{{$row->name_en}}</option>
+                                    <label>{{__('trip name')}}</label>
+                                    <select class="form-select" name="tripe_name" disabled required>
+                                        <option>Select Trip</option>
+                                        @foreach($trip as $key=>$row)
+                                            <option value="{{$row->trip_name_en}}" {{$daily_trip->trip_name == $row->trip_name_en ? "selected" : ""}}>{{$row->trip_name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "mb-3">
-                                    <label>DESTINATION</label>
+                                    <label> {{__('destination')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
                                             <select class="form-select" disabled name="destination_city" required>
-                                                <option>Select City</option>
+                                                <option> {{__('Select City')}}</option>
                                                 @foreach($city as $key=>$row)
                                                     <option value="{{$row->city_name_en}}" data-id="{{$row->id}}" {{$daily_trip->destination_city == $row->city_name_en ? "selected" : ""}}>{{$row->city_name_en}}</option>
                                                 @endforeach
-                                            </select>  
+                                            </select>
                                         </div>
                                         <div class = "col-md-6">
                                             <select class="form-select" name="destination_area" disabled required>
                                                 <option selected>{{$daily_trip->destination_area}}</option>
-                                            </select> 
+                                            </select>
                                         </div>
-                                    </div>                                     
+                                    </div>
                                 </div>
                                 <div class = "mb-3">
                                     <div class = "row">
                                         <div class = "col-md-6">
-                                            <label>END DATE</label>
+                                            <label> {{__('end date')}}</label>
                                             <div class="input-group" id="datepicker1">
                                                 <input type="text" disabled class="form-control" placeholder="dd/mm/yyyy"
                                                     data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                                    data-provide="datepicker" name="end_trip_date" value="{{date('d/m/Y',strtotime($daily_trip->end_date))}}" required>
-
+                                                    data-provide="datepicker" name="end_trip_date" value="{{ date(Session::get('date') == 0 ? 'd/m/Y' : 'm/d/Y',strtotime($daily_trip->end_date)) }}" required>
                                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div class = "col-md-6">
-                                            <label for="">END TIME</label>
+                                            <label for=""> {{__('end time')}}</label>
                                             <div class="input-group" id="timepicker-input-group1">
-                                                <input id="timepicker" disabled type="text" class="form-control" data-provide="timepicker" value="{{date('h:i A', strtotime($daily_trip->start_time))}}" name = "end_trip_time">
+                                                <input id="timepicker" disabled type="text" class="form-control" data-provide="timepicker" value="{{$daily_trip->end_time}}" name = "end_trip_time">
                                                 <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label>BUS NO.</label>
+                                    <label> {{__('bus no.')}}</label>
                                     <select class="form-select" name="bus_no" disabled required>
-                                        <option>Select Bus.No</option>
+                                        <option> {{__('Select Bus.No')}}</option>
                                         @foreach($bus as $key=>$row)
                                             <option value="{{$row->bus_no}}" {{$daily_trip->bus_no == $row->bus_no ? "selected" : ""}}>{{$row->bus_no}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label>DRIVER</label>
+                                    <label> {{__('driver')}}</label>
                                     <select class="form-select" name="driver" disabled required>
-                                        <option>Select Driver</option>
+                                        <option> {{__('Select Driver')}}</option>
                                         @foreach($driver as $key=>$row)
                                             <option value="{{$row->name_en}}" {{$daily_trip->dirver_name == $row->name_en ? "selected" : ""}}>{{$row->name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "mb-3">
-                                    <label class="form-label">STATUS</label>
-                                                                         
+                                    <label class="form-label"> {{__('status')}}</label>
+
                                     <select class="form-select" name="bus_size" disabled required>
                                         <option>Pending</option>
                                         <option class="form-check-input" type="radio" disabled  value="{{$row->size}}" name="status"
@@ -251,20 +267,21 @@
                                             </label>
                                         </option>
                                     </select>
-                                </div>        
+                                </div>
                                 <div class = "mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color"></span> SUPERVISOR 
+                                    <label class="form-label"><span class="custom-val-color"></span>  {{__('supervisor')}}
                                     </label>
                                     <div class = "row border rounded border-secondary daysofweek">
                                         <div class = "trip-frequency-check">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id='selectAll' disabled
                                                     >
-                                                <label class="form-check-label" style="width: 200px">
-                                                    SELECT ALL
+                                                <label class="form-check-label text-normal" style="width: 200px">
+                                                {{__('Choose One or More')}}
                                                 </label>
                                             </div>
                                         </div>
+                                        @if(Session::get('lang') != 'jor')
                                         <div class = "col-md-4">
                                             @foreach($supervisor as $row)
                                                 <div class="form-check form-check-warning">
@@ -276,20 +293,33 @@
                                                 </div>
                                             @endforeach
                                         </div>
+                                        @else
+                                        <div class = "col-md-10">
+                                            @foreach($supervisor as $row)
+                                                <div class="form-check form-check-warning ">
+                                                    <input class="form-check-input checkRight" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
+                                                        value = "{{$row->id}}" checked disabled>
+                                                    <label class="form-check-label labelRight" for="supervisor_{{$row->id}}">
+                                                        {{$row->name}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                                     
-                    
+
+
                 </div>
                 <!-- <div class="col-md-5">
                     <img src="{{ URL::asset ('/images/admin/view-daily-trip.png') }}" alt="" width="100%">
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn"> {{__('BACK')}}</button>
                 <!-- <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
                 <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button> -->
             </div>
@@ -325,14 +355,14 @@
             origin_area = $("select[name='origin_area']");
             console.log(origin_area)
             destination_area = $("select[name='destination_area']");
-            
-            // display area when click origin_city 
-            $("select[name='origin_city']").on("change", function (e) { 
+
+            // display area when click origin_city
+            $("select[name='origin_city']").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 selectFunction(origin_area, id)
             })
-            // display area when click destination_area 
-            $("select[name='destination_city']").on("change", function (e) { 
+            // display area when click destination_area
+            $("select[name='destination_city']").on("change", function (e) {
                 var id = $(this).find(':selected').data('id')
                 selectFunction(destination_area, id)
             })

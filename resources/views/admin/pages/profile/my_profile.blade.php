@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') My Profile @endsection
-@section('page-title') My Profile @endsection
+@section('page-title') {{ __('My Profile')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -21,11 +21,11 @@
                                 <div class="col-md-6">
                                     
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> NAME</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{ __('name')}}</label>
                                         <input type="text" class="form-control" name="name" minlength="1" maxlength="100" required value="{{ Auth::user()->name }}">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> PHONE</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{ __('phone')}}</label>
                                         <div class="input-group" style="flex-wrap: nowrap">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">+ 962</span>
@@ -36,7 +36,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label"><span class="custom-val-color">*</span> EMAIL</label>
+                                        <label class="form-label"><span class="custom-val-color">*</span> {{ __('email')}}</label>
                                         <input type="text" class="form-control" name="email" minlength="1" maxlength="100" required value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
@@ -48,8 +48,8 @@
             </div>
             <div class="button-group">
                 <!-- <a href="#" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">Back</a> -->
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">Reset</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{ __('reset')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{ __('save')}}</button>
             </div>
         </form>
     </div>

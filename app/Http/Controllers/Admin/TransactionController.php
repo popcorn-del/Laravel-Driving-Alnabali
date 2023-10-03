@@ -149,7 +149,7 @@ class TransactionController extends Controller
     }
 
     public function getTransaction($id) {
-        $transactions = Transaction::where('trip_id', $id)->orderBy('transactions.id', 'ASC')->get();
+        $transactions = Transaction::where('daily_trip_id', $id)->orderBy('transactions.id', 'ASC')->get();
         return response()->json(['result' => $transactions]);
     }
 }

@@ -74,7 +74,7 @@ $(document).ready(function(){
             data: formData,
             success: function (res) {
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
+                    toastr["success"]($('#arc_success').val());
                     setInterval(function(){ 
                         location.href = list_url; 
                     }, 2000);
@@ -107,7 +107,7 @@ $(document).ready(function(){
             data:{status:status, id:id},
             success:function(res){
                 if(res.result == "success" ){
-                    toastr["success"]("Success!!!");
+                    toastr["success"]($('#arc_success').val());
                 }
             }
         })

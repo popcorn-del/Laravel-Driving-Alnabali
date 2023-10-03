@@ -29,7 +29,7 @@ class DailyTripController extends Controller
      */
     public function index()
     {
-        $daily_trip = DailyTripDetail::orderBy('daily_trip_details.id', 'DESC')->get();
+        $daily_trip = DailyTripDetail::orderBy('start_date','DESC')->orderBy('start_time','ASC')->get();
         $client = Client::where('status', 1)->get();
         $city = City::where('status', 1)->get();
         $bus = Bus::where('status', 1)->get();
@@ -132,7 +132,7 @@ class DailyTripController extends Controller
         $daily_trip->driver_id = $driver_name[1];
 
         $daily_trip->trip_type = $request->trip_type;
-        $daily_trip->show_admin_status = $request->show_trip_admin;
+        // $daily_trip->show_admin_status = $request->show_trip_admin;
         if ($request->status != 0) {
             $daily_trip->status = $request->status;
         }
@@ -280,8 +280,6 @@ class DailyTripController extends Controller
     public function addDailyTrip() {
         $trip = Trip::all();
             // $trip = Trip::where('trip_type', 0)->get();
-
-
             $flag = false;
             foreach ($trip as $trip_key) {
                 $now = Carbon::today();
@@ -366,7 +364,7 @@ class DailyTripController extends Controller
                         // }
 
                         $daily_trip->trip_type = $trip_key->trip_type;
-                        $daily_trip->show_admin_status = $trip_key->admin_show;
+                        // $daily_trip->show_admin_status = $trip_key->admin_show;
                         $daily_trip->status = $trip_key->status;
 
                         $daily_trip->save();
@@ -377,7 +375,7 @@ class DailyTripController extends Controller
     }
 
     public function getTodayTrip(Request $request) {
-        $null_val = [];
+       	$null_val = [];
         $driver_name = $request->get('driver_name');
         if ($driver_name == "") return response()->json(['result' => 'Invalid Input Data']);
 
@@ -387,18 +385,23 @@ class DailyTripController extends Controller
         $return_val = [];
         $return_avatar = [];
         $daily_trip = [];
-        $supervisor=$request->supervisor;
+        $supervisor=$request->get('supervisor');
         if ($driver_name == "all") {
-            $daily_trip = DailyTripDetail::whereJsonContains('supervisor',"$supervisor")->get();
+            // $daily_trip = DailyTripDetail::where('supervisor','like','%"'.$id.'"%')->orderBy('start_date','asc')->get();
+            $daily_trip = DailyTripDetail::where('supervisor', 'LIKE', '%"'.$supervisor.'"%')->orderBy('start_date','asc')->get();
+
+
         } else {
-            $driver_name = Driver::where('id', $driver_name)->first()->name_en;
-            $daily_trip = DailyTripDetail::where('dirver_name', $driver_name)->get();
+            // $driver_name = Driver::where('id', $driver_name)->first()->name_en;
+            $daily_trip = DailyTripDetail::where('driver_id', $driver_name)->orderBy('start_date','asc')->get();
         }
-        // if (!$daily_trip) return response()->json(['result' => 'Invalid Driver']);
+        // return response()->json(['result' => $return_val, 'client_avatars' => $driver_name]);
+        // // if (!$daily_trip) return response()->json(['result' => 'Invalid Driver']);
         foreach ($daily_trip as $daily_tripkey) {
 
-            $trip_month = $daily_tripkey->created_at->format('m');
-            $trip_date = $daily_tripkey->created_at->format('d');
+            $start_date = Carbon::parse($daily_tripkey->start_date);
+            $trip_month = $start_date->format('m');
+            $trip_date = $start_date->format('d');
 
             if ($today_month == $trip_month && $today_date == $trip_date) {
                 // $daily_tripkey->dirver_name = Driver::where("id", $trip->dirver_name)->first()->name_en;
@@ -410,11 +413,12 @@ class DailyTripController extends Controller
                 // $daily_tripkey->destination_city = $this->getCity($daily_tripkey->destination_city);
 
                 $client = Client::findOrFail($daily_tripkey->client_name);
-                $result = "http://167.86.102.230/alnabali/public/uploads/image/";
+                $result = "http://213.136.71.7/alnabali/public/uploads/image/";
                 $result .= $client->client_avatar;
 
                 $daily_tripkey->client_avatar = $result;
                 $daily_tripkey->client_name = $client->name_en;
+                if($request->lang == 'ar') $daily_tripkey->client_name = $client->name_ar;
 
                 array_push($return_avatar, (object)[
                     $daily_tripkey->id => $result,
@@ -429,50 +433,60 @@ class DailyTripController extends Controller
     public function getLastTrip(Request $request) {
         $return_avatar = [];
         $null_val = [];
-        $trips = DailyTripDetail::all();
+        $today_date = Carbon::now()->format('Y-m-d');
+        $trips = DailyTripDetail::orderBy('start_date','desc')->where('start_date', '<', $today_date)->get();
         $daily_trips = [];
+
         foreach ($trips as $trip) {
-            if ($request->driver_name != "all") {
-                $driver_name = Driver::where('id', $request->driver_name)->first()->user_name;
-                $daily_trips = DailyTripDetail::where('dirver_name', $driver_name)->get();
-                foreach ($daily_trips as $key => $value) {
-                    $client = Client::findOrFail($value->client_name);
-                    $result = "http://167.86.102.230/alnabali/public/uploads/image/";
-                    $result .= $client->client_avatar;
-                    $value->client_avatar = $result;
-                    $value->client_name = $client->name_en;
-                }
+            $trip_month = $trip->created_at->format('Y-m-d');
+            // $trip_date = $trip->created_at->format('d');
+
+            if ($today_date == $trip->start_date) {
+                continue;
             } else {
-                $supervisors = $trip->supervisor;
-                $supervisors = str_split($supervisors);
-                $flag = in_array($request->supervisor, $supervisors);
-                if ($flag) {
+                if ($request->driver_name != "all") {
+                    $driver_name = $request->get('driver_name');
+                    // $driver_name = Driver::where('id', $request->driver_name)->first()->name_en;
+                    $daily_trips = DailyTripDetail::where('driver_id', $driver_name)->where('start_date', '<', $today_date)->orderBy('start_date','desc')->get();
 
-                    $client = Client::findOrFail($trip->client_name);
-                    $result = "http://167.86.102.230/alnabali/public/uploads/image/";
-                    $result .= $client->client_avatar;
-                    $trip->client_avatar = $result;
-                    $trip->client_name = $client->name_en;
-                    array_push($return_avatar, (object)[
-                        $trip->id => $result,
-                    ]);
+                    foreach ($daily_trips as $key => $value) {
+                        $client = Client::findOrFail($value->client_name);
+                        $result = "http://213.136.71.7/alnabali/public/uploads/image/";
+                        $result .= $client->client_avatar;
+                        $value->client_avatar = $result;
+                        $value->client_name = $client->name_en;
+                        if($request->lang == 'ar') $value->client_name = $client->name_ar;
 
-                    array_push($daily_trips, $trip);
+                    }
+                    return response()->json(['result' => $daily_trips, 'client_avatars' => $null_val]);
+
+                } else {
+                    $supervisors = $trip->supervisor;
+                    $supervisors = str_split($supervisors);
+                    $flag = strpos($trip->supervisor, '"'.$request->supervisor.'"');
+                    // $flag = in_array($request->supervisor, $supervisors);
+                    if ($flag) {
+
+                        $client = Client::findOrFail($trip->client_name);
+                        $result = "http://213.136.71.7/alnabali/public/uploads/image/";
+                        $result .= $client->client_avatar;
+                        $trip->client_avatar = $result;
+                        $trip->client_name = $client->name_en;
+                        if($request->lang == 'ar') $trip->client_name = $client->name_ar;
+                        array_push($return_avatar, (object)[
+                            $trip->id => $result,
+                        ]);
+
+                        array_push($daily_trips, $trip);
+                    }
                 }
             }
-            // $trip->dirver_name = Driver::where("id", $trip->dirver_name)->first()->name_en;
-
-            // $trip->origin_area = $this->getArea($trip->origin_area);
-            // $trip->destination_area = $this->getArea($trip->destination_area);
-            // $trip->origin_city = $this->getCity($trip->origin_city);
-            // $trip->destination_city = $this->getCity($trip->destination_city);
-
         }
         return response()->json(['result' => $daily_trips, 'client_avatars' => $null_val]);
     }
 
     public function getDailyTrip($id) {
-        $trip = DailyTripDetail::find($id);
+        $trip = DailyTripDetail::findOrFail($id);
 
         // $trip->origin_area = $this->getArea($trip->origin_area);
         // $trip->destination_area = $this->getArea($trip->destination_area);
@@ -481,7 +495,7 @@ class DailyTripController extends Controller
 
         // $trip->dirver_name = Driver::where("id", $trip->dirver_name)->first()->name_en;
         $client = Client::findOrFail($trip->client_name);
-        $result = "http://167.86.102.230/alnabali/public/uploads/image/";
+        $result = "http://213.136.71.7/alnabali/public/uploads/image/";
         $result .= $client->client_avatar;
         $trip->client_avatar = $result;
         $trip->client_name = $client->name_en;
@@ -512,6 +526,7 @@ class DailyTripController extends Controller
             $daily_trip->status = 2;
             $return_val .= $cmdType;
             $daily_trip->save();
+
         } else if ($cmdType == "reject") {
             $daily_trip->status = 3;
             $return_val .= $cmdType;
@@ -542,10 +557,10 @@ class DailyTripController extends Controller
     }
 
     public function editDailyTrip(Request $request) {
-        $id = $request->id;
-        $bus_size = $request->bus_size;
-        $bus = $request->bus;
-        $driver = $request->driver;
+        $id = $request['id'];
+        $bus_size = $request['bus_size'];
+        $bus = $request['bus'];
+        $driver = $request['driver'];
         $status = 1;
         if ($request->status == "Pending") {
             $status = 1;
@@ -559,10 +574,12 @@ class DailyTripController extends Controller
 
         $daily_trip = DailyTripDetail::where('id', $id)->first();
         $daily_trip->status = $status;
-        if ($request->status != "Fake") {
+        if ($request['status'] != "Fake") {
             $daily_trip->bus_size_id = $bus_size;
             $daily_trip->bus_no = $bus;
             $daily_trip->dirver_name = $driver;
+
+
         }
         // $daily_trip->details = $detail;
         $daily_trip->save();

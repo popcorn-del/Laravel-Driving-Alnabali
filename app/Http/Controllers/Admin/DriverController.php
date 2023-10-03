@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Driver;
+use App\Models\DailyTripDetail;
+use App\Models\Trip;
+use App\Models\DateTime;
 use DB, Validator, Exception, Image, URL;
 use Carbon\Carbon;
 
@@ -47,11 +50,16 @@ class DriverController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'status' => 'required',
-            'phone' => 'required|string|min:8|max:9',
+            'user_name'   => 'required|string|unique:drivers,user_name',
+        ],[
+            'status.required' => 'The status field is required.',
+            'user_name.required' => 'The user name field is required.',
+            'user_name.string' => 'The user name must be a string.',
+            'user_name.unique' => 'The user name has already been taken.',
         ]);
+        
         $attributeNames = array(
             'status' => 'Status',
-            'phone' => 'phone number which you input',
         );
         $validator->setAttributeNames($attributeNames);
         if($validator->fails()) {
@@ -172,21 +180,54 @@ class DriverController extends Controller
         $driver_pwd = $request->get('password');
 
         $driver =  Driver::where('user_name', $driver_name)->first();
-        if ($driver == null) return response()->json(['result' => 'Invalid Driver']);
+        if($driver == null) $driver =  Driver::where('name_en', $driver_name)->first();
+            if ($driver == null) return response()->json(['result' => 'Invalid Driver']);
 
         if ( !(Hash::check($driver_pwd, $driver->password)) ) {
             return response()->json(['result' => 'Invalid Password']);
         } else {
-            return response()->json(['result' => 'Login Successfully', 'id' => $driver->id]);
+            return response()->json(['result' => 'Login Successfully', 'id' => $driver->id, 'date' => DateTime::getDateTime()['date']]);
         }
     }
 
     public function getProfile( $id ) {
         $driver = Driver::findOrFail($id);
-        $result = "http://167.86.102.230/alnabali/public/uploads/driver/";
+        $result = "http://213.136.71.7/alnabali/public/uploads/driver/";
         $result .= $driver->profile_image;
         $driver->profile_image = $result;
+        $total = $this->getTripData($id);
+        $driver->workingHours = $total['workingHours'];
+        $driver->totalTrips = $total['totalTrips'];
+        $driver->totalDistance = $total['totalDistance'];
+
         return response()->json(['driver' => $driver]);
+    }
+
+    private function getTripData($id) {
+        $diff = 0;
+        $total_trips = 0;
+        $totalDistance = 0;
+        $driver_name = Driver::where('id', $id)->first()->name_en;
+        $daily_trips = DailyTripDetail::where('dirver_name', $driver_name)->where('status', 6)->orderBy('start_date','desc')->get();  
+        $result['workingHours'] = $diff;
+        $result['totalTrips'] = $total_trips;
+        $result['totalDistance'] = $totalDistance;
+
+        if(count($daily_trips) >= 1){
+            foreach ($daily_trips as $key => $value) {
+                $trip = Trip::where('id', $value->f_trip_id)->first();
+                $start = Carbon::parse($trip->departure_time);
+                $end = Carbon::parse($trip->arrival_time);
+                $duration = $end->diffInMinutes($start, true);
+                $diff += $duration;      
+                $total_trips++;                                  
+            }
+            $result['workingHours'] = round($diff/60,1);
+            $result['totalTrips'] = $total_trips;
+            $result['totalDistance'] = round($result['workingHours'] * 36,1);
+        }
+        
+        return $result;
     }
 
     public function editProfile(Request $request) {
@@ -200,7 +241,9 @@ class DriverController extends Controller
         }
 
         $driver->name_en = $request->name;
-        $driver->age = $request->birthday;
+        $myage = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
+        $driver->age = $myage;
+        
         $driver->phone = $request->phone;
         $driver->address = $request->address;
         try {
@@ -245,7 +288,7 @@ class DriverController extends Controller
         return response()->json(['result' => 'success']);
     }
 
-    public function sendNotificationToDriver($id, $messageBody)
+    public function sendNotificationToDriver($id, $messageBody,$trip_id=0)
     {
         if($id == "" || $id == null) return "null";
        // get a user to get the fcm_token that already sent.               from mobile apps
@@ -256,10 +299,57 @@ class DriverController extends Controller
           $driver->fcm_token,
           [
               'title' => 'Alnabali Driver',
-              'body' => $messageBody,
+              'body' => $messageBody."::::".$trip_id,
               'android_channel_id' => 'channelId'
           ]
        );
        return response()->json(['result' => $driver->fcm_token, 'ddd' => $id, 'sss' => $return, 'ggg' => $serverkey]);
     }
+
+    public function uploadImage(Request $request) {
+        $image = $_POST['image'];
+        $name = $_POST['name'];
+    
+        $realImage = base64_decode($image);
+        if($request->id){
+            $driver = Driver::findOrFail($request->id);
+            if ($realImage) {
+                $path = public_path('uploads/driver/');
+                if(!file_exists($path)){
+                    File::makeDirectory($path);
+                }
+                $file = $realImage;
+                $fileName = time().'_'.$name;
+                // $imgx = Image::make($file->getRealPath());
+                // $imgx->resize(150, null, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // })->save($path.$fileName);
+
+                file_put_contents($path.$fileName, $realImage);
+ 
+                $driver->profile_image = $fileName;
+                $driver->save();
+                return response()->json(['result' => $fileName]);
+            }    
+        } else {
+            return response()->json(['result' => 'error']);
+        }
+    }
+
+    public function removeImage(Request $request) {
+    
+        if($request->id){
+            $driver = Driver::findOrFail($request->id);
+            $driver->profile_image = NULL;
+            $driver->save();
+            return response()->json(['result' => $driver->profile_image]);    
+        } else {
+            return response()->json(['result' => 'error']);
+        }
+    }
+
+      public  function getDetailInfo(Request $request) {
+	$data = DB::select("select * from daily_trip_details where id = ?", array($request['tripID']));
+                 return response()->json(['result' => $data[0]]);   
+	}
 }

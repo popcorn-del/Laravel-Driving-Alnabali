@@ -14,14 +14,16 @@
                         <form id="custom-form" class="custom-validation" method= "POST" enctype="multipart/form-data">
                             {!! csrf_field() !!}
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class = "mb-3">
-                                                <span class = "font-size-16" id="cityTitle"> {{__('add client type')}}</span>
-                                            </div>
+                                            <span class = "font-size-16 text-uppercase" id="cityAdd"> {{__('Add Client Type')}}</span>
+                                            <span class = "font-size-16 text-uppercase" style="display:none" id="cityView"> {{__('View Client Type')}}</span>
+                                            <span class = "font-size-16 text-uppercase" style="display:none" id="cityEdit"> {{__('Edit Client Type')}}</span>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color span-validation">*</span>{{__('type (en)')}}</label>
+                                                <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('type (en)')}}</label>
                                                 <input type="text" class="form-control" minlength="1" maxlength="100" id = "clientTypeEn" name="name_en" required>
                                                 <input type="hidden" name="id">
                                             </div>
@@ -30,20 +32,36 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-check form-radio-warning mb-3">
+                                                            @if(Session::get('lang') != 'jor')
                                                             <input class="form-check-input" type="radio" name="status"
                                                                 id="status_1" value="1" checked>
-                                                            <label class="form-check-label" for="status_1">
+                                                            <label class="form-check-label text-uppercase" for="status_1">
                                                                 {{__('active')}}
                                                             </label>
+                                                            @else
+                                                            <input class="form-check-input radioRight" type="radio" name="status"
+                                                                id="status_1" value="1" checked>
+                                                            <label class="form-check-label labelRight text-uppercase" for="status_1">
+                                                                {{__('active')}}
+                                                            </label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-check form-radio-warning">
+                                                            @if(Session::get('lang') != 'jor')
                                                             <input class="form-check-input" type="radio" name="status"
                                                                 id="status_2" value="0">
-                                                            <label class="form-check-label" for="status_2">
+                                                            <label class="form-check-label text-uppercase" for="status_2">
                                                                 {{__('inactive')}}
                                                             </label>
+                                                            @else
+                                                            <input class="form-check-input radioRight" type="radio" name="status"
+                                                                id="status_2" value="0">
+                                                            <label class="form-check-label text-uppercase" for="status_2">
+                                                                {{__('inactive')}}
+                                                            </label>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -57,11 +75,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-3" style = "display: flex; align-items: flex-end;">
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">{{__('cancel')}}</button>
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">{{__('reset')}}</button>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">{{__('save')}}</button>
+                                <div class="col-md-12" style = "display: flex; align-items: flex-end; justify-content: flex-end;">
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn">{{__('CANCEL')}}</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('RESET')}}</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">{{__('SAVE')}}</button>
                                 </div>
                             </div>
                         </form>
@@ -75,7 +92,7 @@
                         </div>
                         <div class="table-filter">
                             <a href="javascript: void(0);" id = "clientTypeAdd" class="btn btn-outline-warning btn-rounded waves-effect
-                                waves-light add-new citesAdd text-uppercase"><i class="fas fa-plus"></i> {{__("add client type")}}</a>
+                                waves-light add-new citesAdd text-uppercase"><i class="fas fa-plus"></i> {{__("Add Client Type")}}</a>
                         </div>
 
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
@@ -124,7 +141,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
     <script>
         store = "{{route('admin.miscellaneous.client_type.store')}}";
         list_url = "{{route('admin.miscellaneous.client_type.index')}}";
@@ -202,6 +219,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {
@@ -261,7 +290,9 @@
 
             $(".btn-view").on('click', function() {
                 clearValidation();
-                $("#cityTitle").text("VIEW CLIENT TYPE");
+                $("#cityView").css("display","block")
+                $("#cityAdd").css("display","none")
+                $("#cityEdit").css("display","none")
                 $(".save-btn").css("display", "none")
                 $(".reset-btn").css("display", "none")
                 document.getElementById("clientTypeEn").disabled = true;
@@ -277,7 +308,9 @@
 
             $("#clientTypeAdd").on('click', function() {
                 clearValidation();
-                $("#cityTitle").text("ADD CLIENT TYPE");
+                $("#cityView").css("display","none")
+                $("#cityAdd").css("display","block")
+                $("#cityEdit").css("display","none")
                 $(".save-btn").css("display", "inline-block")
                 $(".reset-btn").css("display", "inline-block")
                 document.getElementById("clientTypeEn").disabled = false;
@@ -293,7 +326,9 @@
 
             $(".clientTypeEdit").on('click', function() {
                 clearValidation();
-                $("#cityTitle").text("EDIT CLIENT TYPE");
+                $("#cityView").css("display","none")
+                $("#cityAdd").css("display","none")
+                $("#cityEdit").css("display","block")
                 $(".save-btn").css("display", "inline-block")
                 $(".reset-btn").css("display", "inline-block")
                 document.getElementById("clientTypeEn").disabled = false;
@@ -308,5 +343,73 @@
             });
 
         });
+        function edit(id)
+        {
+            $(".add-new-form").hide()
+            $(".add-new-form").slideToggle(1000);
+            initForm(id);
+            clearValidation();
+            $("#cityView").css("display","none")
+            $("#cityAdd").css("display","none")
+            $("#cityEdit").css("display","block")
+            $(".save-btn").css("display", "inline-block")
+            $(".reset-btn").css("display", "inline-block")
+            document.getElementById("clientTypeEn").disabled = false;
+            document.getElementById("clientTypeAr").disabled = false;
+            document.getElementById("status_1").disabled = false;
+            document.getElementById("status_2").disabled = false;
+
+            var divsToHide = document.getElementsByClassName("span-validation"); //divsToHide is an array
+            for(var i = 0; i < divsToHide.length; i++){
+                divsToHide[i].style.display = "contents"; // depending on what you're doing
+            }
+        }
+
+        function view(id){
+            $(".add-new-form").hide()
+            $(".add-new-form").slideToggle(1000);
+            initForm(id);
+            clearValidation();
+            $("#cityView").css("display","block")
+            $("#cityAdd").css("display","none")
+            $("#cityEdit").css("display","none")
+            $(".save-btn").css("display", "none")
+            $(".reset-btn").css("display", "none")
+            document.getElementById("clientTypeEn").disabled = true;
+            document.getElementById("clientTypeAr").disabled = true;
+            document.getElementById("status_1").disabled = true;
+            document.getElementById("status_2").disabled = true;
+
+            var divsToHide = document.getElementsByClassName("span-validation"); //divsToHide is an array
+            for(var i = 0; i < divsToHide.length; i++){
+                divsToHide[i].style.display = "none"; // depending on what you're doing
+            }
+        }
+
+        function initForm(id) {
+            $.ajax({
+                url: window.location.href + "/" + id,
+                method: 'get',
+                success: function (res) {
+                    result = res.data;
+                    if (result) {
+                        $("input[name='id']").val(id)
+                        $("input[name='name_en']").val(result.type_name_en)
+                        $("input[name='name_ar']").val(result.type_name_ar)
+                        if (result.status == 1) {
+                            $("input[name='status'][value='1']").prop('checked', true);
+                        } else {
+                            $("input[name='status'][value='0']").prop('checked', true);
+                        }
+                    }
+                },
+                error: function (res) {
+                    console.log(res)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+        }
     </script>
 @endsection

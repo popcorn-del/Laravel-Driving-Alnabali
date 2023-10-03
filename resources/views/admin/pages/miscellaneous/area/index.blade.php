@@ -4,6 +4,7 @@
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -19,7 +20,9 @@
                                     <div class = "col-md-12">
                                         <div class="row">
                                             <div class = "mb-3">
-                                                <span class = "font-size-16 text-uppercase" id="cityTitle">{{__('add area')}}</span>
+                                                <span class = "font-size-16 text-uppercase" id="cityAdd"> {{__('Add Area')}}</span>
+                                                <span class = "font-size-16 text-uppercase" style="display:none" id="cityView"> {{__('View Area')}}</span>
+                                                <span class = "font-size-16 text-uppercase" style="display:none" id="cityEdit"> {{__('Edit Area')}}</span>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
@@ -32,15 +35,15 @@
                                             <!-- <span class="custom-val-color">*</span>  -->
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span>{{__('name (ar)')}}</label>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('name (ar)')}}</label>
                                                     <input type="text" class="form-control" minlength="1" maxlength="100" name="name_ar" id = "areaNameAr" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('city')}}</label>
-                                                    <select class="form-select select-category" id = "areacity" name="city" required>
-                                                        <option value="">{{__('select city')}}</option>
+                                                    <label class="form-label"><span class="custom-val-color span-validation">*</span> {{__('city')}}</label><br>
+                                                    <select class="form-control area_city" id = "areacity" name="city" required>
+                                                        <option value="">{{__('Select City')}}</option>
                                                         @foreach($city as $row)
                                                             <option value="{{$row->id}}">{{$row->city_name_en}}</option>
                                                         @endforeach
@@ -79,7 +82,7 @@
                                                             <div class="form-check form-radio-warning mb-3">
                                                                 <input class="form-check-input" type="radio" name="status"
                                                                     id="status_1" value="1" checked>
-                                                                <label class="form-check-label" for="status_1">
+                                                                <label class="form-check-label text-capitalize" for="status_1">
                                                                     {{__('active')}}
                                                                 </label>
                                                             </div>
@@ -88,7 +91,7 @@
                                                             <div class="form-check form-radio-warning">
                                                                 <input class="form-check-input" type="radio" name="status"
                                                                     id="status_2" value="0">
-                                                                <label class="form-check-label" for="status_2">
+                                                                <label class="form-check-label text-capitalize" for="status_2">
                                                                     {{__('inactive')}}
                                                                 </label>
                                                             </div>
@@ -99,10 +102,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div style = "display: flex; align-items: flex-end;position: absolute;bottom: 30px;">
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn" style="margin-left: auto">{{__('cancel')}}</button>
-                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn" style="margin:0 .5vw">{{__('reset')}}</button>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">{{__('save')}}</button>
+                                <div style = "display: flex; justify-content: flex-end;position: absolute;bottom: 30px;">
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light cancel-btn">{{__('CANCEL')}}</button>
+                                    <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('RESET')}}</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light save-btn">{{__('SAVE')}}</button>
                                 </div>
                             </div>
                         </form>
@@ -116,7 +119,7 @@
                         </div>
                         <div class="table-filter">
                             <a href="javascript: void(0);" class="btn btn-outline-warning btn-rounded waves-effect
-                                waves-light add-new citesAdd text-uppercase"><i class="fas fa-plus"></i> {{__('add area')}}</a>
+                                waves-light add-new citesAdd text-uppercase"><i class="fas fa-plus"></i> {{__('Add Area')}}</a>
                         </div>
 
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 datatable">
@@ -142,8 +145,8 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesView" data-id="{{$row->id}}">{{__('view')}}</button>
-                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesEdit" data-id="{{$row->id}}">{{__('edit')}}</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesView" data-id="{{$row->id}}" onclick="view({{$row->id}})">{{__('view')}}</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light edit citesEdit" data-id="{{$row->id}}" onclick="edit({{$row->id}})">{{__('edit')}}</button>
                                         <!-- <a href="javascript:void(0);" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light confirm_delete" data-id="1" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal">Delete</a> -->
                                     </td>
@@ -169,14 +172,15 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="{{ URL::asset('/assets/js/pages/vfs_fonts_arabic.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
     <script src="{{ URL::asset('/assets/admin/miscellaneous/area/index.js') }}"></script>
     <script>
+        $('.area_city').select2();
         store = "{{route('admin.miscellaneous.area.store')}}";
         list_url = "{{route('admin.miscellaneous.area.index')}}";
         status_url = "{{route('admin.miscellaneous.area.status')}}";
@@ -254,6 +258,18 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, 'All'],
                     ],
+                    "oLanguage": {
+                        "sSearch": $("#arc_search").val() + " ",
+                        "sLengthMenu": $('#arc_show').val() + " _MENU_ " + $('#arc_entries').val(),
+                        "sInfo": $("#arc_showing").val() + " _START_ " + $('#arc_to').val() + " _END_ " + $('#arc_of').val() +" _TOTAL_ " + $('#arc_entries').val(),
+                        "sInfoEmpty": $('#arc_norecord').val(),
+                        "sInfoFiltered": "(" + $('#arc_filterfrom').val() + " _MAX_ " + $('#arc_totalrecord').val() + ")",
+                        "sZeroRecords": $('#arc_nodata').val(),
+                        "oPaginate": {
+                            "sNext": $('#arc_next').val(),
+                            "sPrevious": $('#arc_previous').val()
+                        }
+                    },
                     buttons: [
                         // 'csv', 'excel', 'pdf', 'print'
                         {
@@ -311,7 +327,9 @@
             makeExportBtn();
             $(".citesEdit").on('click', function() {
                 clearValidation();
-                $("#cityTitle").text("EDIT AREA");
+                $("#cityView").css("display","none")
+                $("#cityAdd").css("display","none")
+                $("#cityEdit").css("display","block")
                 $(".save-btn").css("display", "inline-block")
                 $(".reset-btn").css("display", "inline-block")
                 document.getElementById("areaNameAr").disabled = false;
@@ -331,7 +349,9 @@
 
             $(".citesAdd").on('click', function() {
                 clearValidation();
-                $("#cityTitle").text("ADD AREA");
+                $("#cityView").css("display","none")
+                $("#cityAdd").css("display","block")
+                $("#cityEdit").css("display","none")
                 document.getElementById("areacity").value = '';
                 $(".save-btn").css("display", "inline-block")
                 $(".reset-btn").css("display", "inline-block")
@@ -352,7 +372,9 @@
 
             $(".citesView").on('click', function() {
                 clearValidation();
-                $("#cityTitle").text("VIEW AREA");
+                $("#cityView").css("display","block")
+                $("#cityAdd").css("display","none")
+                $("#cityEdit").css("display","none")
                 $(".save-btn").css("display", "none")
                 $(".reset-btn").css("display", "none")
                 document.getElementById("areaNameAr").disabled = true;
@@ -371,5 +393,85 @@
             });
 
         });
+
+        function edit(id)
+        {
+            $(".add-new-form").hide()
+            $(".add-new-form").slideToggle(1000);
+            initForm(id);
+            clearValidation();
+            $("#cityView").css("display","none")
+            $("#cityAdd").css("display","none")
+            $("#cityEdit").css("display","block")
+            $(".save-btn").css("display", "inline-block")
+            $(".reset-btn").css("display", "inline-block")
+            document.getElementById("areaNameAr").disabled = false;
+            document.getElementById("areaNameEn").disabled = false;
+            document.getElementById("areacity").disabled = false;
+            document.getElementById("status_1").disabled = false;
+            document.getElementById("status_2").disabled = false;
+
+            document.getElementById("latitude").disabled = false;
+            document.getElementById("longitude").disabled = false;
+
+            var divsToHide = document.getElementsByClassName("span-validation"); //divsToHide is an array
+            for(var i = 0; i < divsToHide.length; i++){
+                divsToHide[i].style.display = "contents"; // depending on what you're doing
+            }
+        }
+
+        function view(id){
+            $(".add-new-form").hide()
+            $(".add-new-form").slideToggle(1000);
+            initForm(id);
+            clearValidation();
+            $("#cityView").css("display","block")
+            $("#cityAdd").css("display","none")
+            $("#cityEdit").css("display","none")
+            $(".save-btn").css("display", "none")
+            $(".reset-btn").css("display", "none")
+            document.getElementById("areaNameAr").disabled = true;
+            document.getElementById("areaNameEn").disabled = true;
+            document.getElementById("areacity").disabled = true;
+            document.getElementById("status_1").disabled = true;
+            document.getElementById("status_2").disabled = true;
+
+            document.getElementById("latitude").disabled = true;
+            document.getElementById("longitude").disabled = true;
+
+            var divsToHide = document.getElementsByClassName("span-validation"); //divsToHide is an array
+            for(var i = 0; i < divsToHide.length; i++){
+                divsToHide[i].style.display = "none"; // depending on what you're doing
+            }
+        }
+
+        function initForm(id) {
+            $.ajax({
+                url: window.location.href + "/" + id,
+                method: 'get',
+                success: function (res) {
+                    result = res.data;
+                    if (result) {
+                        $("input[name='id']").val(id)
+                        $("input[name='name_en']").val(result.area_name_en)
+                        $("input[name='name_ar']").val(result.area_name_ar)
+                        if (result.status == 1) {
+                            $("input[name='status'][value='1']").prop('checked', true);
+                        } else {
+                            $("input[name='status'][value='0']").prop('checked', true);
+                        }
+                        $(".area_city").val(result.city_id).trigger('change');
+                        $("input[name='latitude']").val(result.location_latitude);
+                        $("input[name='longitude']").val(result.location_longitude);
+                    }
+                },
+                error: function (res) {
+                    console.log(res)
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+        }
     </script>
 @endsection

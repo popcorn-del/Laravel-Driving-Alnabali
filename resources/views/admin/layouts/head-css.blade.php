@@ -55,4 +55,19 @@
     label{
         text-transform: uppercase;
     }
+	.radioRight{
+        float: right !important;
+        clear: both;
+        margin-right: 3rem;
+    }
+    .labelRight{
+        /* text-align: right;
+        direction: rtl !important;
+        unicode-bidi: bidi-override !important; */
+		margin-right: 3rem; float: right;
+    }
+	.checkRight{
+        float: right !important;
+        clear: both;
+    }
 </style>

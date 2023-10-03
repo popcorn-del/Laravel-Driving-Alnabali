@@ -7,6 +7,8 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
+    <link href="{{ URL::asset('/assets/libs/admin/style.css') }}" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -23,7 +25,7 @@
                                 <div class="mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('client')}}</label>
                                     <select class="form-select" name="client" id="client" required>
-                                        <option value="">Select Client</option>
+                                        <option value="">{{__('Select Client')}}</option>
                                         @foreach($client as $row)
                                         <option value="{{$row->id}}">{{$row->name_en}}</option>
                                         @endforeach
@@ -47,20 +49,37 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_1" checked value = "1" >
-                                                <label class="form-check-label" for="trip_type_1">
+                                                <label class="form-check-label text-capitalize" for="trip_type_1">
                                                     {{__('periodic')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight1" type="radio" name="trip_type"
+                                                    id="trip_type_1" checked value = "1" >
+                                                <label class="form-check-label labelRight1 text-capitalize" for="trip_type_1">
+                                                    {{__('periodic')}}
+                                                </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="trip_type"
                                                     id="trip_type_2" value = "0" >
-                                                <label class="form-check-label" for="trip_type_2">
+                                                <label class="form-check-label text-capitalize" for="trip_type_2">
                                                     {{__('non-periodic')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight1" type="radio" name="trip_type"
+                                                    id="trip_type_2" value = "0" >
+                                                <label class="form-check-label labelRight1 text-capitalize" for="trip_type_2">
+                                                    {{__('non-periodic')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -71,61 +90,71 @@
                                         {{__('trip frequancy')}}
                                     <span class = "font-size-10 mb-1 text-uppercase" >[{{__('only for periodic trip')}}]</span></label>
                                     <div class = "row border rounded border-secondary" id="daysofweek">
-                                        <div class = "trip-frequency-check text-uppercase">
-                                            {{__('choose one or more')}}
+                                        <div class = "trip-frequency-check">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-warning">
+                                                        <input class="form-check-input" type="checkbox" id="select_all" />
+                                                        <label class="form-check-label" for="select_all">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{__('Choose One or More')}}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_1" name="trip_frequancy[]"
                                                     value = "1">
-                                                <label class="form-check-label" for="trip_frequancy_1">
+                                                <label class="form-check-label text-capitalize" for="trip_frequancy_1">
                                                     {{__('sunday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_2" name="trip_frequancy[]"
                                                      value = "2" >
-                                                <label class="form-check-label" for="trip_frequancy_2">
+                                                <label class="form-check-label text-capitalize" for="trip_frequancy_2">
                                                     {{__('monday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_3" name="trip_frequancy[]"
                                                     value = "3">
-                                                <label class="form-check-label" for="trip_frequancy_3">
+                                                <label class="form-check-label text-capitalize" for="trip_frequancy_3">
                                                     {{__('tuesday')}}
                                                 </label>
                                             </div>
 
                                         </div>
-                                        <div class = "col-md-4">
+                                        <div class = "col-md-6">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_4" name="trip_frequancy[]"
                                                     value = "4">
-                                                <label class="form-check-label" for="trip_frequancy_4">
+                                                <label class="form-check-label text-capitalize" for="trip_frequancy_4">
                                                     {{__('wednesday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_5" name="trip_frequancy[]"
                                                     value = "5">
-                                                <label class="form-check-label" for="trip_frequancy_5">
+                                                <label class="form-check-label text-capitalize" for="trip_frequancy_5">
                                                     {{__('thursday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_6" name="trip_frequancy[]"
                                                     value = "6">
-                                                <label class="form-check-label" for="trip_frequancy_6">
+                                                <label class="form-check-label text-capitalize" for="trip_frequancy_6">
                                                     {{__('friday')}}
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class = "col-md-4">
+                                        <div class = "col-md-6">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="trip_frequancy_7" name="trip_frequancy[]"
                                                     value = "7">
-                                                <label class="form-check-label" for="trip_frequancy_7">
+                                                <label class="form-check-label text-capitalize" for="trip_frequancy_7">
                                                     {{__('saturday')}}
                                                 </label>
                                             </div>
@@ -145,8 +174,8 @@
                                     <label><span class="custom-val-color">*</span> {{__('date of first trip')}}</label>
                                     <div class="input-group date" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="startdate-div">
-                                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="startdate"
-                                                data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
+                                            <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="startdate"
+                                                data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
                                                 data-provide="datepicker" name="first_trip_date" required>
                                         </div>
                                         <div>
@@ -158,23 +187,23 @@
                                     <label><span class="custom-val-color">*</span> {{__('origin')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
-                                            <select class="form-select" name="origin_city" required>
-                                                <option value="">Select City</option>
+                                            <select class="form-select" name="origin_city" id="origin_city" required>
+                                                <option value="">{{__('Select City')}}</option>
                                                 @foreach($city as $row)
                                                 <option value="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class = "col-md-6">
-                                            <select class="form-select" name="origin_area" required>
-                                                <option value="">Select Area</option>
+                                            <select class="form-select" name="origin_area" id="origin_area" required>
+                                                <option value="">{{__('Select Area')}}</option>
 
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class = "mb-3">
-                                    <label for=""><span class = "custom-val-color">*</span>{{__('departure time')}}</label>
+                                    <label for=""><span class = "custom-val-color">*</span> {{__('departure time')}}</label>
                                     <div class="input-group" id="timepicker-input-group1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="starttime-div">
                                             <input id="starttime" type="text" class="form-control" data-provide="timepicker" name = "departure_time" required>
@@ -190,20 +219,37 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value = "1" checked>
-                                                <label class="form-check-label" for="status_1">
+                                                <label class="form-check-label text-capitalize" for="status_1">
+                                                {{__('active')}}
+                                                </label>
+                                                @else
+                                                <input class="form-check-input radioRight1" type="radio" name="status"
+                                                    id="status_1" value = "1" checked>
+                                                <label class="form-check-label labelRight1 text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
+                                                @endif
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value = "0">
-                                                <label class="form-check-label" for="status_2">
+                                                <label class="form-check-label text-capitalize" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight1" type="radio" name="status"
+                                                    id="status_2" value = "0">
+                                                <label class="form-check-label labelRight1 text-capitalize" for="status_2">
+                                                    {{__('inactive')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -237,8 +283,8 @@
                                     <label><span class="custom-val-color">*</span> {{__('date of last trip')}}</label>
                                     <div class="input-group date" id="datepicker1" style="flex-wrap: nowrap">
                                         <div style="width: 100%" id="enddate-div">
-                                            <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="enddate"
-                                                data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
+                                            <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="enddate"
+                                                data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
                                                 data-provide="datepicker" name="last_trip_date" required>
                                         </div>
                                         <div>
@@ -250,16 +296,16 @@
                                     <label><span class="custom-val-color">*</span> {{__('destination')}}</label>
                                     <div class = "row">
                                         <div class = "col-md-6">
-                                            <select class="form-select" name="destination_city" required>
-                                                <option value="">Select City</option>
+                                            <select class="form-select" name="destination_city" id ="destination_city" required>
+                                                <option value="">{{__('Select City')}}</option>
                                                 @foreach($city as $row)
                                                 <option value="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class = "col-md-6">
-                                            <select class="form-select" name="destination_area" required>
-                                                <option value="">Select Area</option>
+                                            <select class="form-select" name="destination_area" id ="destination_area" required>
+                                                <option value="">{{__('Select Area')}}</option>
 
                                             </select>
                                         </div>
@@ -287,9 +333,9 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnback">{{__('back')}}</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('reset')}}</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('save')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnback">{{__('BACK')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn">{{__('RESET')}}</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light">{{__('SAVE')}}</button>
             </div>
         </form>
     </div>
@@ -305,6 +351,7 @@
     <script src="{{ URL::asset('/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/trip/index.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <script>
 
         $("#btnback").on('click', function() {
@@ -325,12 +372,46 @@
         $('div#daysofweek input[type="checkbox"]').on("change",updateStatus);
 
         $(document).ready(function(){
+	    $('#client').select2();
+        $('#origin_city').select2();
+        $('#origin_area').select2();
+        $('#destination_city').select2();
+        $('#destination_area').select2();
+            $("#select_all").click(function () {
+                // Check/uncheck all checkboxes based on the "Select All" checkbox state
+                $("input[name='trip_frequancy[]']").prop("checked", this.checked);
 
+            });
+
+            // When any day checkbox is clicked
+            $("input[name='trip_frequancy[]']").click(function () {
+                // Check if all day checkboxes are checked and update "Select All" accordingly
+                if ($("input[name='trip_frequancy[]']:checked").length === $("input[name='trip_frequancy[]']").length) {
+                    $("#select_all").prop("checked", true);
+                } else {
+                    $("#select_all").prop("checked", false);
+                }
+
+                // Save and print selected values
+                var selectedValues = [];
+                $("input[name='trip_frequancy[]']:checked").each(function () {
+                    selectedValues.push($(this).val());
+                });
+
+                // Print selected values (you can modify this part as needed)
+                console.log("Selected Values: " + selectedValues.join(", "));
+            });
             var starttime = $('#starttime').timepicker({
              format: 'HH.MM'
             });
             var endtime = $('#endtime').timepicker({
              format: 'HH.MM'
+            });
+            $('#startdate').datepicker({
+                format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}"
+            });
+            $('#enddate').datepicker({
+                format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}"
             });
              $( "#startdate" ).on( "change", function() {
                 var date = new Date();
@@ -388,15 +469,15 @@
             });
             // display days of week
             $("#trip_type_2").on("change", function (e) {
-                $("#startdate").val("");
-                $("#enddate").val("");
+                // $("#startdate").val("");
+                // $("#enddate").val("");
                 var dd = new Date();
 
                 // console.log(dd.getDate() + "/" + (dd.getMonth() + 1) + "/" + dd.getFullYear());
-                $('#startdate').datepicker({
-                    format: 'dd/mm/yyyy',
-                    startDate: dd
-                });
+                // $('#startdate').datepicker({
+                //     format: "{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}",
+                //     startDate: dd
+                // });
                 if (document.getElementById('trip_type_2').checked) {
                     var formInputs = $("#daysofweek :input");
                     formInputs.each(function(index) {
@@ -410,8 +491,8 @@
             })
 
             $("#trip_type_1").on("change", function (e) {
-                $("#startdate").val("");
-                $("#enddate").val("");
+                // $("#startdate").val("");
+                // $("#enddate").val("");
                 if (document.getElementById('trip_type_1').checked) {
                     var formInputs = $("#daysofweek :input");
                     formInputs.each(function(index) {

@@ -28,65 +28,65 @@
                 <td>{{$row->destination_city}}</td>
                 <td>{{$row->destination_area}}</td>
                 <td>{{$row->driver_name}}</td>
-                <td>{{date("d/m/Y h:i A", strtotime($row->created_at))}}</td>
+                <td dir="ltr">{{date(Session::get('date') == 1 ? 'd/m/Y h:i A' : 'm/d/Y h:i A', strtotime($row->created_at))}}</td>
                 <td>
                     @switch($row->old_status)
                         @case(100)
-                            <span class="badge badge-pill badge-soft-success font-size-12">N/A</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('N/A')}}</span>
                             @break
                         @case(1)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Pending</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Pending')}}</span>
                             @break
                         @case(2)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Accepted</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Accepted')}}</span>
                             @break
                         @case(3)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Rejected</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Rejected')}}</span>
                             @break
                         @case(4)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Started</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Started')}}</span>
                             @break
                         @case(5)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Canceled</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Canceled')}}</span>
                             @break
                         @case(6)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Finished</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Finished')}}</span>
                             @break
                         @case(7)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Fake</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Fake')}}</span>
                             @break
                         @default
-                            <span class="badge badge-pill badge-soft-success font-size-12">Pending</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Pending')}}</span>
                     @endswitch
                 </td>
                 <td>
                     @switch($row->new_status)
-                        @case(100)
-                            <span class="badge badge-pill badge-soft-success font-size-12">N/A</span>
+                    @case(100)
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('N/A')}}</span>
                             @break
                         @case(1)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Pending</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Pending')}}</span>
                             @break
                         @case(2)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Accepted</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Accepted')}}</span>
                             @break
                         @case(3)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Rejected</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Rejected')}}</span>
                             @break
                         @case(4)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Started</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Started')}}</span>
                             @break
                         @case(5)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Canceled</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Canceled')}}</span>
                             @break
                         @case(6)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Finished</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Finished')}}</span>
                             @break
                         @case(7)
-                            <span class="badge badge-pill badge-soft-success font-size-12">Fake</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Fake')}}</span>
                             @break
                         @default
-                            <span class="badge badge-pill badge-soft-success font-size-12">Pending</span>
+                            <span class="badge badge-pill badge-soft-success font-size-12">{{__('Pending')}}</span>
                     @endswitch
                 </td>
                 <td><a href="{{route('admin.transaction.show', ['transaction' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-lightt">{{__('view')}}</a></td>

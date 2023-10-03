@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title') View App Supervisor @endsection
-@section('page-title') View App Supervisor @endsection
+@section('page-title') {{__('View App Supervisor')}} @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -20,8 +20,8 @@
                         <div class="row">
 
                             <div class="col-12">
-                                    <div style="text-align: center;">
-                                        PROFILE IMAGE
+                                    <div style="text-align: center;" class="text-uppercase">
+                                    {{__('profile image')}}
                                     </div>
                                     <div class="picture-container" style="margin-bottom: 30px">
                                         <div class="picture">
@@ -32,11 +32,11 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">NAME </label>
+                                    <label class="form-label">{{__('name')}} </label>
                                     <input type="text" class="form-control" name="name_en" value="{{$supervisor->name}}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">PHONE</label>
+                                    <label class="form-label">{{__('phone')}}</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+ 962</span>
@@ -45,54 +45,70 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">ADDRESS</label>
+                                    <label class="form-label">{{__('address')}}</label>
                                     <div>
-                                        <textarea class="form-control" rows="5" name="address" value="{{$supervisor->address}}"></textarea>
+                                        <textarea class="form-control" rows="5" name="address" value="{{$supervisor->address}}">{{$supervisor->address}}</textarea>
                                     </div>
                                 </div>
-                                                            
+
                             </div>
 
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label>DATE OF BIRTH</label>
+                                    <label>{{__('date of birth')}}</label>
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="dd/mm/yyyy"
                                             data-date-format="dd/mm/yyyy" data-date-container='#datepicker1'
-                                            data-provide="datepicker" name="birthday" value="{{date('d/m/Y', strtotime($supervisor->birthday))}}"  required>
+                                            data-provide="datepicker" name="birthday" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($supervisor->birthday))}}"  required>
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">USERNAME</label>
+                                    <label class="form-label">{{__('username')}}</label>
                                     <input type="text" class="form-control" name="user_name" value="{{$supervisor->user_name}}" required>
                                 </div>
-                                          
-                                
+
+
                                 <div class="mb-3">
-                                    <label class="form-label">STATUS</label>
+                                    <label class="form-label">{{__('status')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$supervisor->status == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label" for="status_1">
-                                                    Active
+                                                <label class="form-check-label text-capitalize" for="status_1">
+                                                {{__('active')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_1" value="1" {{$supervisor->status == 1 ? "checked" : ""}}>
+                                                <label class="form-check-label labelRight text-capitalize" for="status_1">
+                                                {{__('active')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$supervisor->status == 0 ? "checked" : ""}}>
-                                                <label class="form-check-label" for="status_2">
-                                                    Inactive
+                                                <label class="form-check-label text-capitalize" for="status_2">
+                                                {{__('inactive')}}
                                                 </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_2" value="0" {{$supervisor->status == 0 ? "checked" : ""}}>
+                                                <label class="form-check-label text-capitalize" for="status_2">
+                                                {{__('inactive')}}
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
-                                
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -103,7 +119,7 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id= "backbtn">Back</a>
+                <a href="#" class="btn btn-outline-primary waves-effect waves-light" id= "backbtn">{{__('BACK')}}</a>
             </div>
         </form>
     </div>

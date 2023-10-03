@@ -203,7 +203,22 @@ th {
     }
 }
 
+.radioRight1 {
+    float: right !important;
+    clear: both;
+    margin-right: 0rem !important; 
+    z-index: 1 !important;
+}
 
+.labelRight1 {
+    float: right !important;
+    padding-right: 19px;
+}
 
+.text-capitalize {
+    text-transform: capitalize;
+}
 
-
+.text-normal {
+    text-transform: none;
+}
