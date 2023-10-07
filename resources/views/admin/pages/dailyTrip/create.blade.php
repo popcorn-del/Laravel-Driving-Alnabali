@@ -7,6 +7,9 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ URL::asset('/assets/admin/bus/style.css')}}" rel="stylesheet" type="text/css" >
+
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -17,9 +20,9 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span>TRIPE NAME</label>
-                                    <select class="form-select" name="tripe_name" required>
+                                    <select class="form-select" name="tripe_name" id="tripe_name" required>
                                         <option>Select Trip</option>
                                         @foreach($trip as $key=>$row)
                                             <option value="{{$row->trip_name_en}}">{{$row->trip_name_en}}</option>
@@ -29,16 +32,16 @@
                                 <div class = "mb-3">
                                     <label><span class="custom-val-color">*</span>ORIGIN</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
-                                            <select class="form-select" name="origin_city" required>
+                                        <div class = "col-md-6 select-validation">
+                                            <select class="form-select" name="origin_city" id="origin_city" required>
                                                 <option>Select City</option>
                                                 @foreach($city as $key=>$row)
                                                     <option value="{{$row->city_name_en}}" data-id="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class = "col-md-6">
-                                            <select class="form-select" name="origin_area" required>
+                                        <div class = "col-md-6 select-validation">
+                                            <select class="form-select" name="origin_area" id="origin_area" required>
                                                 <option>Select Area</option>
                                             </select>
                                         </div>
@@ -65,9 +68,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span>BUS SIZE</label>
-                                    <select class="form-select" name="bus_size" required>
+                                    <select class="form-select" name="bus_size" id="bus_size" required>
                                         <option>Select Bus Size</option>
                                         @foreach($bus_size as $key=>$row)
                                             <option value="{{$row->size}}">{{$row->size}}</option>
@@ -130,28 +133,28 @@
 
                             </div>
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label><span class="custom-val-color">*</span>CLIENT</label>
-                                    <select class="form-select" name="client" required>
-                                        <option>Select Client</option>
+                                <div class="mb-3 select-validation">
+                                    <label><span class="custom-val-color">*</span>{{__('client')}}</label>
+                                    <select class="form-select" name="client" id="select_client" required>
+                                        <option>{{__('Select Client')}}</option>
                                         @foreach($client as $key=>$row)
                                             <option value="{{$row->name_en}}">{{$row->name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class = "mb-3">
-                                    <label><span class="custom-val-color">*</span>DESTINATION</label>
+                                    <label><span class="custom-val-color">*</span>{{__('destination')}}</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
-                                            <select class="form-select" name="destination_city" required>
-                                                <option>Select City</option>
+                                        <div class = "col-md-6 select-validation">
+                                            <select class="form-select" name="destination_city" id="destination_city" required>
+                                                <option>{{__('Select City')}}</option>
                                                 @foreach($city as $key=>$row)
                                                     <option value="{{$row->city_name_en}}" data-id="{{$row->id}}">{{$row->city_name_en}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class = "col-md-6">
-                                            <select class="form-select" name="destination_area" required>
+                                        <div class = "col-md-6 select-validation">
+                                            <select class="form-select" name="destination_area" id="destination_area" required>
                                                 <option>Select Area</option>
                                             </select>
                                         </div>
@@ -178,18 +181,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span>BUS NO.</label>
-                                    <select class="form-select" name="bus_no" required>
-                                        <option>Select Bus.No</option>
+                                    <select class="form-select" name="bus_no" id="bus_no" required>
+                                        <option>Select Bus No.</option>
                                         @foreach($bus as $key=>$row)
                                             <option value="{{$row->bus_no}}">{{$row->bus_no}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span>DRIVER</label>
-                                    <select class="form-select" name="driver" required>
+                                    <select class="form-select" name="driver" id="driver" required>
                                         <option>Select Driver</option>
                                         @foreach($driver as $key=>$row)
                                             <option value="{{$row->name_en}}">{{$row->name_en}}</option>
@@ -202,57 +205,64 @@
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_1" value="1" checked>
-                                        <label class="form-check-label" for="status_1">
+                                        <label class="form-check-label text-capitalize" for="status_1">
                                             Pending
                                         </label>
                                     </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_2" value="2">
-                                        <label class="form-check-label" for="status_2">
+                                        <label class="form-check-label text-capitalize" for="status_2">
                                             Accepted
                                         </label>
                                     </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_3" value="3">
-                                        <label class="form-check-label" for="status_3">
+                                        <label class="form-check-label text-capitalize" for="status_3">
                                             Rejected
                                         </label>
                                     </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_4" value="4">
-                                        <label class="form-check-label" for="status_4">
+                                        <label class="form-check-label text-capitalize" for="status_4">
                                             Started
                                         </label>
                                     </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_5" value="5">
-                                        <label class="form-check-label" for="status_5">
+                                        <label class="form-check-label text-capitalize" for="status_5">
                                             Started with a delay
                                         </label>
                                     </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_6" value="6">
-                                        <label class="form-check-label" for="status_6">
+                                        <label class="form-check-label text-capitalize" for="status_6">
                                             Finished
                                         </label>
                                     </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_7" value="7">
-                                        <label class="form-check-label" for="status_7">
+                                        <label class="form-check-label text-capitalize" for="status_7">
                                             Finished with a delay
                                         </label>
                                     </div>
                                     <div class="form-check form-radio-warning">
                                         <input class="form-check-input" type="radio" name="status"
                                             id="status_8" value="8">
-                                        <label class="form-check-label" for="status_8">
+                                        <label class="form-check-label text-capitalize" for="status_8">
                                             Canceled
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-radio-warning">
+                                        <input class="form-check-input" type="radio" name="status"
+                                            id="status_9" value="7">
+                                        <label class="form-check-label text-capitalize" for="status_9">
+                                            Fake
                                         </label>
                                     </div>
                                 </div>
@@ -275,6 +285,7 @@
     </div>
 @endsection
 @section('script')
+
     <script src="{{ URL::asset('/assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
 
     <script src="{{ URL::asset('/assets/js/pages/form-validation.init.js') }}"></script>
@@ -285,9 +296,21 @@
     <script src="{{ URL::asset('/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/dailyTrip/create.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <script>
 
          $(document).ready(function(){
+            $("#tripe_name").select2();
+            $("#origin_city").select2();
+            $("#origin_area").select2();
+            $("#bus_size").select2();
+            $("#select_client").select2();
+            $("#destination_city").select2();
+            $("#destination_area").select2();
+            $("#bus_no").select2();
+            $("#driver").select2();
+
+
             store = "{{route('admin.daily_trip.store')}}";
             list_url = "{{route('admin.daily_trip.index')}}";
             origin_area = $("select[name='origin_area']");

@@ -13,11 +13,18 @@
         .iti {
             width:100%;
         }
+        input::placeholder {
+            opacity: 0.4!important; 
+        }
+
     </style>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
 
 @endsection
 @section('content')
+<style>
+
+    </style>
     <div class="content-warpper">
         <form class="custom-validation" action="" id="custom-form">
             @csrf
@@ -54,13 +61,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="client_type_id"
                                                     id="client_type_{{$key}}" value="{{$row->id}}">
-                                                <label class="form-check-label" for="client_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="client_type_{{$key}}">
                                                     {{$row->type_name_en}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1" type="radio" name="client_type_id"
                                                     id="client_type_{{$key}}" value="{{$row->id}}">
-                                                <label class="form-check-label labelRight1" for="client_type_{{$key}}">
+                                                <label class="form-check-label labelRight1 text-capitalize" for="client_type_{{$key}}">
                                                     {{$row->type_name_ar}}
                                                 </label>
                                                 @endif
@@ -84,13 +91,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="contract_type_id"
                                                     id="contract_type_{{$key}}" value="{{$row->id}}">
-                                                <label class="form-check-label" for="contract_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="contract_type_{{$key}}">
                                                     {{$row->type_name_en}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1" type="radio" name="contract_type_id"
                                                     id="contract_type_{{$key}}" value="{{$row->id}}">
-                                                <label class="form-check-label labelRight1" for="client_type_{{$key}}">
+                                                <label class="form-check-label labelRight1 text-capitalize" for="client_type_{{$key}}">
                                                     {{$row->type_name_ar}}
                                                 </label>
                                                 @endif
@@ -174,7 +181,7 @@
                                            <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                           <input data-parsley-type="number" type="text" class="form-control" id='fax_inp' maxlength="8" minlength="8" name="fax" "6 xxx xxxx"/>
+                                           <input data-parsley-type="number" type="text" class="form-control" id='fax_inp' maxlength="8" minlength="8" name="fax" placeholder="6 xxx xxxx" />
                                         </div>
                                         <!-- <div style="width: 100%">
                                             <input type="tel" id="phone2" class="form-control " name="fax" placeholder="6 xxx xxxx" />
@@ -195,13 +202,13 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('liaison phone')}}</label>
+                                    <label class="form-label"> {{__('liaison phone')}}</label>
                                     <div class="input-group"  style="flex-wrap: nowrap">
                                         <div class="input-group-prepend">
                                            <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                           <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control phone_inp" id="phone_inp2" name="phone_liaison" placeholder="7 xxxx xxxx" required>
+                                           <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control phone_inp" id="phone_inp2" name="phone_liaison" placeholder="7 xxxx xxxx">
                                         </div>
                                         <!-- <div style="width: 100%">
                                             <input type="tel" id="phone3" class="form-control phone_inp" name="phone_liaison" placeholder="7 xxxx xxxx" required/>
@@ -216,13 +223,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" checked>
-                                                <label class="form-check-label text-transform normal-text" for="status_1">
+                                                <label class="form-check-label text-transform normal-text inactive" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1 normal-text" type="radio" name="status"
                                                     id="status_1" value="1" checked>
-                                                <label class="form-check-label labelRight1 normal-text" for="status_1">
+                                                <label class="form-check-label labelRight1 normal-text inactive" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -238,7 +245,7 @@
                                                 <input class="form-check-input radioRight normal-text" type="radio" name="status"
                                                     id="status_2" value="0">
                                                 @endif
-                                                <label class="form-check-label normal-text" for="status_2">
+                                                <label class="form-check-label normal-text inactive" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                             </div>
@@ -403,27 +410,27 @@
 
         bootstrapValidate(
             '#phone_inp',
-            'max:9:Don\'t Enter more than 9 Characters'
+            'max:9:It should fill between 8 and 9 digits'
         );
         bootstrapValidate(
             '#phone_inp',
-            'min:8:Enter at least 8 Characters'
+            'min:8:It should fill between 8 and 9 digits'
         );
         bootstrapValidate(
             '#phone_inp2',
-            'max:9:Don\'t Enter more than 9 Characters'
+            'max:9:It should fill between 8 and 9 digits'
         );
         bootstrapValidate(
             '#phone_inp2',
-            'min:8:Enter at least 8 Characters'
+            'min:8:It should fill between 8 and 9 digits'
         );
          bootstrapValidate(
             '#fax_inp',
-            'max:8:Enter exactly 8 digits'
+            'max:8:It should be exactly 8 digits'
         );
         bootstrapValidate(
             '#fax_inp',
-            'min:8:Enter exactly 8 digits'
+            'min:8:It should be exactly 8 digits'
         );
     </script>
 @endsection

@@ -22,7 +22,7 @@
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('name (en)')}}</label>
                                     <input type="text" class="form-control" minlength="1" maxlength="100" name="name_en" required>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('client')}}</label>
                                     <select class="form-select" name="client" id="client" required>
                                         <option value="">{{__('Select Client')}}</option>
@@ -186,7 +186,7 @@
                                 <div class = "mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('origin')}}</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="origin_city" id="origin_city" required>
                                                 <option value="">{{__('Select City')}}</option>
                                                 @foreach($city as $row)
@@ -194,10 +194,12 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="origin_area" id="origin_area" required>
                                                 <option value="">{{__('Select Area')}}</option>
-
+                                                @foreach($area as $row)
+                                                <option value="{{$row->id}}">{{$row->area_name_en}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -295,7 +297,7 @@
                                 <div class = "mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('destination')}}</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation" >
                                             <select class="form-select" name="destination_city" id ="destination_city" required>
                                                 <option value="">{{__('Select City')}}</option>
                                                 @foreach($city as $row)
@@ -303,7 +305,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="destination_area" id ="destination_area" required>
                                                 <option value="">{{__('Select Area')}}</option>
 
@@ -530,6 +532,16 @@
             function selectFunction(select, id){
                 show_url = "{{route('admin.trip.area', ':trip')}}";
                 show_url = show_url.replace(':trip', id);
+                if(id == "") {
+                    
+                    show_url = "{{route('admin.trip.areaAll')}}";
+                    alert(show_url)
+                }
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     url: show_url,
                     method: 'get',

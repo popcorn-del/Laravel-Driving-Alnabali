@@ -23,42 +23,60 @@
                         <span>{{__('dashboard')}}</span>
                     </a>
                 </li>
+            <?php if( in_array('1', Session::get('permission'))) { ?>
                 <li>
                     <a href="{{route('admin.client.index')}}" class="waves-effect">
                         <i class="bx bxs-user-detail"></i>
                         <span>{{__('clients')}}</span>
                     </a>
                 </li>
+            <?php } ?>
+
+            <?php if( in_array('2', Session::get('permission'))) { ?>
                 <li>
                     <a href="{{route('admin.driver.index')}}" class="waves-effect">
                         <i class="bx bxs-ship"></i>
                         <span>{{__('drivers')}}</span>
                     </a>
                 </li>
+            <?php } ?>
+            <?php if( in_array('3', Session::get('permission'))) { ?>
+
                 <li>
                     <a href="{{route('admin.bus.index')}}" class="waves-effect">
                         <i class="bx bxs-bus"></i>
                         <span>{{__('buses')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php if( in_array('4', Session::get('permission'))) { ?>
+
                 <li>
                     <a href="{{route('admin.trip.index')}}" class="waves-effect">
                         <i class="bx bx-aperture"></i>
                         <span>{{__('trips')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php if( in_array('5', Session::get('permission'))) { ?>
+
                 <li>
                     <a href="{{route('admin.trip_bus.index')}}" class="waves-effect">
                         <i class="bx bx-briefcase-alt-2"></i>
                         <span>{{__('trips buses')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php if( in_array('6', Session::get('permission'))) { ?>
+
                 <li>
                     <a href="{{route('admin.daily_trip.index')}}" class="waves-effect">
                         <i class="bx bxs-eraser"></i>
                         <span>{{__('daily trips')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php if( in_array('7', Session::get('permission'))) { ?>
 
                 <li>
                     <a href="{{route('admin.notification.index')}}" class="waves-effect">
@@ -66,6 +84,8 @@
                         <span>{{__('notification')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php if( in_array('8', Session::get('permission'))) { ?>
 
                 <li>
                     <a href="{{route('admin.transaction.index')}}" class="waves-effect">
@@ -73,6 +93,8 @@
                         <span>{{__('transaction')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php if( in_array('9', Session::get('permission'))) { ?>
 
                 <li>
                     <a href="{{route('admin.maintenance.index')}}" class="waves-effect" style="white-space: nowrap;">
@@ -80,6 +102,10 @@
                         <span style="white-space: nowrap;">{{(__('maintenance records'))}}</span>
                     </a>
                 </li>
+                <?php } ?>
+
+                <?php if( in_array('10', Session::get('permission'))) { ?>
+
                 <li style="display: block;background: transparent  !important;">
                     <a href="javascript: void(0);" class="has-arrow waves-effect" style="margin: unset; padding-left: 2rem;">
                         <i class="bx bx-tone" style="padding-left: 10px;"></i>
@@ -103,20 +129,39 @@
                         <li><a href="#" key="t-scrollable"></a></li>
                     </ul>
                 </li>
+                <?php } ?>
+
+
+                <?php if( in_array('11', Session::get('permission'))) { ?>
+
                 <li>
                     <a href="{{route('admin.super_visor.index')}}" class="waves-effect">
                         <i class="bx bx-list-ul"></i>
                         <span>{{__('app supervisors')}}</span>
                     </a>
                 </li>
-
+                <?php } ?>
+                <?php if( in_array('12', Session::get('permission'))) { ?>
+                
+                <li>
+                    <a href="{{route('admin.user_role.index')}}" class="waves-effect" style="white-space: nowrap;">
+                        <i class="bx bx-paint-roll"></i>
+                        <span style="white-space: nowrap;">{{(__('user roles'))}}</span>
+                    </a>
+                </li>
+                <?php } ?>
                 <?php if(Auth::user()->role < 3) { ?>
+                    <?php if( in_array('13', Session::get('permission'))) { ?>
+
                     <li>
                         <a href="{{route('admin.user.index')}}" class="waves-effect">
                             <i class="bx bx-user-circle"></i>
                             <span>{{__('users')}}</span>
                         </a>
                     </li>
+                    <?php } ?>
+                    <?php if( in_array('14', Session::get('permission'))) { ?>
+
                     <li style="display: block;background: transparent  !important;">
                     <a href="javascript: void(0);" class="has-arrow waves-effect" style="margin: unset; padding-left: 2rem;">
                         <i class="bx bx bx-file" style="padding-left: 10px;"></i>
@@ -166,19 +211,28 @@
                     </ul>
                 </li>
                 <?php } ?>
+
+                <?php } ?>
                 <?php if(Auth::user()->role == 1) { ?>
+                    <?php if( in_array('15', Session::get('permission'))) { ?>
+
                 <li>
                     <a href="{{route('cronjob')}}" class="waves-effect">
                         <i class="bx bx-list-ul"></i>
                         <span>{{__('cronjob')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+                <?php if( in_array('16', Session::get('permission'))) { ?>
+
                 <li>
                     <a href="{{route('datetime')}}" class="waves-effect">
                         <i class="bx bx-list-ul"></i>
                         <span>{{__('datetime')}}</span>
                     </a>
                 </li>
+                <?php } ?>
+
                 <?php } ?>
             </ul>
         </div>

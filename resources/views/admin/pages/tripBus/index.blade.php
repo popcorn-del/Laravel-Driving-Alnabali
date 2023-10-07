@@ -40,9 +40,27 @@
                                     <td>{{$row->bus_no}}</td>
                                     <td>{{$row->size}}</td>
                                     <td>{{$row->name_en}}</td>
-                                    <td>{{$row->supervisor}}</td>
+                                    <td>
+                                        <?php foreach (explode(",", $row->supervisor) as  $value) {
+                                               echo  '<span class="badge badge-pill badge-soft-success font-size-12">'.$value.'</span>';
+                                            }
+                                        ?>                          
+                                    </td>
                                     <td>@if($row->fake == 1) {{__('Yes')}} @endif @if($row->fake == 0) {{__('No')}} @endif</td>
-                                    <td>{{__('N/A')}}</td>
+                                    <td>
+
+                                    <?php
+                                    if(count(explode(",", $row->days)) == 1) {
+                                        echo $lang=='jor'?"غير متاح":"N/A";
+                                    } 
+                                    else {
+                                        foreach (explode(",", $row->days) as  $value) {
+                                            echo  '<span class="badge badge-pill badge-soft-success font-size-12">'.$value.'</span>';
+                                         }
+                                    }
+                                    
+                                        ?>   
+                                    </td>
                                     <td>
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
                                         <div class="form-check form-switch form-switch-lg text-center">

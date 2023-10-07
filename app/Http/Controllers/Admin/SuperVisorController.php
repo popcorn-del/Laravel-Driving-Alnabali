@@ -119,7 +119,13 @@ class SuperVisorController extends Controller
             })->save($path.$fileName);
             $supervisor->profile_image = $fileName;
         } else {
-            $supervisor->profile_image = null;
+            if(!$request->id){
+                $supervisor->profile_image = null;
+            } else {
+                if($request->change_image == 1) {
+                    $supervisor->profile_image = null;
+                }
+            }
         }
         $supervisor->save();
         return response()->json(['result' => 'success']);

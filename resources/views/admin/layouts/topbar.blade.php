@@ -36,7 +36,7 @@
             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div style="display: inline-block">
-                    <img style="display: flex" class="rounded-circle header-profile-user" src="{{ isset(Auth::user()->avatar) ? asset('/uploads/user/' . Auth::user()->avatar) : asset('/assets/images/users/avatar-1.jpg') }}"
+                    <img style="display: flex" class="rounded-circle header-profile-user" src="{{ isset(Auth::user()->avatar) && Auth::user()->avatar != ''  ? asset('/uploads/user/' . Auth::user()->avatar) : asset('/assets/images/users/avatar-1.jpg') }}"
                         alt="Header Avatar">
                 </div>
                 <div style="display: inline-block">
@@ -45,10 +45,14 @@
                     </div>
                     <div>
                         <span class="d-none d-xl-inline-block ms-1" key="t-henry">
-                            @if(ucfirst(Auth::user()->role) == 1){{ __('super admin') }}
-                            @elseif(ucfirst(Auth::user()->role) == 2){{ __('admin')}}
-                            @else {{__('editor')}}
-                            @endif</span>
+                            @switch(Session::get('lang'))
+                            @case('jor')
+                                {{Session::get('user_role')->name_ar}}
+                            @break
+                            @default
+                                {{Session::get('user_role')->name_en}}
+                            @endswitch
+                           </span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </div>
                 </div>
@@ -72,7 +76,7 @@
 <input type="hidden" id="arc_next" value="{{__('Next')}}">
 <input type="hidden" id="arc_previous" value="{{__('Previous')}}">
 <input type="hidden" id="arc_showing" value="{{__('Showing')}}">
-<input type="hidden" id="arc_to" value="{{__('to')}}">
+<input type="hidden" id="arc_to" value="{{__(' to')}}">
 <input type="hidden" id="arc_of" value="{{__('of')}}">
 <input type="hidden" id="arc_showing" value="{{__('Showing')}}">
 <input type="hidden" id="arc_nodata" value="{{__('No data')}}">

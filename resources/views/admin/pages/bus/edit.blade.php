@@ -25,7 +25,7 @@
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
                                     <input type="text" class="form-control" name="bus_no"  value="{{$bus->bus_no}}" required>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('bus size')}}</label>
                                     <select class="form-select" name="bus_size" id ="bus_size" required>
                                         <option value="">{{__('Select Bus Size')}}</option>
@@ -51,7 +51,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('type')}}</label>
                                     <select class="form-select" name="bus_type" id ="bus_type" required>
                                         <option value="">{{__('Select Type')}}</option>
@@ -60,14 +60,16 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('model')}}</label>
                                     <select class="form-select" name="bus_model" id ="bus_model">
                                         <option value="">{{__('Select Model')}}</option>
-                                        <option value="{{$bus->bus_model_id}}" selected>{{$bus->model_en}}</option>
+                                        @foreach($bus_selected_models as $row)
+                                        <option value="{{$row->id}}" {{$row->id == $bus->bus_model_id ? 'selected' :''}}>{{$row->model_en}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('model year')}}</label>
                                     <select class="form-select" name="model_year" id ="model_year" required>
                                         <option value="">{{__('Select Model Year')}}</option>
@@ -125,13 +127,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$bus->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label" for="status_1">
+                                                <label class="form-check-label text-capitalize"  for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_1" value="1" {{$bus->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label labelRight" for="status_1">
+                                                <label class="form-check-label labelRight text-capitalize"  for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -143,13 +145,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$bus->status == 0 ? 'checked' :''}}>
-                                                <label class="form-check-label" for="status_2">
+                                                <label class="form-check-label text-capitalize"  for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_2" value="0" {{$bus->status == 0 ? 'checked' :''}}>
-                                                <label class="form-check-label labelRight" for="status_2">
+                                                <label class="form-check-label labelRight text-capitalize"  for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @endif
@@ -237,6 +239,9 @@
                 var select_val = $(e.currentTarget).val();
                 show_url = "{{route('admin.bus.model', ':bus')}}";
                 show_url = show_url.replace(':bus', select_val);
+                if(select_val == "") {
+                    show_url = "{{route('admin.bus.modelAll')}}";
+                }
                 $.ajax({
                     url: show_url,
                     method: 'get',
@@ -244,7 +249,7 @@
                         result = res.data;
                         if(result){
                             $("select[name='bus_model']").empty()
-                            $("select[name='bus_model']").append("<option value=''>Select model</option>")
+                            $("select[name='bus_model']").append("<option value=''>{{__('Select Model')}}</option>")
                             for(i=0; i<result.length; i++ ){
                                 $("select[name='bus_model']").append('<option value="'+result[i].id+'">'+result[i].model_en+'</option>');
                             }

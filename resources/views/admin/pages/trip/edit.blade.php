@@ -24,7 +24,7 @@
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('name (en)')}}</label>
                                     <input type="text" class="form-control" name="name_en" minlength="1" maxlength="100" required value="{{$trip->trip_name_en}}">
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('client')}}</label>
                                     <select class="form-select" name="client" id="client">
                                         <option value="">Select Client</option>
@@ -96,7 +96,7 @@
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <div class="form-check form-check-warning">
-                                                        <input class="form-check-input" type="checkbox" id="select_all" {{$trip->trip_frequancy == '["1","2","3","4","5","6","7"]' ? "checked":""}}/>
+                                                        <input class="form-check-input" type="checkbox" id="select_all" {{$trip->trip_type == 0 ? 'disabled' :''}} {{$trip->trip_frequancy == '["1","2","3","4","5","6","7"]' ? "checked":""}}/>
                                                         <label class="form-check-label" for="select_all">
                                                     </div>
                                                 </div>
@@ -247,7 +247,7 @@
                                 <div class = "mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('origin')}}</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="origin_city" id ="origin_city" required>
                                                 <option value="">{{__('Select City')}}</option>
                                                 @foreach($city as $row)
@@ -255,7 +255,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="origin_area" id ="origin_area" required>
                                                 <option value="">{{__('Select Area')}}</option>
                                                 @foreach($area as $row)
@@ -285,13 +285,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value = "1" {{$trip->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label text-capitalize" for="status_1" style="margin-right: 3rem; float: right;">
+                                                <label class="form-check-label text-capitalize" for="status_1" style="margin-right: 3rem; ">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1" type="radio" name="status"
                                                     id="status_1" value = "1" {{$trip->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label labelRight1 text-capitalize" for="status_1" style="margin-right: 3rem; float: right;">
+                                                <label class="form-check-label labelRight1 text-capitalize" for="status_1" style="margin-right: 3rem;">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -302,13 +302,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value = "0" {{$trip->status == 0 ? 'checked' :''}}>
-                                                <label class="form-check-label" for="status_2 text-capitalize" style="margin-right: 2rem; float: right;">
+                                                <label class="form-check-label text-capitalize" for="status_2 " style="margin-right: 2rem; ">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1" type="radio" name="status"
                                                     id="status_2" value = "0" {{$trip->status == 0 ? 'checked' :''}}>
-                                                <label class="form-check-label labelRight1 text-capitalize" for="status_2" style="margin-right: 2rem; float: right;">
+                                                <label class="form-check-label labelRight1 text-capitalize" for="status_2" style="margin-right: 2rem; ">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @endif
@@ -358,7 +358,7 @@
                                 <div class = "mb-3">
                                     <label><span class="custom-val-color">*</span> {{__('destination')}}</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="destination_city" id ="destination_city" required>
                                                 <option value="">{{__('Select City')}}</option>
                                                 @foreach($city as $row)
@@ -366,7 +366,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="destination_area" id ="destination_area" required>
                                                 <option value="">{{__('Select Area')}}</option>
                                                 @foreach($area as $row)
@@ -549,6 +549,10 @@
                         $(this).prop( "disabled", true );
                         $(this).prop('readonly', true);
                     });
+                    $("input[name='trip_frequancy[]']").prop("checked", false); 
+                    $("#select_all").prop("disabled", true);
+                    $("#select_all").prop("checked", false);
+
                     document.getElementById("validateBox").required = false;
                 } else {
                     document.getElementById("validateBox").required = true;
@@ -563,6 +567,8 @@
                         $(this).prop('readonly', false);
                     });
                     document.getElementById("validateBox").required = true;
+                    $("#select_all").prop("disabled", false);
+
                 }else{
                     document.getElementById("validateBox").required = false;
                 }
@@ -595,6 +601,9 @@
             function selectFunction(select, id){
                 show_url = "{{route('admin.trip.area', ':trip')}}";
                 show_url = show_url.replace(':trip', id);
+                if(id == "") {
+                    show_url = "{{route('admin.trip.areaAll')}}";
+                }
                 $.ajax({
                     url: show_url,
                     method: 'get',

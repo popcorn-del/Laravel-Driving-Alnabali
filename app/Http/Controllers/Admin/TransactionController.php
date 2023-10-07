@@ -99,7 +99,9 @@ class TransactionController extends Controller
         $destination_area = Area::findOrFail($trip->destination_area);
         $bus = Bus::findOrFail($transaction->bus_id);
         $bus_size = BusSize::findOrFail($bus->bus_size_id);
+        $supervisor  = '';
 
+        $supervisors = SuperVisor::all();
         //
         return view('admin.pages.transaction.show', [
             'transaction' => $transaction,
@@ -111,6 +113,8 @@ class TransactionController extends Controller
             'destination_area' => $destination_area->area_name_en,
             'bus_no' => $bus->bus_no,
             'bus_size' => $bus_size->size,
+            'supervisor' => $supervisor,
+            'supervisors' => $supervisors
         ]);
     }
 

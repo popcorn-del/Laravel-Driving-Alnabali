@@ -110,6 +110,7 @@ class NotificationController extends Controller
      */
     public function show($id)
     {
+        $supervisor  = '';
 
         $notification = Notification::findOrFail($id);
         if (is_numeric($notification->receiver)) {
@@ -131,6 +132,9 @@ class NotificationController extends Controller
         $tripbus = TripBus::where('trip_name', $notification->trip_id)->get();
         $bus_size = BusSize::where('id', $tripbus[0]->bus_size)->first();
         $bus = Bus::where('id', $tripbus[0]->bus_no)->first();
+
+
+        $supervisors = SuperVisor::all();
         //
         return view('admin.pages.notification.show', [
             'notification' => $notification,
@@ -142,6 +146,8 @@ class NotificationController extends Controller
             'destination_area' => $destination_area->area_name_en,
             'bus_no' => $bus->bus_no,
             'bus_size' => $bus_size->size,
+            'supervisor' => $supervisor->id,
+            'supervisors' => $supervisors
         ]);
     }
 

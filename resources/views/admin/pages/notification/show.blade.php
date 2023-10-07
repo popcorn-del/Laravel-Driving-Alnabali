@@ -219,7 +219,12 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="mb-3">
+                                    <label class="form-label">{{__('notification message')}}</label>
+                                    <div>
+                                        <textarea class="form-control" rows="5" name="details" value = "">{{$notification->message}}</textarea>
+                                    </div>
+                                </div>
                                 {{-- <div class="mb-3">
                                     <label class="form-label"><span class="custom-val-color"></span>SHOW TRIP ON MAP</label>
                                     <div class="row">
@@ -325,15 +330,51 @@
                                 </div>
                             </div>
                             <div class = "col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">{{__('notification message')}}</label>
-                                    <div>
-                                        <textarea class="form-control" rows="5" name="details" value = "">{{$notification->message}}</textarea>
-                                    </div>
-                                </div>
+
                                 <div class="mb-3">
                                     <label class="form-label"><span class="custom-val-color"></span>{{__('notified person')}}</label>
                                     <input type="text" class="form-control" name="name_en" required value="{{$notification->receiver}}">
+                                </div>
+
+                                <div class = "mb-3 add-new-form">
+                                    <label class="form-label"><span class="custom-val-color"></span>  {{__('supervisor')}}
+                                    </label>
+                                    <div class = "row border rounded border-secondary daysofweek">
+                                        <div class = "trip-frequency-check">
+                                            <div class="form-check form-check-warning">
+                                                <input class="form-check-input" type="checkbox" id='selectAll' disabled
+                                                    >
+                                                <label class="form-check-label text-normal" style="width: 200px">
+                                                {{__('Choose One or More')}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        @if(Session::get('lang') != 'jor')
+                                        <div class = "col-md-4">
+                                            @foreach($supervisors as $row)
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
+                                                    value = "{{$row->id}}" {{$row->id == $supervisor ? "checked" : ""}} disabled>
+                                                    <label class="form-check-label text-capitalize" for="supervisor_{{$row->id}}">
+                                                        {{$row->name}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        @else
+                                        <div class = "col-md-10">
+                                            @foreach($supervisors as $row)
+                                                <div class="form-check form-check-warning ">
+                                                    <input class="form-check-input checkRight" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
+                                                        value = "{{$row->id}}" {{$row->id == $supervisor ? "checked" : ""}} disabled>
+                                                    <label class="form-check-label labelRight text-capitalize" for="supervisor_{{$row->id}}">
+                                                        {{$row->name}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>

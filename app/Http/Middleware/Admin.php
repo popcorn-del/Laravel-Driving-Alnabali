@@ -21,12 +21,14 @@ class Admin
             return $next($request);
         } else if(auth()->user()->role == 2){
             return $next($request);
-        } else if(auth()->user()->role == 3) {
+        }
+        else if(auth()->user()->role){
             if($request->route()->uri == 'admin/user' || str_contains($request->route()->uri, 'reports')){
                 return redirect('/')->with('error',"You don't have admin access.");
             }
-            return $next($request);
-        }
+        return $next($request);       
+     }
         return redirect('/')->with('error',"You don't have admin access.");
+
     }
 }

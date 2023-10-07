@@ -19,7 +19,7 @@
                                 <tr bgcolor="#E5E4E2">
                                     <th>{{__('no.')}}</th>
                                     <th>{{__('name')}}</th>
-                                    <th>{{__('level')}}</th>
+                                    <th>{{__('role')}}</th>
                                     <th>{{__('phone')}}</th>
                                     <th>{{__('username')}}</th>
                                     <th class="text-center">{{__('status')}}</th>
@@ -30,8 +30,8 @@
                                 @foreach($user as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td> <img src="{{$row->avatar == '' ? 'http://213.136.71.7/alnabali/public/images/admin/user-profile.jpg' : 'http://213.136.71.7/alnabali/public/uploads/user/' . $row->avatar }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$row->name}}</td>
-                                    <td>{{$row->role==2 ? "Admin" : "Editor"}}</td>
+                                    <td> <img src="{{$row->avatar == '' ? asset('images/admin/user-profile.jpg') : asset('uploads/user/' . $row->avatar) }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$row->name}}</td>
+                                    <td>{{$row->roles->name_en}}</td>
                                     <td>{{is_null($row->phone) ? 'N/A' : '+962 '.$row->phone}}</td>
                                     <td>{{$row->user_name}}</td>
                                     <td>
@@ -39,7 +39,7 @@
                                         <div class="form-check form-switch form-switch-lg text-center">
                                             <input class="form-check-input price-status mx-auto" type="checkbox" {{$row->status == 1 ? "checked" :""}} value="{{$row->id}}" >
                                         </div>
-                                    </td>
+                                    </td>   
                                     <td class="text-center">
                                         <a href="{{route('admin.user.show', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('VIEW')}}</button>
                                         <a href="{{route('admin.user.edit', ['user' => $row->id])}}" class="btn btn-outline-warning btn-sm btn-rounded waves-effect waves-light">{{__('EDIT')}}</button>
@@ -87,9 +87,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect text-capitalize"
-                            data-bs-dismiss="modal">{{__('cancel')}}</button>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light save_button text-capitalize">{{__('save')}}</button>
+                        <button type="button" class="btn btn-secondary waves-effect text-uppercase"
+                            data-bs-dismiss="modal" >{{__('cancel')}}</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light save_button text-uppercase">{{__('save')}}</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->

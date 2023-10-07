@@ -41,11 +41,18 @@ class TripController extends Controller
      */
     public function create()
     {
-        $client = Client::where('status', 1)->orderBy('name_en', 'asc')->get();
+        $currentDate = now();
+        $client = Client::where('status', 1)
+        ->whereDate('contract_start_date', '<=', $currentDate)
+        ->whereDate('contract_end_date', '>=', $currentDate)
+        ->orderBy('name_en', 'asc')->get();
         $city = City::where('status', 1)->orderBy('city_name_en', 'asc')->get();
+        $area = Area::where('status', 1)->orderBy('area_name_en', 'asc')->get();
+
         return view('admin.pages.trip.create', [
             'client' => $client,
-            'city' => $city,           
+            'city' => $city,     
+            'area' => $area      
         ]);
     }
 
@@ -153,9 +160,13 @@ class TripController extends Controller
      */
     public function edit($id)
     {
+        $currentDate = now();
         $trip = Trip::where('id', $id)->first();
         // dd(in_array("5", (json_decode($trip->trip_frequancy))));
-        $client = Client::where('status', 1)->orderBy('name_en', 'asc')->get();
+        $client = Client::where('status', 1)
+        ->whereDate('contract_start_date', '<=', $currentDate)
+        ->whereDate('contract_end_date', '>=', $currentDate)
+        ->orderBy('name_en', 'asc')->get();
         $city = City::where('status', 1)->orderBy('city_name_en', 'asc')->get();
         $area = Area::where('status',1)->orderBy('area_name_en', 'asc')->get();
 
@@ -198,6 +209,12 @@ class TripController extends Controller
         return response()->json(['result' => "success"]);
     }
 
+    public function getAreaAll () {
+            $data = Area::where('status', 1)->orderBy('area_name_en', 'asc')->get();
+            return response()->json(['data' => $data]);
+            echo "ddd";
+    }
+
     public function getArea($id) {
         if ($id == 'undefined') {
             $data = Area::where('status', 1)->orderBy('area_name_en', 'asc')->get();
@@ -206,4 +223,6 @@ class TripController extends Controller
         $data = Area::where('city_id', $id)->where('status', 1)->orderBy('area_name_en', 'asc')->get();
         return response()->json(['data' => $data]);
     }
+
+
 }

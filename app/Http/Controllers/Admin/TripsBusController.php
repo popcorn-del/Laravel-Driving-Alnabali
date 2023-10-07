@@ -41,6 +41,16 @@ class TripsBusController extends Controller
                     $trip_bus_key->supervisor = $tmp;
                 }
             }
+
+            $days = json_decode($trip_bus_key->bus_frequancy);
+            $tmp_days = "";
+            if($days != null) {
+                foreach ($days as $key => $day) {
+                    $tmp_days .= $day;
+                    $tmp_days .= ',';
+                    $trip_bus_key->days = $tmp_days;
+                }
+            }
         }
         $lang=app()->getLocale();
         // return $trip_bus;
@@ -58,6 +68,7 @@ class TripsBusController extends Controller
     public function create(Request $request )
     {
         $client_id = $request['client'];
+        $currentDate = now();
 
         //
         if($client_id == null) {
@@ -73,7 +84,11 @@ class TripsBusController extends Controller
         $bus_size = BusSize::where('status', 1)->orderby('size','asc')->get();
         $bus_no = Bus::where('status', 1)->orderby('bus_no','asc')->get();
         $driver= Driver::where('status',1)->orderby('name_en','asc')->get();
-        $client = Client::where('status', 1)->orderBy('name_en', 'asc')->get();
+
+        $client = Client::where('status', 1)
+        ->whereDate('contract_start_date', '<=', $currentDate)
+        ->whereDate('contract_end_date', '>=', $currentDate)
+        ->orderBy('name_en', 'asc')->get();
         $supervisor = SuperVisor::where('status', 1)->orderby('name','asc')->get();
         $trip_bus= TripBus::where('created_at', '<', date("Y-m-d h:i:s"))->get();
         $drivers = [];
@@ -83,7 +98,7 @@ class TripsBusController extends Controller
                 $drivers[] = $driver[$i];
             }
         }
-        // return $drivers;
+        // return $drivers; 
         $lang=app()->getLocale();
         return view('admin.pages.tripBus.create', [
             'trip' => $trip,
@@ -158,11 +173,13 @@ class TripsBusController extends Controller
         // $data = TripBus::where('id', $id)->where('status', 1)->get();
         // return response()->json(['data' => $data]);
         $trip_bus = TripBus::where('id', $id)->first();
+        $supervisor_ids = json_decode($trip_bus->supervisor_name);
+        $trip_frequency_ids = json_decode($trip_bus->bus_frequancy);
         $trip = Trip::where('status', 1)->get();
         $bus_size = BusSize::where('status', 1)->get();
         $bus_no = Bus::where('status', 1)->get();
         $driver= Driver::where('status',1)->get();
-        $supervisor = SuperVisor::where('status', 1)->get();
+        $supervisor = SuperVisor::where('status', 1)->orderby('name','asc')->get();
         $client_name = DB::select('select * from clients where id = ?', [$trip[0]->client_id]);
 	    $client = Client::where('status', 1)->orderBy('name_en', 'asc')->get();
         return view('admin.pages.tripBus.show', [
@@ -173,6 +190,8 @@ class TripsBusController extends Controller
             'driver' => $driver,
 	        'client' => $client,
             'supervisor' => $supervisor,
+            'trip_frequency_ids' => $trip_frequency_ids,
+            'supervisor_ids' => $supervisor_ids,
             'client_name' => $client_name
         ]);
 
@@ -186,18 +205,30 @@ class TripsBusController extends Controller
      */
     public function edit($id)
     {
+
+        $currentDate = now();
         //
         $trip_bus = TripBus::where('id', $id)->first();
-        // // return $trip_bus;
+        $supervisor_ids = json_decode($trip_bus->supervisor_name);
+        $trip_frequency_ids = json_decode($trip_bus->bus_frequancy);
+        if($trip_frequency_ids == null) {
+            $trip_frequency_ids = [];
+        }
+
         $trip = Trip::where('status', 1)->get();
-        // return $trip;
         $bus_size = BusSize::where('status', 1)->get();
-        $bus_no = Bus::where('status', 1)->get();
+        $bus_no = Bus::where('status', 1)->where('bus_size_id', $trip_bus->bus_size)->get();
         $driver= Driver::where('status',1)->get();
-        $supervisor = SuperVisor::where('status', 1)->get();
+        $supervisor = SuperVisor::where('status', 1)->orderby('name','asc')->get();
         $trip_bus1 = TripBus::where('created_at', '<', date("Y-m-d h:i:s"))->get();
-	    $client = Client::where('status', 1)->orderBy('name_en', 'asc')->get();
-        $client_name = DB::select('select * from clients where id = ?', [$trip[0]->client_id]);
+	    $client = Client::where('status', 1)
+        ->whereDate('contract_start_date', '<=', $currentDate)
+        ->whereDate('contract_end_date', '>=', $currentDate)
+        ->orderBy('name_en', 'asc')->get();
+        $trip1 = Trip::where('id', $trip_bus->trip_name)->get();
+        $trip = Trip::where('client_id', $trip1[0]->client_id)
+                ->where('status', 1)->get();
+
         $drivers = [];
         for ($i=0; $i < count($driver); $i++) {
             $is_used = true;
@@ -211,7 +242,7 @@ class TripsBusController extends Controller
                 $drivers[] = $driver[$i];
             }
         }
-
+        // dd($trip_frequency_ids);
         return view('admin.pages.tripBus.edit', [
             'trip_bus' => $trip_bus,
             'trip' => $trip,
@@ -220,7 +251,9 @@ class TripsBusController extends Controller
             'driver' => $drivers,
 	        'client' => $client,
             'supervisor' => $supervisor,
-            'client_name' => $client_name
+            'trip_frequency_ids' => $trip_frequency_ids,
+            'supervisor_ids' => $supervisor_ids,
+            'client_id' => $trip1[0]->client_id
         ]);
     }
 
@@ -239,6 +272,7 @@ class TripsBusController extends Controller
             'bus_no' => $request->bus_no,
             'driver_name' => $request->driver_name,
             'supervisor_name' => $request->supervisor,
+            'bus_frequancy' => $request->trip_frequancy
         ];
         $trip_bus = TripBus::where('id', $id)->update($content);
 
@@ -316,6 +350,16 @@ class TripsBusController extends Controller
                     ['status', '=', 1],
             ])->get();
         return response()->json(['data' => $data]);
+    } 
+
+    public function getTripName($client_id) {
+        $trip = DB::select('select * from trips where client_id = ? and status = ?', array($client_id, "1"));
+        return response()->json(['data' => $trip]);
+    }
+
+    public function getTripNameAll() {
+        $trip = Trip::where('status', 1)->orderby('trip_name_en','asc')->get();
+        return response()->json(['data' => $trip]);
     }
 
     private function checkBus($trip_id, $bus_id)

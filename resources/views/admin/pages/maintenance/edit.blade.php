@@ -19,7 +19,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-7">
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
                                     <select class="form-select" name="bus_no" id ="bus_no" required>
                                         <option value="">{{__('Select Bus No.')}} </option>
@@ -28,7 +28,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('type')}}</label>
                                     <select class="form-select" name="maintenace_type"  id ="maintenace_type" required>
                                         <option value="">{{__('Select Type')}}</option>

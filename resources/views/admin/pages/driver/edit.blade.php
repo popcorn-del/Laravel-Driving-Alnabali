@@ -8,7 +8,11 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('/assets/admin/driver/style.css')}}" rel="stylesheet" type="text/css" >
-
+    <style>
+        input::placeholder {
+            opacity: 0.4!important;
+        }
+    </style>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
 
 @endsection
@@ -17,12 +21,14 @@
         <form class="custom-validation" method="post" id="custom-form" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{$driver->id}}" />
+            <input type="hidden" name="change_image" id="change_image" value="0" /> 
+
             <div class="row">
                 <div class="col-md-7">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-12">
-                                <div style="text-align: center">{{__('profile image')}}</div>
+                                <div class="text-uppercase" style="text-align: center">{{__('profile image')}}</div>
                                 <div class="picture-container" style="margin-bottom: 30px">
                                     <div class="picture">
                                         <img src="{{ $driver->profile_image != '' ? asset('/uploads/driver').'/'.($driver->profile_image):asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -71,13 +77,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input normal" type="radio" name="status"
                                                     id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label" for="status_1">
+                                                <label class="form-check-label text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label labelRight" for="status_1">
+                                                <label class="form-check-label labelRight text-capitalize"  for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -93,7 +99,7 @@
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_2" value="0" {{$driver->status == 0 ? "checked" : ""}}>
                                                 @endif
-                                                <label class="form-check-label" for="status_2">
+                                                <label class="form-check-label text-capitalize" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                             </div>
@@ -175,6 +181,8 @@
             $("#avatar_close").css('display', 'none');
             $("#wizardPicturePreview").attr('src', str);
             $("#wizard-picture").val("");
+            $("#change_image").val("1");
+
         })
 
         $("#wizard-picture").change(() => {
@@ -185,7 +193,7 @@
         })
 
         $(document).ready(() => {
-            if($("#wizardPicturePreview").attr('src') != 'http://213.136.71.7/Alnabali/public/images/admin/user-profile.jpg') {
+            if($("#wizardPicturePreview").attr('src') != asset('images/admin/user-profile.jpg')) {
                 $("#edit-avatar").css('display', 'none');
                 $("#avatar_close").css('display', 'block');
             } else {
@@ -248,11 +256,11 @@
 
         bootstrapValidate(
                 '#phone_inp',
-                'max:9:Don\'t Enter more than 9 Characters'
+                'max:9:Don\'t Enter more than 9 digits'
             );
             bootstrapValidate(
                 '#phone_inp',
-                'min:8:Enter at least 8 Characters'
+                'min:8:Enter at least 8 digits'
             );
             // end validate
     </script>

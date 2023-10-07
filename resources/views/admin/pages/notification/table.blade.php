@@ -58,7 +58,10 @@
             </td>
             <td>{{$row->message}}</td>
             <td dir="ltr">{{date(Session::get('date') == 1 ? 'd/m/Y h:i A' : 'm/d/Y h:i A', strtotime($row->created_at))}}</td>
-            <td class="text-capitalize">@if($row->receive_app == 0) {{__('supervisor')}} @endif @if($row->receive_app == 1) {{__('driver')}} @endif</td>
+            <td class="text-capitalize">                
+                <span class="badge badge-pill badge-soft-success font-size-12">    
+                    @if($row->receive_app == 0) {{__('supervisor')}} @endif @if($row->receive_app == 1) {{__('driver')}} @endif            
+                </span></td>
             <td>{{$row->receiver}}</td>
             <td>
                 <span class="badge badge-pill badge-soft-success font-size-12">    

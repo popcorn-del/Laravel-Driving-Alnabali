@@ -18,7 +18,7 @@
                 <div class="col-md-7">
                     <div class="col-md-12">
                         <div class="row">
-                            <div style="text-align: center">{{__('profile image')}}</div>
+                            <div class="text-uppercase" style="text-align: center">{{__('profile image')}}</div>
                             <div class="picture-container" style="margin-bottom: 30px">
                                 <div class="picture">
                                     <img src="{{ $driver->profile_image != '' ? asset('/uploads/driver').'/'.($driver->profile_image):asset('/images/admin/user-profile.jpg') }}" class="picture-src" id="wizardPicturePreview" title="">
@@ -41,7 +41,7 @@
                                             <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" value="{{$driver->phone}}" placeholder="7 xxxx xxxx" required>
+                                            <input data-parsley-type="number" type="text" class="form-control" name="phone" value="{{$driver->phone}}" >
                                         </div>
                                     </div>
                                 </div>
@@ -60,13 +60,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label" for="status_1">
+                                                <label class="form-check-label text-capitalize" for="status_1">
                                                 {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_1" value="1" {{$driver->status == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label labelRight" for="status_1">
+                                                <label class="form-check-label labelRight text-capitalize" for="status_1">
                                                 {{__('active')}}
                                                 </label>
                                                 @endif
@@ -82,7 +82,7 @@
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_2" value="0" {{$driver->status == 0 ? "checked" : ""}}>
                                                 @endif
-                                                <label class="form-check-label" for="status_2">
+                                                <label class="form-check-label text-capitalize" for="status_2">
                                                 {{__('inactive')}}
                                                 </label>
                                             </div>

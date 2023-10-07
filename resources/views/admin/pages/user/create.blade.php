@@ -8,7 +8,12 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('/assets/admin/user/style.css')}}" rel="stylesheet" type="text/css" >
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        input::placeholder {
+            opacity: 0.4!important; 
+        }    
+    </style>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
 
 
@@ -61,46 +66,14 @@
 
                                 </div>
 
-
-                            <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('level')}}</label>
-                                    <div class="row">
-                                        <?php if(Auth::user()->role == 1) { ?> <div class="col-md-6">
-                                                <div class="form-check form-radio-warning mb-3">
-                                                    @if(Session::get('lang') != 'jor')
-                                                    <input class="form-check-input" type="radio" name="role"
-                                                        id="level_2" value="2" checked>
-                                                    <label class="form-check-label" for="level_2">
-                                                        {{__('admin')}}
-                                                    </label>
-                                                    @else
-                                                    <input class="form-check-input radioRight" type="radio" name="role"
-                                                        id="level_2" value="2" checked>
-                                                    <label class="form-check-label labelRight" for="level_2">
-                                                        {{__('admin')}}
-                                                    </label>
-                                                    @endif
-                                                </div>
-                                            </div><?php } ?>
-
-                                        <div class="col-md-6">
-                                            <div class="form-check form-radio-warning">
-                                                @if(Session::get('lang') != 'jor')
-                                                <input class="form-check-input" type="radio" name="role"
-                                                    id="level_3" value="3" {{Auth::user()->role == 2 ? "checked" : ""}}>
-                                                <label class="form-check-label" for="level_3">
-                                                    {{__('editor')}}
-                                                </label>
-                                                @else
-                                                <input class="form-check-input radioRight" type="radio" name="role"
-                                                    id="level_3" value="3" {{Auth::user()->role == 2 ? "checked" : ""}}>
-                                                <label class="form-check-label labelRight" for="level_3">
-                                                    {{__('editor')}}
-                                                </label>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="mb-3 select-validation">
+                                                <label class="form-label"><span class="custom-val-color">*</span>  {{__('role')}}</label>
+                                                <select class="form-select" name="user_role" id="user_role" required>
+                                                    <option value="">{{__('Select Role')}}</option>
+                                                    @foreach($roles as $row)
+                                                    <option value="{{$row->id}}" >{{ $lang=="jor"? $row->name_ar: $row->name_en}}</option>
+                                                    @endforeach
+                                                </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -143,13 +116,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" checked>
-                                                <label class="form-check-label" for="status_1">
+                                                <label class="form-check-label text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_1" value="1" checked>
-                                                <label class="form-check-label labelRight" for="status_1">
+                                                <label class="form-check-label labelRight text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -160,13 +133,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0">
-                                                <label class="form-check-label" for="status_2">
+                                                <label class="form-check-label text-capitalize" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_2" value="0">
-                                                <label class="form-check-label" for="status_2">
+                                                <label class="form-check-label text-capitalize" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @endif
@@ -199,6 +172,8 @@
     <script src="{{ URL::asset('/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/user/index.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
     <script>
         var str = "{{ asset('/images/admin/user-profile.jpg') }}";
 
@@ -217,6 +192,9 @@
         })
 
         $(document).ready(() => {
+            $('#user_role').select2();
+
+
             if($("#wizard-picture").val() != '') {
                 $("#edit-avatar").css('display', 'none');
                 $("#avatar_close").css('display', 'block');

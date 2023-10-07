@@ -64,9 +64,9 @@
                                 <div class = "col-2">
                                     <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('notified app')}}</div>
                                     <select class="form-select" name="app_filter" id="app_filter">
-                                        <option  value="">{{__('Select Notified App')}}</option>
-                                        <option value="Supervisor">{{__('supervisor')}}</option>
-                                        <option value="Driver">{{__('driver')}}</option>
+                                        <option class="text-capitalize" value="">{{__('Select Notified App')}}</option>
+                                        <option class="text-capitalize" value="Supervisor">{{__('supervisor')}}</option>
+                                        <option class="text-capitalize" value="Driver">{{__('driver')}}</option>
                                     </select>
                                 </div>
                                 <!-- <div class = "col-2">
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class = "col-2">
                                     <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('status')}}</div>
-                                    <select class="form-select" name="status_filter" id="status_filter">
+                                    <select class="form-select text-capitalize" name="status_filter" id="status_filter">
                                         <option value="">{{__('All Status')}}</option>
                                         <option value="Pending">{{__('Pending')}}</option>
                                         <option value="Accepted">{{__('Accepted')}}</option>

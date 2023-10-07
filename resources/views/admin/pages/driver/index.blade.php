@@ -30,9 +30,9 @@
                                 @foreach($driver as $key=>$row)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td> <img src="{{$row->profile_image == '' ? 'http://213.136.71.7/alnabali/public/images/admin/user-profile.jpg' : 'http://213.136.71.7/alnabali/public/uploads/driver/' . $row->profile_image }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$row->name_en}}</td>
+                                    <td> <img src="{{$row->profile_image == '' ? asset('images/admin/user-profile.jpg') : asset('uploads/driver/' . $row->profile_image) }}" style="border-radius: 50%;margin-right: 1vw;" width="30" height="30" /> {{$row->name_en}}</td>
                                     <!-- <td>{{$row->user_email}}</td> -->
-                                    <td>{{is_null($row->phone) ? 'N/A' : '+962 '.$row->phone}}</td>
+                                    <td>{{is_null($row->phone) || $row->phone=="" ? 'N/A' : '+962 '.$row->phone}}</td>
                                     <td>{{$row->user_name}}</td>
                                     <td>
                                         <div style="display:none;">{{$row->status == 1 ? "Active" :"Inactive"}}</div>
@@ -88,9 +88,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary waves-effect"
-                            data-bs-dismiss="modal">{{__('cancel')}}</button>
-                        <button type="submit" class="btn btn-primary waves-effect waves-light save_button">{{__('save')}}</button>
+                        <button type="button" class="btn btn-secondary waves-effect text-uppercase"
+                            data-bs-dismiss="modal" >{{__('cancel')}}</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light save_button text-uppercase">{{__('save')}}</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->

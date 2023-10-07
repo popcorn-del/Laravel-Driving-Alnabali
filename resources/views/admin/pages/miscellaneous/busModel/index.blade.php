@@ -76,13 +76,13 @@
                                                             @if(Session::get('lang') != 'jor')
                                                             <input class="form-check-input" type="radio" name="status"
                                                                 id="status_2" value="0">
-                                                            <label class="form-check-label" for="status_2">
+                                                            <label class="form-check-label text-capitalize" for="status_2">
                                                                 {{__('inactive')}}
                                                             </label>
                                                             @else
                                                             <input class="form-check-input radioRight" type="radio" name="status"
                                                                 id="status_2" value="0">
-                                                            <label class="form-check-label" for="status_2">
+                                                            <label class="form-check-label text-capitalize" for="status_2">
                                                                 {{__('inactive')}}
                                                             </label>
                                                             @endif
@@ -331,7 +331,9 @@
                 $("#cityAdd").css("display","block")
                 $("#cityEdit").css("display","none")
                 $(".save-btn").css("display", "inline-block")
-                $(".reset-btn").css("display", "inline-block")
+                $(".reset-btn").css("display", "inline-block");
+                $("#busModelType").val('').trigger('change');
+
                 document.getElementById("busModelEn").disabled = false;
                 document.getElementById("busModelAr").disabled = false;
                 document.getElementById("busModelType").disabled = false;

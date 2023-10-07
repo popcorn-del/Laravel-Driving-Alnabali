@@ -12,6 +12,9 @@
     <style>
         .iti {
             width:100%;
+        } 
+        input::placeholder {
+            opacity: 0.4!important; 
         }
     </style>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
@@ -23,6 +26,8 @@
         <form class="custom-validation" method="post" id="custom-form" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{$client->id}}">
+            <input type="hidden" name="change_image" id="change_image" value="0" /> 
+
             <div class="row">
                 <div class="col-md-7">
                     <div class="col-md-12">
@@ -31,7 +36,7 @@
                                     <div style="text-align: center">{{__('LOGO')}}</div>
                                     <div class="picture-container" style="margin-bottom: 30px">
                                         <div class="picture">
-                                            <img src="{{$client->client_avatar == '' ? 'http://213.136.71.7/alnabali/public/images/admin/client_default.png' : 'http://213.136.71.7/Alnabali/public/uploads/image/' . $client->client_avatar }}" class="picture-src" id="wizardPicturePreview" title="">
+                                            <img src="{{$client->client_avatar == '' ? asset('images/admin/client_default.png') : asset('uploads/image/' . $client->client_avatar) }}" class="picture-src" id="wizardPicturePreview" title="">
                                             <input type="file" id="wizard-picture" name="client_avatar" class="">
                                         </div>
                                         <label id="avatar_close">
@@ -56,13 +61,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="client_type_id"
                                                     id="client_type_{{$key}}" value="{{$row->id}}" {{$client->client_type_id == $row->id ? "checked" : ""}}>
-                                                <label class="form-check-label" for="client_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="client_type_{{$key}}">
                                                     {{$row->type_name_en}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1" type="radio" name="client_type_id"
                                                     id="client_type_{{$key}}" value="{{$row->id}}" {{$client->client_type_id == $row->id ? "checked" : ""}}>
-                                                <label class="form-check-label labelRight1" for="client_type_{{$key}}">
+                                                <label class="form-check-label labelRight1 text-capitalize" for="client_type_{{$key}}">
                                                     {{$row->type_name_ar}}
                                                 </label>
                                                 @endif
@@ -86,13 +91,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="contract_type_id"
                                                     id="contract_type_{{$key}}" value="{{$row->id}}" {{$client->contract_type_id == $row->id ? "checked" : ""}}>
-                                                <label class="form-check-label" for="contract_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="contract_type_{{$key}}">
                                                     {{$row->type_name_en}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1" type="radio" name="contract_type_id"
                                                     id="contract_type_{{$key}}" value="{{$row->id}}" {{$client->contract_type_id == $row->id ? "checked" : ""}}>
-                                                <label class="form-check-label labelRight1" for="client_type_{{$key}}">
+                                                <label class="form-check-label labelRight1 text-capitalize" for="client_type_{{$key}}">
                                                     {{$row->type_name_ar}}
                                                 </label>
                                                 @endif
@@ -115,16 +120,16 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
+
                                 <div class="mb-3">
                                     <label class="form-label">{{__('phone')}}</label>
-                                    <!--<div class="input-group">-->
-                                    <!--    <div class="input-group-prepend">-->
-                                    <!--        <span class="input-group-text">+ 962</span>-->
-                                    <!--    </div>-->
-                                    <!--    <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control" id="phone_inp" name="phone" value="{{$client->phone_number}}">-->
-                                    <!--</div>-->
-                                    <div style="width: 100%">
-                                        <input type="tel" id="phone1" class="form-control phone_inp" name="phone" placeholder="7 xxxx xxxx"/>
+                                    <div class="input-group" style="flex-wrap: nowrap">
+                                        <div class="input-group-prepend">
+                                           <span class="input-group-text">+ 962</span>
+                                        </div>
+                                        <div style="width:100%;">
+                                            <input data-parsley-type="number" type="text" class="form-control phone_inp" data-parsley-pattern="^[0-9]{8,9}$" minlength="8" maxlength="9" name="phone" id="phone_inp" placeholder="7 xxxx xxxx">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -172,8 +177,8 @@
                                        <div class="input-group-prepend">
                                            <span class="input-group-text">+ 962</span>
                                        </div>
-                                       <div style="width: 100%">
-                                           <input data-parsley-type="number" type="text" minlength="8" maxlength="8" class="form-control" id='fax_inp' value="{{$client->fax}}" name="fax" placeholder="6 xxx xxxx" required/>
+                                       <div style="width: 100%">    
+                                           <input data-parsley-type="number" type="text" minlength="8" maxlength="8" class="form-control" id='fax_inp' value="{{$client->fax}}" name="fax" placeholder="6 xxx xxxx"/>
                                        </div>
                                     </div>
                                     <!-- <div style="width: 100%">
@@ -199,7 +204,7 @@
                                        <div class="input-group-prepend">
                                            <span class="input-group-text">+ 962</span>
                                        </div>
-                                       <input data-parsley-type="number" type="text" minlength="8" maxlength="9" class="form-control" id="phone_inp2" name="phone_liaison" value="{{$client->liaison_phone}}" placeholder="7 xxxx xxxx" required>
+                                       <input data-parsley-type="number" type="text" minlength="8" maxlength="9" class="form-control" id="phone_inp2" name="phone_liaison" value="{{$client->liaison_phone}}" placeholder="7 xxxx xxxx">
                                     </div>
                                     <!-- <div style="width: 100%">
                                         <input type="tel" id="phone3" class="form-control phone_inp" name="phone_liaison" placeholder="7 xxxx xxxx" required/>
@@ -213,13 +218,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input normal-text" type="radio" name="status"
                                                     id="status_1" value="1" {{$client->status == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label normal-text" for="status_1">
+                                                <label class="form-check-label normal-text text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1 normal-text" type="radio" name="status"
                                                     id="status_1" value="1" {{$client->status == 1 ? "checked" : ""}}>
-                                                <label class="form-check-label labelRight1 normal-text" for="status_1">
+                                                <label class="form-check-label labelRight1 normal-text text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -230,13 +235,13 @@
                                             @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$client->status == 0 ? "checked" : ""}}>
-                                                <label class="form-check-label normal-text" for="status_2">
+                                                <label class="form-check-label normal-text text-capitalize" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight1" type="radio" name="status"
                                                     id="status_2" value="0" {{$client->status == 0 ? "checked" : ""}}>
-                                                <label class="form-check-label labelRight1 normal-text" for="status_2">
+                                                <label class="form-check-label labelRight1 normal-text text-capitalize" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @endif
@@ -286,6 +291,7 @@
             $("#avatar_close").css('display', 'none');
             $("#wizardPicturePreview").attr('src', str);
             $("#wizard-picture").val("");
+            $("#change_image").val("1");
         })
 
         $("#wizard-picture").change(() => {
@@ -296,7 +302,7 @@
         })
 
         $(document).ready(() => {
-            if($("#wizardPicturePreview").attr('src') != 'http://213.136.71.7/Alnabali/public/images/admin/client_default.png') {
+            if('{{$client->client_avatar}}' != '') {
                 $("#edit-avatar").css('display', 'none');
                 $("#avatar_close").css('display', 'block');
             } else {
@@ -310,7 +316,10 @@
                 preferredCountries: ['jo', 'us'],
                 separateDialCode: true,
             });
+            var jordanOption = iti1.getSelectedCountryData();
+            jordanOption.disabled = true;
 
+            iti1.setFlagDropdown(false);
             var input2 = document.querySelector("#phone2");
             var iti2 = window.intlTelInput(input2, {
                 autoInsertDialCode: true,
@@ -340,8 +349,22 @@
                 var number = iti3.getNumber();
                 $(this).val(number);
             });
+
+            // $('#phone1').on('input', function() {
+            //     // Remove all non-digit characters from the input
+            //     var phone = $(this).val().replace(/\D/g, '');
+                
+            //     // Add the country code if missing
+            //     if (!phone.startsWith('+962')) {
+            //     phone = '+962' + phone;
+            //     }
+                
+            //     // Update the input value with the formatted phone number
+            //     $(this).val(phone);
+            // });
         })
          store = "{{route('admin.client.store')}}";
+
          list_url = "{{route('admin.client.index')}}";
          //  setStart date
         $('#startdate').datepicker({
@@ -449,27 +472,31 @@
 
         bootstrapValidate(
             '#phone_inp',
-            'max:9:Don\'t Enter more than 9 Characters'
+            'max:9:It should fill between 8 and 9 digits',
+            'regex:^[0-9]+$:Only digits are allowed'
+
         );
         bootstrapValidate(
             '#phone_inp',
-            'min:8:Enter at least 8 Characters'
+            'min:8:It should fill between 8 and 9 digits',
+            'regex:^[0-9]+$:Only digits are allowed'
+
         );
         bootstrapValidate(
             '#phone_inp2',
-            'max:9:Don\'t Enter more than 9 Characters'
+            'max:9:It should fill between 8 and 9 digits'
         );
         bootstrapValidate(
             '#phone_inp2',
-            'min:8:Enter at least 8 Characters'
+            'min:8:It should fill between 8 and 9 digits'
+        );
+         bootstrapValidate(
+            '#fax_inp',
+            'max:8:It should be exactly 8 digits'
         );
         bootstrapValidate(
             '#fax_inp',
-            'max:8:Enter exactly 8 digits'
-        );
-        bootstrapValidate(
-            '#fax_inp',
-            'min:8:Enter exactly 8 digits'
+            'min:8:It should be exactly 8 digits'
         );
     </script>
 @endsection

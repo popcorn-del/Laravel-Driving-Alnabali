@@ -80,7 +80,7 @@
                                     <span class = "font-size-10 mb-1" >[ONLY FOR PERIODIC TRIP]</span></label>
                                     <div class = "row border rounded border-secondary" id="daysofweek">
                                         <div class = "trip-frequency-check">
-                                            CHOOSE ONE OR MORE
+                                        Choose One or More
                                         </div>
                                         <div class = "col-md-4">
                                             <div class="form-check form-check-warning">

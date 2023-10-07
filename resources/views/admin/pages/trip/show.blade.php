@@ -82,8 +82,18 @@
                                     <label class="form-label">{{__('trip frequancy')}}
                                     <span class = "font-size-10 mb-1" >[{{__('only for periodic trip')}}]</span></label>
                                     <div class = "row border rounded border-secondary"  id="daysofweek">
-                                        <div class = "trip-frequency-check">
-                                        {{__('Choose One or More')}}
+                                    <div class = "trip-frequency-check">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-warning">
+                                                        <input class="form-check-input" type="checkbox" id="select_all" {{$trip->trip_frequancy == '["1","2","3","4","5","6","7"]' ? "checked":""}}/>
+                                                        <label class="form-check-label" for="select_all">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{__('Choose One or More')}}
+                                                </div>
+                                            </div>
                                         </div>
                                         @if ($trip->trip_type == 1)
                                             <div class = "col-md-6">
@@ -248,6 +258,43 @@
                                         <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">{{__('status')}}</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-check form-radio-warning mb-3">
+                                                @if(Session::get('lang') != 'jor')
+                                                <input class="form-check-input" type="radio" name="status"
+                                                    id="status_1" value = "1" {{$trip->status == 1 ? 'checked' :''}}>
+                                                <label class="form-check-label text-capitalize" for="status_1">
+                                                {{__('active')}}
+                                                </label>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_1" value = "1" {{$trip->status == 1 ? 'checked' :''}}>
+                                                <label class="form-check-label labelRight text-capitalize" for="status_1">
+                                                {{__('active')}}
+                                                </label>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check form-radio-warning">
+                                                @if(Session::get('lang') != 'jor')
+                                                <input class="form-check-input" type="radio" name="status"
+                                                    id="status_2" value = "0" {{$trip->status == 0 ? 'checked' :''}}>
+                                                @else
+                                                <input class="form-check-input radioRight" type="radio" name="status"
+                                                    id="status_2" value = "0" {{$trip->status == 0 ? 'checked' :''}}>
+                                                @endif
+                                                <label class="form-check-label text-capitalize" for="status_2">
+                                                {{__('inactive')}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- <div class="mb-3">
                                     <label class="form-label">{{__('show trip in admin app')}}</label>
                                     <div class="row">
@@ -322,43 +369,7 @@
                                         <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">{{__('status')}}</label>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-check form-radio-warning mb-3">
-                                                @if(Session::get('lang') != 'jor')
-                                                <input class="form-check-input" type="radio" name="status"
-                                                    id="status_1" value = "1" {{$trip->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label text-capitalize" for="status_1">
-                                                {{__('active')}}
-                                                </label>
-                                                @else
-                                                <input class="form-check-input radioRight" type="radio" name="status"
-                                                    id="status_1" value = "1" {{$trip->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label labelRight text-capitalize" for="status_1">
-                                                {{__('active')}}
-                                                </label>
-                                                @endif
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-check form-radio-warning">
-                                                @if(Session::get('lang') != 'jor')
-                                                <input class="form-check-input" type="radio" name="status"
-                                                    id="status_2" value = "0" {{$trip->status == 0 ? 'checked' :''}}>
-                                                @else
-                                                <input class="form-check-input radioRight" type="radio" name="status"
-                                                    id="status_2" value = "0" {{$trip->status == 0 ? 'checked' :''}}>
-                                                @endif
-                                                <label class="form-check-label text-capitalize" for="status_2">
-                                                {{__('inactive')}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                     
                             </div>
                         </div>
                     </div>
@@ -369,7 +380,7 @@
                 </div> -->
             </div>
             <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('back')}}</button>
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="backbtn">{{__('BACK')}}</button>
             </div>
         </form>
     </div>

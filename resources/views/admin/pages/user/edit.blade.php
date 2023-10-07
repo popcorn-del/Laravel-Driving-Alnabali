@@ -8,7 +8,12 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('/assets/admin/user/style.css')}}" rel="stylesheet" type="text/css" >
-    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        input::placeholder {
+            opacity: 0.4!important; 
+        }    
+    </style>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
 
 @endsection
@@ -17,6 +22,7 @@
         <form class="custom-validation" action="" id="custom-form">
             @csrf
             <input type="hidden" name="id" value="{{$user->id}}" />
+            <input type="hidden" name="change_image" id="change_image" value="0" /> 
             <div class="row">
                 <div class="col-md-7">
                     <div class="col-md-12">
@@ -24,7 +30,7 @@
                                 <div style="text-align: center;" class="text-uppercase">{{__('profile image')}}</div>
                                 <div class="picture-container" style="margin-bottom: 30px">
                                     <div class="picture">
-                                        <img src="{{$user->avatar == '' ? 'http://213.136.71.7/alnabali/public/images/admin/user-profile.jpg' : 'http://213.136.71.7/Alnabali/public/uploads/user/' . $user->avatar }}" class="picture-src" id="wizardPicturePreview" title="">
+                                        <img src="{{$user->avatar == '' ? asset('images/admin/user-profile.jpg') : asset('uploads/user/' . $user->avatar) }}" class="picture-src" id="wizardPicturePreview" title="">
                                         <input type="file" style="display:none;" id="wizard-picture" name="file" class="">
                                     </div>
                                     <label id="avatar_close">
@@ -50,7 +56,7 @@
                                                 <span class="input-group-text">+ 962</span>
                                             </div>
                                             <div style="width: 100%">
-                                                <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control" name="phone" id="phone_inp" value="{{ $user->phone }}">
+                                                <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control" name="phone" id="phone_inp" value="{{ $user->phone }}" placeholder="7 xxxx xxxx">
                                             </div>
                                         </div>
                                     </div>
@@ -86,21 +92,10 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label"><span class="custom-val-color">*</span> {{__('username')}}                                            </label>
+                                            <label class="form-label">{{__('username')}}                                            </label>
                                             <input type="text" class="form-control" name="user_name" minlength="5" maxlength="50"  pattern="^\S+$" readonly required value="{{ $user->user_name }}">
                                         </div>
-                                        <!-- <div class="mb-3">
-                                            <label class="form-label"><span class="custom-val-color">*</span> PASSWORD</label>
-                                            <div>
-                                                <input type="password" id="pass2" class="form-control" name="password" required />
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label"><span class="custom-val-color">*</span> CONFIRM PASSWORD</label>
-                                            <div>
-                                                <input type="password" class="form-control" required data-parsley-equalto="#pass2" />
-                                            </div>
-                                        </div> -->
+      
                                         <div class="mb-3">
                                         <label class="form-label"><span class="custom-val-color">*</span> {{__('status')}}                                        </label>
                                         <div class="row">
@@ -109,13 +104,13 @@
                                                     @if(Session::get('lang') != 'jor')
                                                     <input class="form-check-input" type="radio" name="status"
                                                         id="status_1" value="1" {{ $user->status == 1 ? "checked" : "" }}>
-                                                    <label class="form-check-label" for="status_1">
+                                                    <label class="form-check-label text-capitalize" for="status_1">
                                                         {{__('active')}}
                                                     </label>
                                                     @else
                                                     <input class="form-check-input radioRight" type="radio" name="status"
                                                         id="status_1" value="1" {{ $user->status == 1 ? "checked" : "" }}>
-                                                    <label class="form-check-label labelRight" for="status_1">
+                                                    <label class="form-check-label labelRight text-capitalize" for="status_1">
                                                         {{__('active')}}
                                                     </label>
                                                     @endif
@@ -126,83 +121,41 @@
                                                     @if(Session::get('lang') != 'jor')
                                                     <input class="form-check-input" type="radio" name="status"
                                                         id="status_2" value="0" {{ $user->status == 0 ? "checked" : "" }}>
-                                                    <label class="form-check-label" for="status_2">
+                                                    <label class="form-check-label text-capitalize" for="status_2">
                                                         {{__('inactive')}}
                                                     </label>
                                                     @else
                                                     <input class="form-check-input radioRight" type="radio" name="status"
                                                         id="status_2" value="0" {{ $user->status == 0 ? "checked" : "" }}>
-                                                    <label class="form-check-label labelRight" for="status_2">
+                                                    <label class="form-check-label labelRight text-capitalize" for="status_2">
                                                         {{__('inactive')}}
                                                     </label>
                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mb-3">
-                                                <label class="form-label"><span class="custom-val-color">*</span>  {{__('level')}}</label>
-                                                <div class="row">
-                                                    <div class="col-md-6" style="display:none">
-                                                        <div class="form-check form-radio-warning mb-3">
-                                                            <input class="form-check-input" type="radio" name="role"
-                                                                id="level_1" value="1" {{ $user->role == 1 ? "checked" : "" }}>
-                                                            <label class="form-check-label" for="level_1">
-                                                                {{__('super admin')}}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    @if(Auth::user()->role != 2)
-                                                    <div class="col-md-6">
-                                                        <div class="form-check form-radio-warning mb-3">
-                                                            @if(Session::get('lang') != 'jor')
-                                                            <input class="form-check-input" type="radio" name="role"
-                                                                id="level_2" value="2" {{ $user->role == 2 ? "checked" : "" }}>
-                                                            <label class="form-check-label" for="level_2">
-                                                                {{__('admin')}}
-                                                            </label>
-                                                            @else
-                                                            <input class="form-check-input radioRight" type="radio" name="role"
-                                                                id="level_2" value="2" {{ $user->role == 2 ? "checked" : "" }}>
-                                                            <label class="form-check-label labelRight" for="level_2">
-                                                                {{__('admin')}}
-                                                            </label>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    @endif
-                                                    <div class="col-md-6">
-                                                        <div class="form-check form-radio-warning">
-                                                            @if(Session::get('lang') != 'jor')
-                                                            <input class="form-check-input" type="radio" name="role"
-                                                                id="level_3" value="3" {{ $user->role == 3 ? "checked" : "" }}>
-                                                            <label class="form-check-label" for="level_3">
-                                                                {{__('editor')}}
-                                                            </label>
-                                                            @else
-                                                            <input class="form-check-input radioRight" type="radio" name="role"
-                                                                id="level_3" value="3" {{ $user->role == 3 ? "checked" : "" }}>
-                                                            <label class="form-check-label labelRight" for="level_3">
-                                                                {{__('editor')}}
-                                                            </label>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="mb-3 select-validation">
+                                                <label class="form-label"><span class="custom-val-color">*</span>  {{__('role')}}</label>
+                                                <select class="form-select" name="user_role" id="user_role" required>
+                                                    <option value="">{{__('Select Role')}}</option>
+                                                    @foreach($roles as $row)
+                                                    <option value="{{$row->id}}" {{$user->role == $row->id ? 'selected' :''}}>{{ $lang=="jor"? $row->name_ar: $row->name_en}}</option>
+                                                    @endforeach
+                                                </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-                <div class="col-md-6"></div>
-            </div>
-            <div class="button-group">
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light text-uppercase" id="backbtn">{{__('back')}}</button>
-                <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn text-uppercase">{{__('reset')}}</button>
-                <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase">{{__('save')}}</button>
-            </div>
+                <div class="button-group">
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light text-uppercase" id="backbtn">{{__('back')}}</button>
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light reset-btn text-uppercase">{{__('reset')}}</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light text-uppercase">{{__('save')}}</button>
+            </div>            </div>
+  
         </form>
     </div>
 @endsection
@@ -217,6 +170,8 @@
     <script src="{{ URL::asset('/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/user/index.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
     <script>
         var str = "{{ asset('/images/admin/user-profile.jpg') }}";
 
@@ -225,6 +180,8 @@
             $("#avatar_close").css('display', 'none');
             $("#wizardPicturePreview").attr('src', str);
             $("#wizard-picture").val("");
+            $("#change_image").val("1");
+
         })
 
         $("#wizard-picture").change(() => {
@@ -235,7 +192,8 @@
         })
 
         $(document).ready(() => {
-            if($("#wizardPicturePreview").attr('src') != 'http://213.136.71.7/Alnabali/public/images/admin/user-profile.jpg') {
+            $("#user_role").select2();
+            if('{{$user->avatar}}' != '') {
                 $("#edit-avatar").css('display', 'none');
                 $("#avatar_close").css('display', 'block');
             } else {

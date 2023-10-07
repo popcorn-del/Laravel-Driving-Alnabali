@@ -14,6 +14,8 @@ $(document).ready(function(){
         if(document.getElementById('trip_type_1').checked == false) {
             if((startDate + "") == (endDate + "")){
                 console.log(starttime > endtime);
+                console.log(starttime);
+                console.log(endtime);
                 if(new Date("2000/12/10 " + starttime) > new Date("2000/12/10 " + endtime)){
                     toastr["error"]("Departure time cannot be less than arrival time.");
                     return;
@@ -33,9 +35,9 @@ $(document).ready(function(){
             success: function (res) {
                 if(res.result == "success" ){
                     toastr["success"]($('#arc_success').val());
-                    setInterval(function(){
+                    // setInterval(function(){
                         location.href = list_url;
-                    }, 2000);
+                    // }, 2000);
                 }
             },
             error: function (errors){

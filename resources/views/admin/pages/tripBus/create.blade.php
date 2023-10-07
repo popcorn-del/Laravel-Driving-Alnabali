@@ -17,7 +17,7 @@
                 <div class="col-md-7">
                         <div class="row">
                             <div class="col-md-6">
-				                <div class="mb-3">
+				                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('client')}}</label>
                                     <select class="form-select" name="client" id="client" onchange="changeData(this.value)" required>
                                         <option value="">{{__('Select Client')}}</option>
@@ -38,13 +38,13 @@
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 @if(Session::get('lang') != 'jor')
-                                                <input class="form-check-input" id="trip_type1" value="1" type="radio" checked>
-                                                <label class="form-check-label text-capitalize">
+                                                <input class="form-check-input" id="trip_type1" name="trip_type" value="1" type="radio" checked>
+                                                <label class="form-check-label text-capitalize" for="trip_type1">
                                                     {{__('periodic')}}
                                                 </label>
                                                 @else
-                                                <input class="form-check-input radioRight" id="trip_type1" value="1" type="radio" checked>
-                                                <label class="form-check-label labelRight text-capitalize">
+                                                <input class="form-check-input radioRight" id="trip_type1" name="trip_type" value="1" type="radio" checked>
+                                                <label class="form-check-label labelRight text-capitalize" for="trip_type1">
                                                     {{__('periodic')}}
                                                 </label>
                                                 @endif
@@ -53,13 +53,13 @@
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning">
                                                 @if(Session::get('lang') != 'jor')
-                                                <input class="form-check-input" id="trip_type2" value="0" type="radio">
-                                                <label class="form-check-label text-capitalize">
+                                                <input class="form-check-input" id="trip_type2" name="trip_type" value="0" type="radio">
+                                                <label class="form-check-label text-capitalize" for="trip_type2">
                                                     {{__('non-periodic')}}
                                                 </label>
                                                 @else
-                                                <input class="form-check-input radioRight" id="trip_type2" value="0" type="radio">
-                                                <label class="form-check-label text-capitalize">
+                                                <input class="form-check-input radioRight" id="trip_type2" name="trip_type" value="0" type="radio">
+                                                <label class="form-check-label text-capitalize" for="trip_type2">
                                                     {{__('non-periodic')}}
                                                 </label>
                                                 @endif
@@ -67,7 +67,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('bus size')}}</label>
                                     <select class="form-select" name="bus_size" id="bussize" required>
                                         <option value="">{{__('Select Bus Size')}}</option>
@@ -77,7 +77,7 @@
                                     </select>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('driver name')}}</label>
                                     <select class="form-select" name="driver_name" id="drivername" required>
                                         <option value="">{{__('Select Driver Name')}}</option>
@@ -87,83 +87,86 @@
                                     </select>
                                 </div>
                                 <div class="mb-3 add-new-form">
-                                    <label class="form-label"><span class="custom-val-color"></span>     {{__('trip frequancy')}}
+                                    <label class="form-label"><span class="custom-val-color" id="trip_frequancy_star">*</span>     {{__('trip frequancy')}}
                                     <span class = "font-size-10 mb-1" >[{{__('only for periodic trip')}}]</span></label>
-                                    <div class = "row border rounded border-secondary daysofweek">
-                                        <div class = "trip-frequency-check">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-check form-check-warning">
-                                                        <input class="form-check-input" type="checkbox" id="select_all" />
-                                                        <label class="form-check-label" for="select_all">
+                                    <div class = "row border rounded border-secondary daysofweek"  id="daysofweek">
+                                            <div class = "trip-frequency-check">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-check form-check-warning">
+                                                            <input class="form-check-input" type="checkbox" id="select_all" />
+                                                            <label class="form-check-label" for="select_all">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" >
+                                                        {{__('Choose One or More')}}
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    {{__('Choose One or More')}}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="trip_frequancy_1" name="trip_frequancy[]"
+                                                        value = "1" >
+                                                    <label class="form-check-label text-capitalize" for="trip_frequancy_1">
+                                                        {{__('sunday')}}
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="trip_frequancy_2" name="trip_frequancy[]"
+                                                            value = "2" >
+                                                    <label class="form-check-label text-capitalize" for="trip_frequancy_2">
+                                                        {{__('monday')}}
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="trip_frequancy_3" name="trip_frequancy[]"
+                                                        value = "3" >
+                                                    <label class="form-check-label text-capitalize" for="trip_frequancy_3">
+                                                        {{__('tuesday')}}
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                            <div class = "col-md-6">
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="trip_frequancy_4" name="trip_frequancy[]"
+                                                        value = "4" >
+                                                    <label class="form-check-label text-capitalize" for="trip_frequancy_4">
+                                                        {{__('wednesday')}}
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="trip_frequancy_5" name="trip_frequancy[]"
+                                                        value = "5" >
+                                                    <label class="form-check-label text-capitalize" for="trip_frequancy_5">
+                                                        {{__('thursday')}}
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="trip_frequancy_6" name="trip_frequancy[]"
+                                                        value = "6" >
+                                                    <label class="form-check-label text-capitalize" for="trip_frequancy_6">
+                                                        {{__('friday')}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class = "col-md-6">
+                                                <div class="form-check form-check-warning">
+                                                    <input class="form-check-input" type="checkbox" id="trip_frequancy_7" name="trip_frequancy[]"
+                                                        value = "7" >
+                                                    <label class="form-check-label text-capitalize" for="trip_frequancy_7">
+                                                        {{__('saturday')}}
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-check form-check-warning">
-                                                <input class="form-check-input" type="checkbox" id="trip_frequancy_1" name="trip_frequancy[]"
-                                                    value = "1">
-                                                <label class="form-check-label text-capitalize" for="trip_frequancy_1">
-                                                    {{__('sunday')}}
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-warning">
-                                                <input class="form-check-input" type="checkbox" id="trip_frequancy_2" name="trip_frequancy[]"
-                                                        value = "2" >
-                                                <label class="form-check-label text-capitalize" for="trip_frequancy_2">
-                                                    {{__('monday')}}
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-warning">
-                                                <input class="form-check-input" type="checkbox" id="trip_frequancy_3" name="trip_frequancy[]"
-                                                    value = "3">
-                                                <label class="form-check-label text-capitalize" for="trip_frequancy_3">
-                                                    {{__('tuesday')}}
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                        <div class = "col-md-6">
-                                            <div class="form-check form-check-warning">
-                                                <input class="form-check-input" type="checkbox" id="trip_frequancy_4" name="trip_frequancy[]"
-                                                    value = "4">
-                                                <label class="form-check-label text-capitalize" for="trip_frequancy_4">
-                                                    {{__('wednesday')}}
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-warning">
-                                                <input class="form-check-input" type="checkbox" id="trip_frequancy_5" name="trip_frequancy[]"
-                                                    value = "5">
-                                                <label class="form-check-label text-capitalize" for="trip_frequancy_5">
-                                                    {{__('thursday')}}
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-warning">
-                                                <input class="form-check-input" type="checkbox" id="trip_frequancy_6" name="trip_frequancy[]"
-                                                    value = "6">
-                                                <label class="form-check-label text-capitalize" for="trip_frequancy_6">
-                                                    {{__('friday')}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class = "col-md-6">
-                                            <div class="form-check form-check-warning">
-                                                <input class="form-check-input" type="checkbox" id="trip_frequancy_7" name="trip_frequancy[]"
-                                                    value = "7">
-                                                <label class="form-check-label text-capitalize" for="trip_frequancy_7">
-                                                    {{__('saturday')}}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        
+                                        <input type="checkbox" value="" id="validateBox" style="display: none;" required>
                                 </div>
+
                             </div>
                             <div class="col-md-6">
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('trip name')}}</label>
                                     <select class="form-select" name="trip_name" id="tripname" required>
                                         <option value="">{{__('Select Trip Name')}}</option>
@@ -217,7 +220,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('bus no.')}} </label>
                                     <select class="form-select" name="bus_no" id="busno" required>
                                         <option value="">{{__('Select Bus No.')}}</option>
@@ -230,7 +233,7 @@
                                 <div class = "mb-3 add-new-form">
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('supervisor')}}
                                     </label>
-                                    <div class = "row border rounded border-secondary daysofweek">
+                                    <div class = "row border rounded border-secondary daysofweek" id="supervisor_box">
                                         <div class = "trip-frequency-check text-uppercase">
                                             <div class="row">
                                                 <div class="col-md-3">
@@ -239,7 +242,7 @@
                                                         <label class="form-check-label" for="select_all_supervisor">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6" style="text-transform: capitalize!important;">
                                                     {{__('Choose One or More')}}
                                                 </div>
                                             </div>
@@ -248,7 +251,7 @@
                                             @foreach($supervisor as $row)
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
-                                                        value = "{{$row->id}}" required>
+                                                        value = "{{$row->id}}" >
                                                     <label class="form-check-label text-capitalize" for="supervisor_{{$row->id}}">
                                                         {{$row->name}}
                                                     </label>
@@ -256,6 +259,8 @@
                                             @endforeach
                                         </div>
                                     </div>
+                                    <input type="checkbox" value="" id="validateVisor" style="display: none;" required>
+
                                 </div>
                                 <div class="mb-3">
                                     <div class="mb-12">
@@ -289,7 +294,7 @@
                                                     @else
                                                     <input class="form-check-input radioRight" type="radio" name="status"
                                                         id="status_2" value = "0">
-                                                    <label class="form-check-label labelRight " for="status_2">
+                                                    <label class="form-check-label labelRight text-capitalize " for="status_2">
                                                         {{__('inactive')}}
                                                     </label>
                                                     @endif
@@ -363,7 +368,43 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 <script>
     function changeData(val) {
-        document.forms[1].submit();
+        var id = val;
+
+            tripbus_url = "{{ route('admin.tripbus.tripnamebyid',':id') }}";
+            tripbus_url = tripbus_url.replace(':id', id);
+
+            if(id == "") {
+                tripbus_url = "{{ route('admin.tripbus.tripnameAll') }}";
+            }
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type:'get',
+                    dataType:'JSON',
+                    url:tripbus_url,
+                    success: function(res){
+
+                        let result = res.data;
+
+                        $("select[name='trip_name']").empty();
+                        $("select[name='trip_name']").append('<option value="">{{__('Select Trip Name')}}</option>');
+                        for (let i = 0, mlength = result.length ; i < mlength; i++) {
+                            let x = '';
+                            if('{{app()->getLocale()}}'=='jor') {
+                                x = result[i].trip_name_ar;
+                            } else {
+                                x = result[i].trip_name_en;
+                            }
+                            $("select[name='trip_name']").append('<option value="'+ result[i].id +'">' + x + '</option>')
+                        }
+                    },
+                    error: function(err) {
+                        alert("Fixxing Server Error");
+                    }
+                });
     }
 
     $("#backbtn").on('click', () => {
@@ -385,7 +426,22 @@
         $("#bussize").select2();
         $("#drivername").select2();
         $("#busno").select2();
-
+        function updateStatus(){
+            if ($('div#daysofweek input:checked').length > 0 ){
+                $('#validateBox').prop('checked', true);
+            } 
+            else {
+                $('#validateBox').prop('checked', false);
+            }
+        } 
+        function updateStatus_Visor(){
+            if ($('div#supervisor_box input:checked').length > 0 ){
+                $('#validateVisor').prop('checked', true);
+            } 
+            else {
+                $('#validateVisor').prop('checked', false);
+            }
+        } 
         //select all
         $("#select_all").click(function () {
             // Check/uncheck all checkboxes based on the "Select All" checkbox state
@@ -410,6 +466,10 @@
             // Print selected values (you can modify this part as needed)
             console.log("Selected Values: " + selectedValues.join(", "));
         });
+        updateStatus();
+        $('div#daysofweek input[type="checkbox"]').on("change",updateStatus);
+        updateStatus_Visor();
+        $('div#supervisor_box input[type="checkbox"]').on("change",updateStatus_Visor);
 
         $("#select_all_supervisor").click(function(){
             $("input[name='supervisor[]']").prop("checked", this.checked);
@@ -419,9 +479,9 @@
         $("input[name='supervisor[]']").click(function () {
             // Check if all day checkboxes are checked and update "Select All" accordingly
             if ($("input[name='supervisor[]']:checked").length === $("input[name='supervisor[]']").length) {
-                $("#select_all_superversor").prop("checked", true);
+                $("#select_all_supervisor").prop("checked", true);
             } else {
-                $("#select_all_superversor").prop("checked", false);
+                $("#select_all_supervisor").prop("checked", false);
             }
 
             // Save and print selected values
@@ -433,6 +493,10 @@
             // Print selected values (you can modify this part as needed)
             console.log("Selected Values: " + selectedValues.join(", "));
         });
+
+
+
+
 
 
 
@@ -452,7 +516,7 @@
                     url:tripbus_url,
                     success: function(res){
                         $("select[name='bus_no']").empty();
-                        $("select[name='bus_no']").append("<option value=''>Select Bus NO.</option>")
+                        $("select[name='bus_no']").append("<option value=''>{{__('Select Bus No.')}}.</option>")
                         let result = res.data;
                         for (let i = 0, mlength = result.length ; i < mlength; i++) {
                             $("select[name='bus_no']").append('<option value="' + result[i].id + '">'+result[i].bus_no + '</option>')
@@ -464,7 +528,7 @@
                 });
             } else {
                 $("select[name='bus_no']").empty();
-                $("select[name='bus_no']").append("<option value=''>Select Bus NO.</option>")
+                $("select[name='bus_no']").append("<option value=''>{{__('Select Bus No.')}}.</option>")
             }
         });
         // $(".add-new-form").hide();
@@ -627,11 +691,35 @@
                             document.getElementById('trip_type1').checked = tripfreq.trip_type == 1;
                             document.getElementById('trip_type2').checked = tripfreq.trip_type == 0;
                             if (tripfreq.trip_type == 0) {
+
+                                $("#select_all").prop("disabled", true);
+                                $("input[name='trip_frequancy[]']").prop("disabled", true);
+                                $("#select_all").prop("checked", false);
+                                $("input[name='trip_frequancy[]']").prop("checked", false); 
+
                                 for (let i = 1; i < 8; i++) {
                                     $('input[id="trip_frequancy_' + i + '"]').attr("disabled", true);
-                                    $('input[id="select_all"]').attr("disabled", true);
                                     $('input[id="trip_frequancy_' + i + '"]').attr("readonly", true);
                                 }
+                                document.getElementById("validateBox").required = false;
+
+
+                                $("#trip_frequancy_star").css("display", "none");
+    
+                            }
+
+                            if (tripfreq.trip_type == 1) {
+
+                                $("#select_all").prop("disabled", false);
+                                $("input[name='trip_frequancy[]']").prop("disabled", false);
+
+                                for (let i = 1; i < 8; i++) {
+                                    $('input[id="trip_frequancy_' + i + '"]').attr("disabled", false);
+                                    $('input[id="trip_frequancy_' + i + '"]').attr("readonly", false);
+                                }
+                                document.getElementById("validateBox").required = true;
+
+                                $("#trip_frequancy_star").css("display", "inline-block");
                             }
                         }
                     }
@@ -644,12 +732,26 @@
         });
         
         $("#trip_type1").click(()=>{
+            $("#select_all").prop("disabled", false);
             $("input[name='trip_frequancy[]']").prop("disabled", false);
+
+            $("#trip_frequancy_star").css("display", "inline-block");
+            document.getElementById("validateBox").required = true;
+
         });
 
         $("#trip_type2").click(()=>{
+            $("#select_all").prop("disabled", true);
             $("input[name='trip_frequancy[]']").prop("disabled", true);
+
+            $("#select_all").prop("checked", false);
+            $("input[name='trip_frequancy[]']").prop("checked", false);
+            document.getElementById("validateBox").required = false;
+
+            $("#trip_frequancy_star").css("display", "none");
+
         });
+
     });
 </script>
 @endsection

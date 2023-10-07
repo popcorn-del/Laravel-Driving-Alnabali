@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('/assets/admin/driver/style.css')}}" rel="stylesheet" type="text/css" >
 
+    <style>
+        input::placeholder {
+            opacity: 0.4!important;
+        }
+    </style>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
 
 @endsection
@@ -78,13 +83,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" checked>
-                                                <label class="form-check-label normal-text" for="status_1">
+                                                <label class="form-check-label normal-text text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_1" value="1" checked>
-                                                <label class="form-check-label labelRight normal-text" for="status_1">
+                                                <label class="form-check-label labelRight normal-text text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -101,7 +106,7 @@
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_2" value="0">
                                                 @endif
-                                                <label class="form-check-label normal-text" for="status_2">
+                                                <label class="form-check-label normal-text text-capitalize" for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                             </div>
@@ -254,11 +259,11 @@
 
         bootstrapValidate(
             '#phone_inp',
-            'max:9:Don\'t Enter more than 9 Characters'
+            'max:9:Don\'t Enter more than 9 digits '
         );
         bootstrapValidate(
             '#phone_inp',
-            'min:8:Enter at least 8 Characters'
+            'min:8:Enter at least 8 digits '
         );
 
     </script>

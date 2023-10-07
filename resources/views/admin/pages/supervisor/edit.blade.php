@@ -8,7 +8,11 @@
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('/assets/admin/driver/style.css')}}" rel="stylesheet" type="text/css" >
-
+    <style>
+        input::placeholder {
+            opacity: 0.4!important; 
+        }    
+    </style>
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.5/dist/bootstrap-validate.js"></script>
 
 @endsection
@@ -17,6 +21,8 @@
         <form class="custom-validation" action="" id="custom-form">
             @csrf
             <input type="hidden" name="id" value="{{$supervisor->id}}" />
+            <input type="hidden" name="change_image" id="change_image" value="0" /> 
+
             <div class="row">
                 <div class="col-md-7">
                     <div class="col-md-12">
@@ -52,7 +58,7 @@
                                             <span class="input-group-text">+ 962</span>
                                         </div>
                                         <div style="width: 100%">
-                                            <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control" name="phone" id="phone_inp" value="{{$supervisor->phone}}">
+                                            <input data-parsley-type="number" minlength="8" maxlength="9" type="text" class="form-control" name="phone" id="phone_inp" value="{{$supervisor->phone}}" placeholder="7 xxxx xxxx">
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +85,7 @@
                                     </div><!-- input-group -->
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('username')}}</label>
+                                    <label class="form-label"> {{__('username')}}</label>
                                     <input type="text" class="form-control" minlength="5" pattern="^\S+$" maxlength="50" name="user_name" readonly value="{{$supervisor->user_name}}" required>
                                 </div>
 
@@ -159,6 +165,8 @@
             $("#avatar_close").css('display', 'none');
             $("#wizardPicturePreview").attr('src', str);
             $("#wizard-picture").val("");
+            $("#change_image").val("1");
+
         })
 
         $("#wizard-picture").change(() => {
@@ -169,12 +177,13 @@
         })
 
         $(document).ready(() => {
-            if($("#wizardPicturePreview").attr('src') != 'http://213.136.71.7/Alnabali/public/images/admin/user-profile.jpg') {
-                $("#edit-avatar").css('display', 'none');
-                $("#avatar_close").css('display', 'block');
-            } else {
+
+            if(('{{$supervisor->profile_image }}'== "")){
                 $("#edit-avatar").css('display', 'block');
                 $("#avatar_close").css('display', 'none');
+            } else {
+                $("#edit-avatar").css('display', 'none');
+                $("#avatar_close").css('display', 'block');
             }
         })
         store = "{{route('admin.user.store')}}";

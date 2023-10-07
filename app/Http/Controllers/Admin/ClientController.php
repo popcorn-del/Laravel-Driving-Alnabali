@@ -77,23 +77,23 @@ class ClientController extends Controller
         
         $mystartdate = Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d');
         $myenddate = Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d');
-        
         $old_client = Client::where('name_en',$request->name_en)
         ->where('name_ar',$request->name_ar)
         ->where('contract_start_date',$mystartdate)
         ->where('contract_end_date', $myenddate)
         ->get();
-        
-        if(count($old_client) > 0) return response()->json(['result' => 'error']); 
-        /**
-         * if id is not exist, then requst data will create.
-         * if id is exist, then request data will update
-         */
         if($request->id){
             $client = Client::findOrFail($request->id);
         } else {
             $client = new Client;
+            if(count($old_client) > 0) return response()->json(['result' => 'error']); 
         }
+     
+        /**
+         * if id is not exist, then requst data will create.
+         * if id is exist, then request data will update
+         */
+
         $fileName = "";
         if($request->client_avatar != null) {
             $request->validate([
@@ -102,7 +102,13 @@ class ClientController extends Controller
             $fileName = time().'.'.$request->file('client_avatar')->extension();
             $request->file('client_avatar')->move(public_path('uploads/image/'), $fileName);
         } else {
-            $fileName = "";
+            if(!$request->id){
+                $fileName = "";
+            } else {
+                if($request->change_image == 1) {
+                    $fileName = "";
+                }
+            }
         }
         $client->name_en = $request->name_en;
         $client->name_ar = $request->name_ar;
@@ -175,7 +181,8 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $client = Client::where('id', $id)->update(['status' => toBoolean($request->status)]);
+        dd($id);
+        // $client = Client::where('id', $id)->update($request);
         return response()->json(['result' => 'success']);
     }
 

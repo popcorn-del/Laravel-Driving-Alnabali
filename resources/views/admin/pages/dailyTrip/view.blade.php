@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
-@section('title') {{__('VIEW Daily Trip')}} @endsection
-@section('page-title') {{__('VIEW DAILY TRIP')}} <p style="text-align: center;width: 100%;font-size: .8rem;color: #aaa"> {{$daily_trip->trip_id}} </p> @endsection
+@section('title') {{__('View Daily Trip')}} @endsection
+@section('page-title') {{__('VIEW DAILY TRIP')}} <p style="text-align: center;width: 100%;font-size: .8rem;color: #aaa"> TRIP # {{$daily_trip->trip_id}} </p> @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
@@ -287,7 +287,7 @@
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
                                                         value = "{{$row->id}}" checked disabled>
-                                                    <label class="form-check-label" for="supervisor_{{$row->id}}">
+                                                    <label class="form-check-label text-capitalize" for="supervisor_{{$row->id}}">
                                                         {{$row->name}}
                                                     </label>
                                                 </div>
@@ -299,7 +299,7 @@
                                                 <div class="form-check form-check-warning ">
                                                     <input class="form-check-input checkRight" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
                                                         value = "{{$row->id}}" checked disabled>
-                                                    <label class="form-check-label labelRight" for="supervisor_{{$row->id}}">
+                                                    <label class="form-check-label labelRight text-capitalize" for="supervisor_{{$row->id}}">
                                                         {{$row->name}}
                                                     </label>
                                                 </div>

@@ -73,9 +73,9 @@ $(document).ready(function () {
                 console.log(res)
                 if (res.result == "success") {
                     toastr["success"]($('#arc_success').val());
-                    setInterval(function () {
+                    // setInterval(function () {
                         location.href = list_url;
-                    }, 2000);
+                    // }, 2000);
                 } else if (res.result == "faild") {
                     toastr["warning"]("The data is already exist. Please insert another data.");
                 } else {

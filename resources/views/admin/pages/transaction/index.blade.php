@@ -93,14 +93,14 @@
                                 </div> -->
                                 <div class = "col-2">
                                 <div style="text-align: left; margin-bottom: 5px" class="text-uppercase">{{__('old status')}}</div>
-                                    <select class="form-select" name="status_filter">
+                                    <select class="form-select text-capitalize" name="status_filter">
                                         <option>{{__('All Old Status')}}</option>
                                         <option value="Pending">{{__('pending')}}</option>
                                         <option value="Accepted">{{__('accepted')}}</option>
                                         <option value="Rejected">{{__('rejected')}}</option>
                                         <option value="Started">{{__('started')}}</option>
-                                        <option value="Canceled">{{__('canceled')}}</option>
                                         <option value="Finished">{{__('finished')}}</option>
+                                        <option value="Canceled">{{__('canceled')}}</option>
                                         <option value="Fake">{{__('fake')}}</option>
                                     </select>
                                 </div>
@@ -112,8 +112,8 @@
                                         <option value="Accepted">{{__('Accepted')}}</option>
                                         <option value="Rejected">{{__('Rejected')}}</option>
                                         <option value="Started">{{__('Started')}}</option>
-                                        <option value="Canceled">{{__('Canceled')}}</option>
                                         <option value="Finished">{{__('Finished')}}</option>
+                                        <option value="Canceled">{{__('Canceled')}}</option>
                                         <option value="Fake">{{__('Fake')}}</option>
                                     </select>
                                 </div>

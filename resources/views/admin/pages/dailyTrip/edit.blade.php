@@ -1,12 +1,14 @@
 @extends('admin.layouts.master')
 @section('title') {{__('Edit Daily Trip')}} @endsection
-@section('page-title') {{__('Edit Daily Trip')}} <p style="text-align: center;width: 100%;font-size: .8rem;color: #aaa"> {{$daily_trip->trip_id}} </p>  @endsection
+@section('page-title') {{__('Edit Daily Trip')}} <p style="text-align: center;width: 100%;font-size: .8rem;color: #aaa">Trip # {{  $daily_trip->trip_id}} </p>  @endsection
 @section('css')
     <link href="{{ URL::asset('/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/spectrum-colorpicker/spectrum-colorpicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/bootstrap-timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/assets/libs/bootstrap-touchspin/bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/datepicker/datepicker.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
 @endsection
 @section('content')
     <div class="content-warpper">
@@ -18,7 +20,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label>{{__('client')}}</label>
                                     <select class="form-select" name="client" disabled required>
                                         <option>{{__('Select Client')}}</option>
@@ -31,7 +33,7 @@
                                 <div class = "mb-3">
                                     <label>{{__('origin')}}</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" disabled required>
                                                 <option>{{__('Select City')}}</option>
                                                 @foreach($city as $key=>$row)
@@ -40,7 +42,7 @@
                                             </select>
                                             <input type="hidden" name="origin_city" value="{{$daily_trip->origin_city}}">
                                         </div>
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" disabled required>
                                                 <option selected>{{$daily_trip->origin_area}}</option>
                                             </select>
@@ -71,7 +73,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span>  {{__('bus size')}}</label>
                                     <select class="form-select" id="bus_size_id" required>
                                         <option>{{__('Select Bus Size')}}</option>
@@ -88,19 +90,19 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label"><span class="custom-val-color">*</span> {{__('trip type')}}</label>
+                                    <label class="form-label"> {{__('trip type')}}</label>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-check form-radio-warning mb-3">
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="trip_type"
-                                                    id="trip_type_1" value="1" {{$daily_trip->trip_type == 1 ? "checked" : ""}}>
+                                                    id="trip_type_1" value="1" {{$daily_trip->trip_type == 1 ? "checked" : ""}} disabled>
                                                 <label class="form-check-label text-capitalize" for="trip_type_1">
                                                     {{__('periodic')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="trip_type"
-                                                    id="trip_type_1" value="1" {{$daily_trip->trip_type == 1 ? "checked" : ""}}>
+                                                    id="trip_type_1" value="1" {{$daily_trip->trip_type == 1 ? "checked" : ""}} disabled>
                                                 <label class="form-check-label labelRight text-capitalize" for="trip_type_1">
                                                     {{__('periodic')}}
                                                 </label>
@@ -111,13 +113,13 @@
                                             <div class="form-check form-radio-warning">
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="trip_type"
-                                                    id="trip_type_2" value="0" {{$daily_trip->trip_type == 0 ? "checked" : ""}}>
+                                                    id="trip_type_2" value="0" {{$daily_trip->trip_type == 0 ? "checked" : ""}} disabled>
                                                 <label class="form-check-label text-capitalize" for="trip_type_2">
                                                     {{__('non-periodic')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="trip_type"
-                                                    id="trip_type_2" value="0" {{$daily_trip->trip_type == 0 ? "checked" : ""}}>
+                                                    id="trip_type_2" value="0" {{$daily_trip->trip_type == 0 ? "checked" : ""}} disabled>
                                                 <label class="form-check-label text-capitalize" for="trip_type_2">
                                                     {{__('non-periodic')}}
                                                 </label>
@@ -129,7 +131,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label>{{__('trip name')}}</label>
                                     <select class="form-select" disabled required>
                                         <option>{{__('Select Trip')}}</option>
@@ -142,7 +144,7 @@
                                 <div class = "mb-3">
                                     <label>{{__('destination')}}</label>
                                     <div class = "row">
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" disabled required>
                                                 <option>{{__('Select City')}}</option>
                                                 @foreach($city as $key=>$row)
@@ -151,7 +153,7 @@
                                             </select>
                                             <input type="hidden" name="destination_city" value="{{$daily_trip->destination_city}}">
                                         </div>
-                                        <div class = "col-md-6">
+                                        <div class = "col-md-6 select-validation">
                                             <select class="form-select" name="destination_area" disabled required>
                                                 <option selected>{{$daily_trip->destination_area}}</option>
                                             </select>
@@ -183,29 +185,29 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
                                     <select class="form-select" name="bus_no" id="bus_no" required>
-                                        <option>{{__('Select Bus.No')}}</option>
+                                        <option>{{__('Select Bus No.')}}</option>
                                         <option value="{{$daily_trip->bus_no}}" selected>{{$daily_trip->bus_no}}</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('driver')}}</label>
-                                    <select class="form-select" name="driver" required>
+                                    <select class="form-select" name="driver" id="driver" required>
                                         <option>{{__('Select Driver')}}</option>
                                         @foreach($driver as $key=>$row)
                                             <option value="{{$row->name_en}}|{{$row->id}}" {{$daily_trip->dirver_name == $row->name_en ? "selected" : ""}}>{{$row->name_en}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class = "mb-3">
+                                <div class = "mb-3 select-validation">
                                     <label class="form-label"><span class="custom-val-color"></span> {{__('status')}}</label>
 
                                     <select class="form-select" name="status" id="statusID" required disabled>
                                         <option class="form-check-input"
                                             id="status_1" value="1" {{$daily_trip->status == 1 ? "selected" : ""}}>
-                                            <label class="form-check-label" for="status_1">
+                                            <label class="form-check-label text-capitalize" for="status_1">
                                             {{__('pending')}}
                                             </label>
                                         </option>
@@ -255,13 +257,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_0" value="0" checked>
-                                                <label class="form-check-label text-normal" for="status_type_0">
+                                                <label class="form-check-label text-normal text-capitalize" for="status_type_0">
                                                     {{__("Don't Change")}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_type_0" value="0" checked>
-                                                <label class="form-check-label labelRight text-normal" for="status_type_0">
+                                                <label class="form-check-label labelRight text-normal text-capitalize" for="status_type_0">
                                                     {{__("Don't Change")}}
                                                 </label>
                                                 @endif
@@ -272,13 +274,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_1" value="1">
-                                                <label class="form-check-label text-normal" for="status_type_1">
+                                                <label class="form-check-label text-normal text-capitalize" for="status_type_1">
                                                     {{__('Set as Pending')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_type_1" value="1">
-                                                <label class="form-check-label labelRight text-normal" for="status_type_1">
+                                                <label class="form-check-label labelRight text-normal text-capitalize" for="status_type_1">
                                                     {{__('Set as Pending')}}
                                                 </label>
                                                 @endif
@@ -289,13 +291,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_5" value="5">
-                                                <label class="form-check-label text-normal" for="status_type_5">
+                                                <label class="form-check-label text-normal text-capitalize" for="status_type_5">
                                                     {{__('Set as Canceled')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_type_5" value="5">
-                                                <label class="form-check-label labelRight text-normal" for="status_type_5">
+                                                <label class="form-check-label labelRight text-normal text-capitalize" for="status_type_5">
                                                     {{__('Set as Canceled')}}
                                                 </label>
                                                 @endif
@@ -306,13 +308,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_type_7" value="7">
-                                                <label class="form-check-label text-normal" for="status_type_7">
+                                                <label class="form-check-label text-normal text-capitalize" for="status_type_7">
                                                     {{__('Set as Fake')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_type_7" value="7">
-                                                <label class="form-check-label labelRight text-normal" for="status_type_7">
+                                                <label class="form-check-label labelRight text-normal text-capitalize" for="status_type_7">
                                                     {{__('Set as Fake')}}
                                                 </label>
                                                 @endif
@@ -339,7 +341,7 @@
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
                                                         value = "{{$row->id}}" {{in_array($row->id, $supervisor_id) ? "checked" : ""}} >
-                                                    <label class="form-check-label" style="width: 200px" for="supervisor_{{$row->id}}">
+                                                    <label class="form-check-label text-capitalize" style="width: 200px" for="supervisor_{{$row->id}}">
                                                         {{$row->name}}
                                                     </label>
                                                 </div>
@@ -351,7 +353,7 @@
                                                 <div class="form-check form-check-warning">
                                                     <input class="form-check-input checkRight" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
                                                         value = "{{$row->id}}" {{in_array($row->id, $supervisor_id) ? "checked" : ""}} >
-                                                    <label class="form-check-label" style="width: 200px" for="supervisor_{{$row->id}}">
+                                                    <label class="form-check-label text-capitalize" style="width: 200px" for="supervisor_{{$row->id}}">
                                                         {{$row->name}}
                                                     </label>
                                                 </div>
@@ -388,8 +390,21 @@
     <script src="{{ URL::asset('/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/datepicker/datepicker.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/admin/dailyTrip/edit.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
     <script>
          $(document).ready(function(){
+
+            $("#tripe_name").select2();
+            $("#origin_city").select2();
+            $("#origin_area").select2();
+            $("#bus_size_id").select2();
+            $("#select_client").select2();
+            $("#destination_city").select2();
+            $("#destination_area").select2();
+            $("#bus_no").select2();
+            $("#driver").select2();
+
             $("#backbtn").on('click', () => {
                 history.back();
             })

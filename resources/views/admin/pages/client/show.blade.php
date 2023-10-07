@@ -31,7 +31,8 @@
                                     <div style="text-align: center">{{__('LOGO')}}</div>
                                     <div class="picture-container" style="margin-bottom: 30px">
                                         <div class="picture">
-                                            <img src="{{ asset('/images/admin/client_default.png') }}" class="picture-src" id="wizardPicturePreview" title="" />
+                                            <img src="{{$client->client_avatar == '' ? asset('images/admin/client_default.png') : asset('uploads/image/' . $client->client_avatar) }}" class="picture-src" id="wizardPicturePreview" title="">
+
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +51,7 @@
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="client_type_id"
                                                     id="client_type_{{$key}}" disabled value="{{$row->id}}" {{$client->client_type_id == $row->id ? "checked" : ""}}>
-                                                <label class="form-check-label" for="client_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="client_type_{{$key}}">
                                                     @if (app()->getLocale()=='jor')
                                                         {{$row->type_name_ar}}
                                                     @else
@@ -60,7 +61,7 @@
                                             </div>
                                             @else
                                             <div class="form-check form-radio-warning mb-3">
-                                                <label class="form-check-label" for="client_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="client_type_{{$key}}">
                                                     @if (app()->getLocale()=='jor')
                                                         {{$row->type_name_ar}}
                                                     @else
@@ -90,7 +91,7 @@
                                             <div class="form-check form-radio-warning mb-3">
                                                 <input class="form-check-input" type="radio" name="contract_type_id"
                                                     id="contract_type_{{$key}}" disabled value="{{$row->id}}" {{$client->contract_type_id == $row->id ? "checked" : ""}}>
-                                                <label class="form-check-label" for="contract_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="contract_type_{{$key}}">
                                                     @if (app()->getLocale()=='jor')
                                                         {{$row->type_name_ar}}
                                                     @else
@@ -100,14 +101,14 @@
                                             </div>
                                             @else
                                             <div class="form-check form-radio-warning mb-3">
-                                                <label class="form-check-label" for="contract_type_{{$key}}">
+                                                <label class="form-check-label text-capitalize" for="contract_type_{{$key}}">
                                                     @if (app()->getLocale()=='jor')
                                                         {{$row->type_name_ar}}
                                                     @else
                                                         {{$row->type_name_en}}
                                                     @endif
                                                 </label>
-                                                <input class="form-check-input radioRight" disabled type="radio" name="contract_type_id"
+                                                <input class="form-check-input radioRight " disabled type="radio" name="contract_type_id"
                                                     id="contract_type_{{$key}}" value="{{$row->id}}" {{$client->contract_type_id == $row->id ? "checked" : ""}}>
                                             </div>
                                             @endif
@@ -135,7 +136,7 @@
                                        <div class="input-group-prepend">
                                            <span class="input-group-text">+ 962</span>
                                        </div>
-                                       <input data-parsley-type="number" type="text" disabled class="form-control" name="phone" value="{{$client->phone_number}}" placeholder="7 xxxx xxxx" required>
+                                       <input data-parsley-type="number" type="text" disabled class="form-control" name="phone" value="{{$client->phone_number}}"  required>
                                     </div>
                                     <!-- <div style="width: 100%">
                                         <input type="tel" id="phone1" class="form-control phone_inp" name="phone" placeholder="7 xxxx xxxx"/>
@@ -150,7 +151,7 @@
                                 <div class="mb-3">
                                     <label>{{__('contract start date')}}</label>
                                     <div class="input-group" id="datepicker1">
-                                        <input type="text" class="form-control" disabled placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}"
+                                        <input type="text" class="form-control" disabled 
                                             data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
                                             data-provide="datepicker" name="start_date" value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y', strtotime($client->contract_start_date))}}" required>
 
@@ -194,7 +195,7 @@
                                 <div class="mb-3">
                                     <label>{{__('contract end date')}}</label>
                                     <div class="input-group" id="datepicker1">
-                                        <input type="text" class="form-control" disabled placeholder="yyyy-mm-dd"
+                                        <input type="text" class="form-control" disabled 
                                             data-date-format="yyyy-mm-dd" data-date-container='#datepicker1'
                                             data-provide="datepicker" name="end_date" value="{{date('d/m/Y', strtotime($client->contract_end_date))}}" required>
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -206,7 +207,7 @@
                                        <div class="input-group-prepend">
                                            <span class="input-group-text">+ 962</span>
                                        </div>
-                                       <input data-parsley-type="number" disabled type="text" class="form-control" name="phone_liaison" value="{{$client->liaison_phone}}" placeholder="7 xxxx xxxx" required>
+                                       <input data-parsley-type="number" disabled type="text" class="form-control" name="phone_liaison" value="{{$client->liaison_phone}}"  required>
                                     </div>
                                     <!-- <div style="width: 100%">
                                         <input type="tel" id="phone3" class="form-control phone_inp" name="phone_liaison" placeholder="7 xxxx xxxx" required/>
@@ -220,13 +221,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input normal-text" disabled type="radio" name="status"
                                                     id="status_1" value="1" {{$client->status == 1 ? "checked" : ""}} >
-                                                <label class="form-check-label" for="status_1">
+                                                <label class="form-check-label text-capitalize" for="status_1">
                                                 {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight normal-text" disabled type="radio" name="status"
                                                     id="status_1" value="1" {{$client->status == 1 ? "checked" : ""}} >
-                                                <label class="form-check-label labelRight" for="status_1">
+                                                <label class="form-check-label labelRight text-capitalize"  for="status_1">
                                                 {{__('active')}}
                                                 </label>
                                                 @endif
@@ -237,13 +238,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" disabled type="radio" name="status"
                                                     id="status_2" value="0" {{$client->status == 0 ? "checked" : ""}}>
-                                                <label class="form-check-label normal-text" for="status_2">
+                                                <label class="form-check-label normal-text text-capitalize" for="status_2">
                                                 {{__('inactive')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" disabled type="radio" name="status"
                                                     id="status_2" value="0" {{$client->status == 0 ? "checked" : ""}}>
-                                                <label class="form-check-label normal-text" for="status_2">
+                                                <label class="form-check-label normal-text text-capitalize" for="status_2">
                                                 {{__('inactive')}}
                                                 </label>
                                                 @endif

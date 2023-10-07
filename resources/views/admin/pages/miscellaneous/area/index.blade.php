@@ -354,7 +354,10 @@
                 $("#cityEdit").css("display","none")
                 document.getElementById("areacity").value = '';
                 $(".save-btn").css("display", "inline-block")
-                $(".reset-btn").css("display", "inline-block")
+                $(".reset-btn").css("display", "inline-block");
+                
+                $(".area_city").val('').trigger('change');
+
                 document.getElementById("areaNameAr").disabled = false;
                 document.getElementById("areaNameEn").disabled = false;
                 document.getElementById("areacity").disabled = false;

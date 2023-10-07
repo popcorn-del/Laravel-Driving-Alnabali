@@ -63,7 +63,7 @@ class MaintenanceController extends Controller
         $mydate = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
         $bus_maintenace->maintanence_date = $mydate;
         
-        $bus_maintenace->cost = $request->cost;
+        $bus_maintenace->cost = round($request->cost, 2);
         $bus_maintenace->save();
         return response()->json(['result' => "success"]);
     }

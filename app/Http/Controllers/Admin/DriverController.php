@@ -48,29 +48,54 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'status' => 'required',
-            'user_name'   => 'required|string|unique:drivers,user_name',
-        ],[
-            'status.required' => 'The status field is required.',
-            'user_name.required' => 'The user name field is required.',
-            'user_name.string' => 'The user name must be a string.',
-            'user_name.unique' => 'The user name has already been taken.',
-        ]);
+        $driver;    
+        \Log::info($request->all());
         
-        $attributeNames = array(
-            'status' => 'Status',
-        );
-        $validator->setAttributeNames($attributeNames);
-        if($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()->all()]);
-        } else {
-            if($request->id){
+        if($request->id) {
+            $validator = Validator::make($request->all(), [
+                'status' => 'required',
+                'user_name'   => 'required|string',
+            ],[
+                'status.required' => 'The status field is required.',
+                'user_name.required' => 'The user name field is required.',
+                'user_name.string' => 'The user name must be a string.',
+            ]);
+            
+            $attributeNames = array(
+                'status' => 'Status',
+            );
+            $validator->setAttributeNames($attributeNames);
+            if($validator->fails()) {
+                return response()->json(['error'=>$validator->errors()->all()]);
+            } else {
                 $driver = Driver::findOrFail($request->id);
+
+            } 
+        } else {
+            $validator = Validator::make($request->all(), [
+                'status' => 'required',
+                'user_name'   => 'required|string|unique:drivers,user_name',
+            ],[
+                'status.required' => 'The status field is required.',
+                'user_name.required' => 'The user name field is required.',
+                'user_name.string' => 'The user name must be a string.',
+                'user_name.unique' => 'The user name has already been taken1.',
+
+            ]);
+            
+            $attributeNames = array(
+                'status' => 'Status',
+            );
+            $validator->setAttributeNames($attributeNames);
+            if($validator->fails()) {
+                return response()->json(['error'=>$validator->errors()->all()]);
             } else {
                 $driver = new Driver;
                 $driver->password = Hash::make($request->password);
             }
+    
+        } 
+     
             $driver->name_en = $request->name_en;
             // $driver->name_ar = $request->name_ar;
             $driver->name_ar = $request->user_name;
@@ -101,11 +126,16 @@ class DriverController extends Controller
                 })->save($path.$fileName);
                 $driver->profile_image = $fileName;
             } else {
-                $driver->profile_image = "";
+                if(!$request->id){
+                    $driver->profile_image = "";
+                } else {
+                    if($request->change_image == 1) {
+                        $driver->profile_image = "";
+                    }
+                }
             }
             $driver->save();
             return response()->json(['result' => 'success']);
-        }
     }
 
     public function status(Request $request)

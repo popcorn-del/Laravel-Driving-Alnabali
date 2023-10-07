@@ -131,6 +131,9 @@ class BusController extends Controller
         $bus_size = BusSize::where('status', 1)->get();
         $bus_type = BusType::where('status', 1)->orderby('type_en','asc')->get();
         $bus_model = BusModel::where('status', 1)->orderby('model_en','asc')->get();
+        $bus_selected_model = BusModel::where('status', 1)->where('id', $bus->bus_model_id)->orderby('model_en','asc')->get()->first();
+        $bus_type1 = BusType::where('status', 1)->where('id', $bus_selected_model->bus_type_id)->get()->first();
+        $bus_selected_models = BusModel::where('status', 1)->where('bus_type_id', $bus_type1->id)->get();
         $model_year = [];
         for ($i=date('Y'); $i >= 1950 ; $i--) {
             array_push($model_year, $i);
@@ -139,6 +142,7 @@ class BusController extends Controller
             'bus' => $bus,
             'bus_type' => $bus_type,
             'bus_model' => $bus_model,
+            'bus_selected_models' => $bus_selected_models,
             'bus_size' => $bus_size,
             'model_year' => $model_year,
         ]);
@@ -207,6 +211,11 @@ class BusController extends Controller
     
     public function getModel($id) {
         $data = BusModel::where('bus_type_id', $id)->where('status', 1)->orderby('model_en','asc')->get();
+        return response()->json(['data' => $data]);
+    }
+
+    public function getModelAll() {
+        $data = BusModel::where('status', 1)->orderby('model_en','asc')->get();
         return response()->json(['data' => $data]);
     }
 }

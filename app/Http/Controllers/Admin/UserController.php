@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use DB, Validator, Exception, Image, URL;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Permission;
+use App\Models\UserRole;
 
 class UserController extends Controller
 {
@@ -18,10 +20,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::where('role','>',Auth::user()->role)->orderBy('users.id', 'DESC')->get();
+        $users = User::with('roles')->where('role','>', Auth::user()->role)->orderBy('users.id', 'DESC')->get();
+        
         // return $user;
         return view('admin.pages.user.index', [
-            'user' => $user,
+            'user' => $users
         ]);
     }
 
@@ -32,9 +35,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        // $user = User::get();
+
+        $lang=app()->getLocale();
+        $roles = UserRole::where('is_visible', 1)->get();
+
+        $permissions = Permission::all();
         return view('admin.pages.user.create', [
-            // 'user' => $user,
+            'lang' => $lang,
+            'permissions' => $permissions,
+            'roles' => $roles
         ]);
     }
 
@@ -51,13 +60,13 @@ class UserController extends Controller
         } else {
             $validator = Validator::make($request->all(), [
                 'status' => 'required',
-                'role' => 'required',
+                'user_role' => 'required',
                 // 'file' => 'required',
                 'user_name' => 'required | unique:users',
             ]);
             $attributeNames = array(
                 'status' => 'Status',
-                'role' => 'level',
+                'user_role' => 'user_role',
                 // 'file' => 'file',
                 'user_name' => 'user name',
                 'phone' => 'phone',
@@ -72,7 +81,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->address = $request->address;
         $user->phone = $request->phone;
-        $user->role = $request->role;
+        $user->role = $request->user_role;
         $user->birth_day = $request->start_date;
         $user->user_name = $request->user_name;
         $user->email = $request->user_name;
@@ -90,7 +99,13 @@ class UserController extends Controller
             })->save($path.$fileName);
             $user->avatar = $fileName; 
         } else {
-            $user->avatar = "";
+            if(!$request->id){
+                $user->avatar = "";
+            } else {
+                if($request->change_image == 1) {
+                    $user->avatar = "";
+                }
+            }
         }
         $user->save();
         return response()->json(['result' => 'success']);
@@ -104,14 +119,17 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        // $user = User::get();
-        // return view('admin.pages.user.show', [
-        //     'user' => $user,
-        // ]);
+        $lang=app()->getLocale();
+
         $user = User::findOrFail($id);
+        $roles = UserRole::where('is_visible', 1)->get();
+
         return view('admin.pages.user.show', [
+            'lang' => $lang,
             'user' => $user,
-        ]);
+            'roles' => $roles       
+         ]);
+
     }
 
     /**
@@ -122,10 +140,16 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $lang=app()->getLocale();
+
         $user = User::findOrFail($id);
-        // return $user;
+
+        // return $user;    
+        $roles = UserRole::where('is_visible', 1)->get();
         return view('admin.pages.user.edit', [
+            'lang' => $lang,
             'user' => $user,
+            'roles' => $roles
         ]);
     }
 

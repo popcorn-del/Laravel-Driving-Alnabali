@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 select-validation">
                                 <label>{{__('bus size')}}</label>
                                 <select class="form-select" name="bus_size">
                                     <option>Select Bus Size</option>
@@ -65,7 +65,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 select-validation">
                                 <label>{{__('driver name')}}</label>
                                 <select class="form-select" name="driver_name">
                                     <option>Select Driver Name</option>
@@ -79,26 +79,36 @@
                                     <span class = "font-size-10 mb-1" >[{{__('only for periodic trip')}}]</span></label>
                                     <div class = "row border rounded border-secondary daysofweek">
                                         <div class = "trip-frequency-check">
-                                            {{__('choose one or more')}}
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-warning">
+                                                        <input class="form-check-input" type="checkbox" id="select_all"  {{$trip_bus->bus_frequancy == '["1","2","3","4","5","6","7"]' ? "checked":""}}/>
+                                                        <label class="form-check-label" for="select_all">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{__('Choose One or More')}}
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class = "col-md-6">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_1" name = "trip_frequancy[]"
-                                                    value = "1" checked>
+                                                    value = "1"  <?php $checked = in_array(1, $trip_frequency_ids)?"checked": ""; echo $checked;  ?>>
                                                 <label class="form-check-label text-capitalize" for="trip_frequancy_1">
                                                     {{__('sunday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_2" name = "trip_frequancy[]"
-                                                     value = "2" >
+                                                     value = "2" <?php $checked = in_array(2, $trip_frequency_ids)?"checked": ""; echo $checked;  ?>>
                                                 <label class="form-check-label text-capitalize" for="trip_frequancy_2">
                                                     {{__('monday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_3" name = "trip_frequancy[]"
-                                                    value = "3">
+                                                    value = "3" <?php $checked = in_array(3, $trip_frequency_ids)?"checked": ""; echo $checked;  ?>>
                                                 <label class="form-check-label text-capitalize" for="trip_frequancy_3">
                                                     {{__('tuesday')}}
                                                 </label>
@@ -108,21 +118,21 @@
                                         <div class = "col-md-6">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_4" name = "trip_frequancy[]"
-                                                    value = "4">
+                                                    value = "4" <?php $checked = in_array(4, $trip_frequency_ids)?"checked": ""; echo $checked;  ?>>
                                                 <label class="form-check-label text-capitalize" for="trip_frequancy_4">
                                                     {{__('wednesday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_5" name = "trip_frequancy[]"
-                                                    value = "5">
+                                                    value = "5" <?php $checked = in_array(5, $trip_frequency_ids)?"checked": ""; echo $checked;  ?>>
                                                 <label class="form-check-label text-capitalize" for="trip_frequancy_5">
                                                     {{__('thursday')}}
                                                 </label>
                                             </div>
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_6" name = "trip_frequancy[]"
-                                                    value = "6">
+                                                    value = "6" <?php $checked = in_array(6, $trip_frequency_ids)?"checked": ""; echo $checked;  ?>>
                                                 <label class="form-check-label text-capitalize" for="trip_frequancy_6">
                                                     {{__('friday')}}
                                                 </label>
@@ -131,7 +141,7 @@
                                         <div class = "col-md-6">
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" disabled id="trip_frequancy_7" name = "trip_frequancy[]"
-                                                    value = "7">
+                                                    value = "7" <?php $checked = in_array(7, $trip_frequency_ids)?"checked": ""; echo $checked;  ?>>
                                                 <label class="form-check-label text-capitalize" for="trip_frequancy_7">
                                                     {{__('saturday')}}
                                                 </label>
@@ -143,7 +153,7 @@
 
                         </div>
                         <div class="col-md-6">
-                            <div class="mb-3">
+                            <div class="mb-3 select-validation">
                                 <label>{{__('trip name')}} </label>
                                 <select class="form-select" name="trip_name">
                                     <option>Select Trip Name</option>
@@ -193,7 +203,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 select-validation">
                                 <label><span class="custom-val-color"></span> {{__('bus no.')}} </label>
                                 <select class="form-select" name="bus_no" id="busno" required>
                                     <option value="">{{__('Select bus no.')}}</option>
@@ -207,15 +217,29 @@
                                 <label class="form-label"><span class="custom-val-color"></span> {{__('supervisor')}}
                                 </label>
                                 <div class = "row border rounded border-secondary daysofweek">
-                                    <div class = "trip-frequency-check">
+                                    <!-- <div class = "trip-frequency-check">
+
                                         {{__('Choose One or More')}}
-                                    </div>
+                                    </div> -->
+                                    <div class = "trip-frequency-check">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-warning">
+                                                        <input class="form-check-input" type="checkbox" id="select_all_supervisor" <?php echo (count($supervisor)==count($supervisor_ids))? "checked":""; ?> />
+                                                        <label class="form-check-label" for="select_all_supervisor">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    {{__('Choose One or More')}}
+                                                </div>
+                                            </div>
+                                        </div>
                                     <div class = "col-md-12">
                                         @foreach($supervisor as $row)
                                             <div class="form-check form-check-warning">
                                                 <input class="form-check-input" type="checkbox" id="supervisor_{{$row->id}}" name = "supervisor[]"
-                                                    value = "{{$row->id}}">
-                                                <label class="form-check-label" for="supervisor_{{$row->id}}">
+                                                    value = "{{$row->id}}" <?php $checked = in_array($row->id, $supervisor_ids)?"checked": ""; echo $checked;  ?> >
+                                                <label class="form-check-label text-capitalize" for="supervisor_{{$row->id}}">
                                                     {{$row->name}}
                                                 </label>
                                             </div>

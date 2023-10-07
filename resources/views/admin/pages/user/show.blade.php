@@ -21,7 +21,7 @@
                         <div style="text-align: center;" class="text-uppercase">{{__('profile image')}}</div>
                         <div class="picture-container" style="margin-bottom: 30px">
                             <div class="picture">
-                                <img src="{{$user->avatar == '' ? 'http://213.136.71.7/alnabali/public/images/admin/user-profile.jpg' : 'http://213.136.71.7/Alnabali/public/uploads/user/' . $user->avatar }}" class="picture-src" id="wizardPicturePreview" title="">
+                                <img src="{{$user->avatar == '' ? asset('images/admin/user-profile.jpg') : asset('uploads/user/' . $user->avatar) }}" class="picture-src" id="wizardPicturePreview" title="">
                                 <input type="file" id="wizard-picture" name="file" class="" required>
                             </div>
                         </div>
@@ -134,61 +134,14 @@
 
                                     @if(Auth::user()->role == 1)
                                     <div class="mb-3">
-                                        <label class="form-label">{{__('level')}}</label>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-check form-radio-warning mb-3">
-                                                    @if(Session::get('lang') != 'jor')
-                                                    <input class="form-check-input" type="radio" name="role"
-                                                        id="level_1" value="1" {{ $user->role == 1 ? "checked" : "" }}>
-                                                    <label class="form-check-label" for="level_1">
-                                                    {{__('supervisor')}}
-                                                    </label>
-                                                    @else
-                                                    <input class="form-check-input radioRight" type="radio" name="role"
-                                                        id="level_1" value="1" {{ $user->role == 1 ? "checked" : "" }}>
-                                                    <label class="form-check-label labelRight" for="level_1">
-                                                    {{__('supervisor')}}
-                                                    </label>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-check form-radio-warning mb-3">
-                                                    @if(Session::get('lang') != 'jor')
-                                                    <input class="form-check-input" type="radio" name="role"
-                                                        id="level_1" value="1" {{ $user->role == 2 ? "checked" : "" }}>
-                                                    <label class="form-check-label" for="level_1">
-                                                    {{__('admin')}}
-                                                    </label>
-                                                    @else
-                                                    <input class="form-check-input radioRight" type="radio" name="role"
-                                                        id="level_1" value="1" {{ $user->role == 2 ? "checked" : "" }}>
-                                                    <label class="form-check-label labelRight" for="level_1">
-                                                    {{__('admin')}}
-                                                    </label>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-check form-radio-warning">
-                                                    @if(Session::get('lang') != 'jor')
-                                                    <input class="form-check-input" type="radio" name="role"
-                                                        id="level_2" value="2" {{ $user->role == 3 ? "checked" : "" }}>
-                                                    <label class="form-check-label" for="level_2">
-                                                    {{__('editor')}}
-                                                    </label>
-                                                    @else
-                                                    <input class="form-check-input radioRight" type="radio" name="role"
-                                                        id="level_2" value="2" {{ $user->role == 3 ? "checked" : "" }}>
-                                                    <label class="form-check-label labelRight" for="level_2">
-                                                    {{__('editor')}}
-                                                    </label>
-                                                    @endif
-                                                </div>
-                                            </div>
+                                                <label class="form-label">  {{__('role')}}</label>
+                                                <select class="form-select" name="user_role" id="user_role" disabled>
+                                                    <option value="">{{__('Select Role')}}</option>
+                                                    @foreach($roles as $row)
+                                                    <option value="{{$row->id}}" {{$user->role == $row->id ? 'selected' :''}}>{{$row->name_en}}</option>
+                                                    @endforeach
+                                                </select>
                                         </div>
-                                    </div>
                                     @endif
                                             
 

@@ -128,6 +128,8 @@
                                         <option value="Started">{{__('Started')}}</option>
                                         <option value="Finished">{{__('Finished')}}</option>
                                         <option value="Canceled">{{__('Canceled')}}</option>
+                                        <option value="Fake">{{__('Fake')}}</option>
+
                                     </select>
                                 </div>
                                 <div class = "col-md-2">
@@ -137,7 +139,7 @@
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="startdate"
                                             data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
-                                            data-provide="datepicker" name="first_trip_date" required value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y')}}">
+                                            data-provide="datepicker" name="first_trip_date" required >
 
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
@@ -149,13 +151,13 @@
                                     <div class="input-group" id="datepicker1">
                                         <input type="text" class="form-control" placeholder="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" id="enddate"
                                             data-date-format="{{Session::get('date') == 1 ? 'dd/mm/yyyy' : 'mm/dd/yyyy'}}" data-date-container='#datepicker1'
-                                            data-provide="datepicker" name="first_trip_date" required value="{{date(Session::get('date') == 1 ? 'd/m/Y' : 'm/d/Y')}}">
+                                            data-provide="datepicker" name="first_trip_date" required >
 
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <a href="{{route('admin.daily.task')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DAILY TRIP</a> --}}
+                             <a href="{{route('admin.daily_trip.create')}}" class="btn btn-outline-warning btn-rounded waves-effect waves-light add-new"><i class="fas fa-plus"></i> ADD DAILY TRIP</a> 
                         </div>
                         <div class="table-wrapper">
                            @include('admin.pages.dailyTrip.table')

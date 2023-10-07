@@ -1652,8 +1652,19 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid,body[data-
 .form-check {
     position: relative;
     text-align: left
+} 
+.form-check-user-role {
+    position: relative;
+    text-align: left;
+    padding-right: 10px;
+    float: left;
 }
 
+
+#datatable_length label {
+    text-transform: capitalize;
+} 
+ 
 .form-check-right {
     padding-left: 0;
     display: inline-block;
@@ -2480,7 +2491,12 @@ input[type=checkbox].tui-full-calendar-checkbox-round+span {
 }
 
 .parsley-errors-list.filled {
-    display: block
+    display: block;
+    order: 1;
+}
+.select-validation {
+    display: flex;
+    flex-direction: column;
 }
 
 .parsley-errors-list>li {

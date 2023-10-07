@@ -9,6 +9,7 @@ $(document).ready(function(){
         var starttime = $('#starttime').val();
         var startDate = $('#startdate').datepicker('getDate');
         var endDate = $('#enddate').datepicker('getDate');
+
         if(document.getElementById('trip_type_1').checked == false) {
             if((startDate + "") == (endDate + "")){
                 console.log(starttime > endtime);
@@ -32,9 +33,9 @@ $(document).ready(function(){
             success: function (res) {
                 if(res.result == "success" ){
                     toastr["success"]($('#arc_success').val());
-                    setInterval(function(){ 
+                    // setInterval(function(){ 
                         location.href = list_url; 
-                    }, 2000);
+                    // }, 2000);
                 }
                 if(res.error){
                     for(i=0; i<res.error.length; i++){

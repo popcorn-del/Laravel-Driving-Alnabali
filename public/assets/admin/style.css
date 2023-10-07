@@ -46,7 +46,12 @@ th {
 }
 .form-check-warning .form-check-input:checked, .form-radio-warning .form-check-input:checked {
     background-color: #F48222 !important;
-    border-color: #F48222 !important;
+    /* border-color: #F48222 !important; */
+
+    border-color: #b9bfc4;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.15rem rgba(85,110,230,.25);
+    box-shadow: 0 0 0 0.15rem rgba(85,110,230,.25);
 }
 .button-group {
     margin-bottom: 30px;

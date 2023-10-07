@@ -9,6 +9,7 @@
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
+    
     <style>
     .goog-te-banner-frame.skiptranslate {
         display: none !important;

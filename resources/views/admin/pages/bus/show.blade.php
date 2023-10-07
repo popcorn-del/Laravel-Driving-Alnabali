@@ -118,13 +118,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_1" value="1" {{$bus->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label normal-text" for="status_1">
+                                                <label class="form-check-label normal-text text-capitalize"  for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input  radioRight" type="radio" name="status"
                                                     id="status_1" value="1" {{$bus->status == 1 ? 'checked' :''}}>
-                                                <label class="form-check-label labelRight normal-text" for="status_1">
+                                                <label class="form-check-label labelRight normal-text text-capitalize" for="status_1">
                                                     {{__('active')}}
                                                 </label>
                                                 @endif
@@ -136,13 +136,13 @@
                                                 @if(Session::get('lang') != 'jor')
                                                 <input class="form-check-input" type="radio" name="status"
                                                     id="status_2" value="0" {{$bus->status == 0 ? 'checked' :''}}>
-                                                <label class="form-check-label normal-text" for="status_2">
+                                                <label class="form-check-label normal-text text-capitalize"  for="status_2">
                                                 {{__('inactive')}}
                                                 </label>
                                                 @else
                                                 <input class="form-check-input radioRight" type="radio" name="status"
                                                     id="status_2" value="0" {{$bus->status == 0 ? 'checked' :''}}>
-                                                <label class="form-check-label labelRight normal-text" for="status_2">
+                                                <label class="form-check-label labelRight normal-text text-capitalize"  for="status_2">
                                                     {{__('inactive')}}
                                                 </label>
                                                 @endif

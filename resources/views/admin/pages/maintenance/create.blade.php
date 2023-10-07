@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-7">
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('bus no.')}}</label>
                                     <select class="form-select" name="bus_no" id="bus_no"  required>
                                         <option value="">{{__('Select Bus No.')}} </option>
@@ -27,7 +27,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 select-validation">
                                     <label><span class="custom-val-color">*</span> {{__('type')}}</label>
                                     <select class="form-select" name="maintenace_type" id="maintenace_type"  required>
                                         <option value="">{{__('Select Type')}}</option>
@@ -59,7 +59,7 @@
                                     <label class="form-label"><span class="custom-val-color">*</span> {{__('cost')}}</label>
                                     <div class="input-group" style="flex-wrap: nowrap">
                                         <div style="width: 100%">
-                                            <input type="number" class="form-control" pattern="^\d{1,4}(?:\.\d{1,2})?$" name="cost" step="0.01" placeholder="0.00" required>
+                                            <input type="number" class="form-control"  pattern="^\d{1,4}(?:\.\d{1,2})?$" name="cost" step="0.01" placeholder="0.00" required>
                                         </div>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">JOD</span>
